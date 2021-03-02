@@ -1,7 +1,11 @@
 const express = require('express');
-
+const database = require('./database');
 //express app
 const app = express();
+
+app.use(express.urlencoded({ extended: true }))
+
+app.use(express.static("frontend"));//Allows public access to the public folder
 
 //listen for requests, uses localhost by default
 app.listen(3000);
@@ -39,8 +43,9 @@ app.post('/addreview', function (req, res, next) {
 // request: { "username" : username, "password" : password}
 // response: { "result" : "failed" OR "some sort of unique ID" }
 app.post('/login', function (req, res, next) {
-    let username = req.body.username;
-    let password = req.body.password;
+    // let username = req.body.username;
+    // let password = req.body.password;
+    console.log(req.body);
     // check username and password is correct
     let result = { "result": "failed" };
     res.send(JSON.stringify(result));
@@ -83,23 +88,11 @@ app.post('/getreviews', function (req, res, next) {
 })
 
 app.get('/', (req, res) => {
-    res.sendFile('frontend/map.html', { root: __dirname });
+    res.sendFile('frontend/index.html', { root: __dirname });
 });
 
-app.get('/login', (req, res) => {
-    res.sendFile('frontend/login.html', { root: __dirname });
-});
-
-app.get('/map', (req, res) => {
-    res.sendFile('frontend/map.html', { root: __dirname });
-});
-
-app.get('/profile', (req, res) => {
-    res.sendFile('frontend/profile.html', { root: __dirname });
-});
-
-app.get('/reviews', (req, res) => {
-    res.sendFile('frontend/reviews.html', { root: __dirname });
+app.get('/test', (req, res) => {
+    res.sendFile('frontend/test.html', { root: __dirname });
 });
 
 // 404 page

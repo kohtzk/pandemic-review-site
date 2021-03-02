@@ -88,7 +88,7 @@ app.post('/getreviews', function (req, res, next) {
 })
 
 app.get('/', (req, res) => {
-    res.sendFile('frontend/map.html', { root: __dirname });
+    res.sendFile('frontend/index.html', { root: __dirname });
 });
 
 app.get('/test', (req, res) => {

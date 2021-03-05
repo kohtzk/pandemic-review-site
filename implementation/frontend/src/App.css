@@ -15,10 +15,8 @@ h3 {
 .App {
   text-align: center;
   height: 100vh;
-  overflow: hidden;
-  backface-visibility: hidden;
-  will-change: overflow;
-  position: relative;
+  display: flex;
+  flex-direction: column;
 }
 
 .Navbar {
@@ -48,26 +46,4 @@ h3 {
 
 .activenavlink {
   color: white;
-}
-
-.searchResults {
-  text-align: left;
-  flex-direction: column;
-}
-
-.container {
-  display: flex;
-  flex-direction: row;
-}
-
-.leftColumn {
-  flex: 1;
-  overflow: auto;
-  height: auto;
-}
-
-.rightColumn {
-  flex: 2;
-  overflow: auto;
-  height: auto;
 }

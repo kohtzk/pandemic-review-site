@@ -59,6 +59,7 @@ app.post('/profile', function (req, res, next) {
     let profiledata = { 
         "username" : "theTree",
         "name": "Trevor Wood",
+        "email" : "theTree@theTree.tree",
         "businessID": "null"
         };
     res.send(JSON.stringify(profiledata));
@@ -66,13 +67,13 @@ app.post('/profile', function (req, res, next) {
 
 // request: { "businessid" : businessid }
 // response: { "username" : username, "name" : name, "businessID" : businessid }                      
-app.post('/profile', function (req, res, next) {
+app.post('/business', function (req, res, next) {
     let username = req.body.username;
     // get user information
     let profiledata = { 
         "username" : "theTree",
         "name": "Trevor Wood",
-        "businessID": "null"
+        "businessID": "thetreecompany"
         };
     res.send(JSON.stringify(profiledata));
 })

@@ -43,8 +43,8 @@ app.post('/addreview', function (req, res, next) {
 // request: { "username" : username, "password" : password}
 // response: { "result" : "failed" OR "some sort of unique ID" }
 app.post('/login', function (req, res, next) {
-    // let username = req.body.username;
-    // let password = req.body.password;
+    let username = req.body.username;
+    let password = req.body.password;
     console.log(req.body);
     // check username and password is correct
     let result = { "result": "failed" };
@@ -94,6 +94,10 @@ app.get('/', (req, res) => {
 
 app.get('/test', (req, res) => {
     res.sendFile('frontend/test.html', { root: __dirname });
+});
+
+app.get('/login', (req, res) => {
+    res.sendFile('frontend/login.html', { root: __dirname });
 });
 
 // 404 page

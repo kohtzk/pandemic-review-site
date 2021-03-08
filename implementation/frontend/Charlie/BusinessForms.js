@@ -1,48 +1,52 @@
-import react from 'react'
+import React, { Component } from 'react'
 
-function BusinessForms() {
-    return(
-        <div>
-            <form>
-                Email Address:
-                <input type="email"/>
-            </form>
+class BusinessForms extends Component {
+    render() {
+        return (
+                <form>
+                    <div className="forms">
+                        <label>Email Address:</label>
+                        <input type="email" className="form-control" placeholder="Enter email"/>
+                    </div>
 
-            <form>
-                Username:
-                <input type="text"/>
-            </form>
+                    <div className="forms">
+                        <label>Username:</label>
+                        <input type="text" className="form-control" placeholder="Enter username"/>
+                    </div>
 
-            <form>
-                Password:
-                <input type="password"/>
-            </form>
+                    <div className="forms">
+                        <label>Password:</label>
+                        <input type="password" className="form-control" placeholder="Enter password"/>
+                    </div>
 
-            <form>
-                Confirm Password:
-                <input type="password"/>
-            </form>
+                    <div className="forms">
+                        <label>Confirm Password:</label>
+                        <input type="password" className="form-control" placeholder="Enter password"/>
+                    </div>
 
-            <form>
-                Your name:
-                <input type="text"/>
-            </form>
+                    <div className="forms">
+                        <label>Your name:</label>
+                        <input type="text" className="form-control" placeholder="Enter full name"/>
+                    </div>
 
-            <form>
-                Name of business:
-                <input type="text"/>
-            </form>
+                    <div className="forms">
+                        <label>Name of business:</label>
+                        <input type="text" className="form-control" placeholder="Enter business name"/>
+                    </div>
 
-            <form>
-                Business address
-                <input type="text"/>
-            </form>
+                    <div className="forms">
+                        <label>Business address</label>
+                        <input type="text" className="form-control" placeholder="Enter business address"/>
+                    </div>
 
-            <p>
-                <button type = "submit"> Create account </button>
-            </p>
-        </div>
-    )
+                        <button type="submit" className="submit-button">Create account</button>
+                    <p>
+                        Already have an account? <a href="#">Log in</a>
+                    </p>
+
+                </form>
+        )
+    }
 }
 
-export default UserForms
+export default BusinessForms

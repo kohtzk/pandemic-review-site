@@ -1,12 +1,12 @@
-import react from 'react'
+import React from 'react'
 import CreationHeader from "./CreationHeader";
 import UserForms from "./UserForms";
 
 function UserCreation() {
     return(
         <div>
-        <CreationHeader />
-        <UserForms />
+            <CreationHeader />
+            <UserForms />
         </div>
     )
 }

@@ -1,4 +1,4 @@
-import react from 'react'
+import React from 'react'
 import CreationHeader from "./CreationHeader";
 import BusinessForms from "./BusinessForms";
 

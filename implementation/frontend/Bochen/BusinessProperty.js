@@ -1,5 +1,5 @@
 import React from "react";
-import "./App.css";
+import "./Bochen.css";
 
 export default function BusinessProperty(props){
 

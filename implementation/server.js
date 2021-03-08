@@ -43,12 +43,7 @@ app.post('/addreview', function (req, res, next) {
 // request: { "username" : username, "password" : password}
 // response: { "result" : "failed" OR "some sort of unique ID" }
 app.post('/login', function (req, res, next) {
-    let username = req.body.username;
-    let password = req.body.password;
-    console.log(req.body);
-    // check username and password is correct
-    let result = { "result": "failed" };
-    res.send(JSON.stringify(result));
+    database.loginVer("Test", "Test").then(result => {console.log(result)})
 })
 
 // request: { "userid" : userid }

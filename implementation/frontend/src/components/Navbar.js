@@ -24,6 +24,54 @@ function Navbar() {
             LOGIN
           </NavLink>
         </li>
+        <li>
+          <NavLink
+            className="navlink"
+            activeClassName="activenavlink"
+            to="/c-profile"
+          >
+            CUSTOMER PROFILE
+          </NavLink>
+        </li>
+        <li>
+          <NavLink
+            className="navlink"
+            activeClassName="activenavlink"
+            to="/b-profile"
+          >
+            BUSINESS PROFILE
+          </NavLink>
+        </li>
+        <li>
+          <NavLink
+            className="navlink"
+            activeClassName="activenavlink"
+            exact
+            to="/add-review"
+          >
+            ADD REVIEW
+          </NavLink>
+        </li>
+        <li>
+          <NavLink
+            className="navlink"
+            activeClassName="activenavlink"
+            exact
+            to="/c-account-creation"
+          >
+            CREATE PERSONAL ACCOUNT
+          </NavLink>
+        </li>
+        <li>
+          <NavLink
+            className="navlink"
+            activeClassName="activenavlink"
+            exact
+            to="/b-account-creation"
+          >
+            CREATE BUSINESS ACCOUNT
+          </NavLink>
+        </li>
       </ul>
     </div>
   );

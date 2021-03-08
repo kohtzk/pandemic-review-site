@@ -11,28 +11,44 @@ var db = new sqlite.Database('./pandemicDatabase.db');
  */
 
 
-function databaseUserQuery(email){
-    return new Promise(function (resolve,reject) {
-        info = []
-        db.each("SELECT Email emailS, Password pword FROM Users WHERE Email  = ?", [email], (err, row) => {
-            info[0] = row.emailS;
-            info[1] = row.pword;
-            resolve(info);
+function databaseUserQuery(email, mode){
+    info = []
+    if (mode == "Login"){
+        return new Promise(function (resolve,reject) {
+            db.each("SELECT Email emailS, Password pword FROM Users WHERE Email  = ?", [email], (err, row) => {
+                let info = [row.emailS, row.pword];
+                resolve(info);
+            })
+            setTimeout(() => {
+                resolve(info);
+            },10)}
+            )}
+    else if (mode == "UserDetails"){
+        return new Promise(function (resolve, reject) {
+            db.each("SELECT Email emailS, Name nameS FROM Users WHERE Email  = ?", [email], (err, row) => {
+              let info = [row.emailS, row.nameS]
+                resolve(info)
+            })
         })
-        setTimeout(() => {
-            resolve(info);
-        },10)
-    })
+    }
 }
 
 async function loginVer(email, password) {
     return new Promise((async (resolve, reject) => {
-        await databaseUserQuery(email).then(result => {
+        await databaseUserQuery(email, "Login").then(result => {
             if (result[0] == email) {
                 if (result[1] == password) {resolve (0)}
                 else {resolve (1)}
             } else {resolve (2)}})
     }))
+}
+
+async function userDetails(email){
+    return new Promise(async (resolve, reject) => {
+        await databaseUserQuery(email, "UserDetails").then(result => {
+            resolve(result)
+        })
+    })
 }
 
 async function createUser(name,email,password){
@@ -44,14 +60,5 @@ async function createUser(name,email,password){
     }))
 }
 
-/* function createEntitiy(email, password, business, name){
-    if(business == null) {
-        db.run("INSERT INTO Users(Name, Email, Password) VALUES(?, ?, ?)", [name, email, password], function (err) {
-            if (err) {console.log("Email already exists!");}
-            else(console.log("Created!"))})}
-    else {
-        console.log(loginVer(email, password))
-    }} */
-
-module.exports = {loginVer, createUser};
+module.exports = {loginVer, createUser, userDetails};
 

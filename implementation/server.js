@@ -40,12 +40,12 @@ app.post('/addreview', function (req, res, next) {
     res.send(JSON.stringify(result));
 })
 
+// checks to make sure the username and password is correct
 // request: { "username" : username, "password" : password}
 // response: { "result" : "failed" OR "some sort of unique ID" }
 app.post('/login', function (req, res, next) {
-    // let username = req.body.username;
-    // let password = req.body.password;
-    console.log(req.body);
+    let username = req.body.username;
+    let password = req.body.password;
     // check username and password is correct
     let result = { "result": "failed" };
     res.send(JSON.stringify(result));

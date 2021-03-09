@@ -9,8 +9,6 @@ var db = new sqlite.Database('./pandemicDatabase.db');
    3 - Email already in use
    4 - Account Created
  */
-
-
 function databaseUserQuery(email, mode){
     info = []
     if (mode == "Login"){
@@ -39,7 +37,9 @@ async function loginVer(email, password) {
             if (result[0] == email) {
                 if (result[1] == password) {resolve (0)}
                 else {resolve (1)}
-            } else {resolve (2)}})
+            } else {
+                console.log("YYY")
+                resolve (2)}})
     }))
 }
 
@@ -60,5 +60,47 @@ async function createUser(name,email,password){
     }))
 }
 
-module.exports = {loginVer, createUser, userDetails};
+async function updateUser(email){
+    return new Promise((async (resolve, reject) => {
+        db.each("SELECT Email emailS, BusinessID ID FROM Users WHERE Email  = ?", [email], (err, row) => {
+            if(row.ID != null){
+                db.run("UPDATE Users SET BusinessID = ? WHERE Email = ?", [businessID, email], function(err){
+                    if (err) {console.log("D"); resolve(err)}
+                    else {console.log("s"); resolve(4)}
+                })
+            }
+            else {resolve(4)}
+        })
+    } ))
+}
+
+async function insertBusiness(email, businessName, location, postCode){
+    return new Promise((async (resolve, reject) => {
+        db.run("INSERT INTO Businesses(BusinessName, Location, PostCode, Email) VALUES(?, ?, ?, ?)", [businessName, location, postCode, email], function (err){
+          if (err) {resolve(err)}
+          else {
+              updateUser(email).then(result => {
+                  resolve(result)
+              })
+          }
+        })
+    } ))
+}
+
+async function createBusiness(email, password, businessName, location, postCode){
+    return new Promise((async (resolve, reject) => {
+        loginVer(email, password).then(result => {
+            if (result == 0) {
+                insertBusiness(email, businessName, location, postCode).then(result => {
+                    resolve (result)
+                })
+            }
+            else{
+                resolve(result)
+            }
+        })
+    }))
+}
+
+module.exports = {loginVer, createUser, userDetails, createBusiness};
 

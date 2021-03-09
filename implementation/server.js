@@ -43,7 +43,7 @@ app.post('/addreview', function (req, res, next) {
 // request: { "username" : username, "password" : password}
 // response: { "result" : "failed" OR "some sort of unique ID" }
 app.post('/login', function (req, res, next) {
-    database.loginVer("Ha.lon", "Test").then(result => {console.log(result)})
+    database.createBusiness("Test", "Test", "Testies", "bath", "BA2 3BB").then(result => {console.log(result)})
 })
 
 // request: { "userid" : userid }

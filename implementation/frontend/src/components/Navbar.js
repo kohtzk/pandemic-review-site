@@ -46,6 +46,15 @@ function Navbar() {
           <NavLink
             className="navlink"
             activeClassName="activenavlink"
+            to="/view-b"
+          >
+            VIEW BUSINESS REVIEW
+          </NavLink>
+        </li>
+        <li>
+          <NavLink
+            className="navlink"
+            activeClassName="activenavlink"
             exact
             to="/add-review"
           >

@@ -24,12 +24,19 @@ html,
   padding-bottom: 30px;
 }
 
-.forms {
+.outerForm {
   display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.forms {
   justify-content: center;
+  display: flex;
   flex-direction: column;
   text-align: left;
   padding-bottom: 10px;
+  width: 50%;
 }
 
 .form-control {

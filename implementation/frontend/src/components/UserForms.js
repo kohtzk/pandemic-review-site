@@ -4,7 +4,7 @@ class UserForms extends Component {
     render()
     {
         return (
-            <form>
+            <form className="outerForm">
                 <div className="forms">
                     <label>Email Address:</label>
                     <input type="email" className="form-control" placeholder="Enter email"/>

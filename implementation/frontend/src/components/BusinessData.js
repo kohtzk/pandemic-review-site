@@ -1,15 +1,14 @@
-const BussinessData = [
-    {
-        id:1,
-        bussinessID: "FRS",
-        name:"Jeff",
-        profilePic:"https://pbs.twimg.com/profile_images/421375536997212160/Jq2MBy21_400x400.jpeg",
-        email:"fresh@bath.ac.uk",
-        password:"coop",
-        bussinessName:"Lil Fresh",
-        location:"Uni of Bath campus, BA2 7AYS"
-    }
+const BusinessData = [
+  {
+    id: 1,
+    businessID: "FRS",
+    name: "Jeff",
+    profilePic: "/images/freshprofile.jpg",
+    email: "fresh@bath.ac.uk",
+    password: "coop",
+    businessName: "Lil Fresh",
+    location: "Uni of Bath campus, BA2 7AYS",
+  },
+];
 
-]
-
-export default BussinessData
+export default BusinessData;

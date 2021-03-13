@@ -1,0 +1,44 @@
+.Font {
+  font-family: "Times New Roman", Times, serif;
+}
+
+.block {
+  text-align: left;
+  width: 42%;
+  border: 2px solid black;
+  padding: 10px;
+}
+
+.businessPropertyName {
+  font-size: 90px;
+}
+
+.address {
+  font-size: 30px;
+}
+
+.businessOwner {
+  font-size: 30px;
+}
+
+.image {
+  position: fixed;
+  bottom: 500px;
+  right: 445px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 5px;
+  width: 660px;
+}
+
+.rating {
+  text-align: left;
+}
+
+.description {
+  text-align: left;
+}
+
+.review {
+  text-align: right;
+}

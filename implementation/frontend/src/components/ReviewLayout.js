@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "../pages/ReviewLayout.css";
 
 export default function ReviewLayout(props) {
@@ -12,14 +12,16 @@ export default function ReviewLayout(props) {
         <button className = "addReviewButton">Yes</button>
         <button className = "addReviewButton">No</button>
         <h1>{props.review.description2}</h1>
-        <button className = "addReviewButton">Yes</button>
-        <button className = "addReviewButton">No</button>
+        <div className="slidecontainer">
+          <input type="range" min="1" max="100" value="50" className="slider"/>
+        </div>
         <h1>{props.review.description3}</h1>
         <button className = "addReviewButton">Yes</button>
         <button className = "addReviewButton">No</button>
         <h1>{props.review.description4}</h1>
-        <button className = "addReviewButton">Yes</button>
-        <button className = "addReviewButton">No</button>
+        <div className="slidecontainer">
+          <input type="range" min="1" max="100" value="50" className="slider"/>
+        </div>
         <h1>{props.review.description5}</h1>
         <button className = "addReviewButton">Yes</button>
         <button className = "addReviewButton">No</button>
@@ -30,8 +32,9 @@ export default function ReviewLayout(props) {
         <button className = "addReviewButton">Yes</button>
         <button className = "addReviewButton">No</button>
         <h1>{props.review.description8}</h1>
-        <button className = "addReviewButton">Yes</button>
-        <button className = "addReviewButton">No</button>
+        <div className="slidecontainer">
+          <input type="range" min="1" max="100" value="50" className="slider"/>
+        </div>
         <h1>{props.review.description9}</h1>
         <button className = "addReviewButton">Yes</button>
         <button className = "addReviewButton">No</button>

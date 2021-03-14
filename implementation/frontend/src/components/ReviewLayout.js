@@ -41,6 +41,5 @@ export default function ReviewLayout(props) {
         <input className="reviewText" type="text" />
       </div>
     </div>
-   
   );
 }

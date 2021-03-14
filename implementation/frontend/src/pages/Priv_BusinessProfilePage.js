@@ -5,6 +5,7 @@ import reviewData from "../components/reviewData";
 import BusinessReviews from "../components/BussinessReviews";
 import BussinessDetails from "../components/BussinessDetails";
 import BussinessData from "../components/BusinessData";
+import "./style2.css" 
 
 class Priv_BusinessProfilePage extends React.Component {
   constructor() {
@@ -31,9 +32,9 @@ class Priv_BusinessProfilePage extends React.Component {
     ));
 
     return (
-      <div>
-        <div>{busPrivData_component}</div>
-        <div>{busPrivReview_component}</div>
+      <div className = "body_Profilepage">
+        <div className = "inner">{busPrivData_component}</div>
+        <div className = "inner">{busPrivReview_component}</div>
       </div>
     );
   }

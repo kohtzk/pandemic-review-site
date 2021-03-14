@@ -12,13 +12,13 @@ class Priv_BusinessProfilePage extends React.Component {
     super();
     this.state = {
       custR: reviewData,
-      busD: BussinessData,
+      busD: BusinessData,
     };
   }
 
   render() {
     const busPrivData_component = this.state.busD.map((B_profile) => (
-      <BussinessDetails key={B_profile.id} B_profileS={B_profile} />
+      <BusinessDetails key={B_profile.id} B_profileS={B_profile} />
     ));
 
     const busPrivReview_component = this.state.custR.map((review) => (
@@ -26,7 +26,7 @@ class Priv_BusinessProfilePage extends React.Component {
         key={review.id}
         B_reviewS={review}
 
-        //ADD CODE SO THAT IT ONLY GETS THE VALUES WHERE THE CustomerReviews.bussinesID == BussinessDetails.bussinesID
+        //ADD CODE SO THAT IT ONLY GETS THE VALUES WHERE THE CustomerReviews.bussinesID == BusinessDetails.bussinesID
         //OR Do you only request to be sent the data for that business so it should matter???
       />
     ));

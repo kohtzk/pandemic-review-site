@@ -1,5 +1,4 @@
 import * as React from "react";
-import "./Bochen.css";
 import BusinessProperty from "../components/BusinessProperty";
 import businessData from "../components/businessDataTwo";
 

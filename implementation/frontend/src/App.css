@@ -12,6 +12,10 @@ h3 {
   font-size: 150%;
 }
 
+img {
+  display: inline-block;
+}
+
 .App {
   text-align: center;
   height: 100vh;

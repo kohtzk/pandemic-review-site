@@ -1,5 +1,4 @@
 import * as React from "react";
-import "./Bochen.css";
 import review from "../components/review";
 import ReviewLayout from "../components/ReviewLayout";
 

@@ -1,7 +1,6 @@
 import React from "react";
 import BusinessSearchCard from "../components/BusinessSearchCard.js";
 import "./Home.css";
-import mapPlaceholder from "../images/mapPlaceholder.jpg";
 
 function Home() {
   const businesses = [
@@ -138,7 +137,7 @@ function Home() {
             type="text"
           ></input>
         </div>
-        <img style={{ height: "100%" }} src={mapPlaceholder} />
+        <img style={{ height: "100%" }} src="/images/mapPlaceholder.jpg" />
       </div>
     </div>
   );

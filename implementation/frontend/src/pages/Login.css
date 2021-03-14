@@ -1,0 +1,11 @@
+.accTypeSelect {
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  padding: 10px;
+}
+
+.formItem {
+  padding: 10px;
+}

@@ -1,16 +1,18 @@
 import React, { useState } from "react";
 import "./Login.css";
-import { loginUser } from "../services/login";
+import loginService from "../services/login";
 
 function Login() {
   const [username, setUsername] = useState();
   const [password, setPassword] = useState();
   const [accType, setAccType] = useState();
   const handleSubmit = async (e) => {
-    await loginUser({
+    e.preventDefault();
+    await loginService.loginUser({
       username: username,
       password: password,
-    }).then((response) => console.log(response));
+      accType: accType,
+    }).then((_) => console.log(loginService.token));
   };
   return (
     <div className="outerForm">

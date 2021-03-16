@@ -50,7 +50,7 @@ app.post('/addreview', function (req, res, next) {
 // request: { "username" : username, "password" : password}
 // response: { "result" : "failed" OR "some sort of unique ID" }
 app.post('/login', function (req, res, next) {
-    res.send(JSON.stringify({ "success": true }))
+    res.send(JSON.stringify({ "success": true, "token": "dkjhfskjdhf" }))
     // return new Promise(async (resolve, reject) => {
     //     let email = req.body.email;
     //     let pass = req.body.password;

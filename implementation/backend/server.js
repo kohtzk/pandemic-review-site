@@ -1,15 +1,12 @@
 const express = require('express');
 const database = require('./database');
 
-// test file
-const testing = require('./kktesting');
-
 //express app
 const app = express();
 
 app.use(express.urlencoded({ extended: true }))
 
-app.use(express.static("frontend"));//Allows public access to the public folder
+app.use(express.static("../frontend"));//Allows public access to the public folder
 
 //listen for requests, uses localhost by default
 app.listen(3000);
@@ -128,18 +125,18 @@ app.post('/getreviews', function (req, res, next) {
 })
 
 app.get('/', (req, res) => {
-    res.sendFile('frontend/index.html', { root: __dirname });
+    res.sendFile('/frontend/public/index.html', { root: __dirname + "/.."});
 });
 
-app.get('/test', (req, res) => {
-    res.sendFile('frontend/test.html', { root: __dirname });
-});
+// app.get('/test', (req, res) => {
+//     res.sendFile('frontend/test.html', { root: __dirname });
+// });
 
-app.get('/login', (req, res) => {
-    res.sendFile('frontend/login.html', { root: __dirname });
-});
+// app.get('/login', (req, res) => {
+//     res.sendFile('frontend/login.html', { root: __dirname });
+// });
 
 // 404 page
-app.use((req, res) => {
-    res.status(404).sendFile('frontend/404.html', { root: __dirname });
-});
+// app.use((req, res) => {
+//     res.status(404).sendFile('frontend/404.html', { root: __dirname });
+// });

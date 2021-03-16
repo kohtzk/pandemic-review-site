@@ -1,0 +1,53 @@
+@import "reset.css";
+
+h1 {
+  font-size: 200%;
+}
+
+h2 {
+  font-size: 180%;
+}
+
+h3 {
+  font-size: 150%;
+}
+
+img {
+  display: inline-block;
+}
+
+.App {
+  text-align: center;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.Navbar {
+  text-align: left;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 15px;
+  background-color: rgb(69, 69, 90);
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+    "Lucida Sans", Arial, sans-serif;
+  font-weight: bolder;
+}
+
+.Menu li {
+  display: inline;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.Menu ul {
+  text-align: center;
+}
+
+.navlink {
+  color: gray;
+}
+
+.activenavlink {
+  color: white;
+}

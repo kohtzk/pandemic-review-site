@@ -1,0 +1,22 @@
+.container {
+  height: calc(100vh - 36px);
+  display: flex;
+  flex-direction: row;
+}
+
+.leftColumn {
+  overflow-y: scroll;
+  flex: 1;
+}
+
+.rightColumn {
+  overflow: hidden;
+  flex: 3;
+  display: flex;
+  flex-direction: column;
+}
+
+.searchBar {
+  width: 100%;
+  font-size: 150%;
+}

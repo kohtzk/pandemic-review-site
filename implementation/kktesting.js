@@ -10,20 +10,20 @@ var db = new sqlite.Database('./pandemicDatabase.db');
    4 - Account Created
  */
 
-function testquery(sql) {
-    db.all(sql, [], (err, rows) => {
-        if (err) {
-          throw err;
-        }
-        console.log(rows[0]);
-        // rows.forEach((row) => {
-        //   console.log(row.name);
-        // });
-        return rows[0];
-      });
-}
+// function testquery(sql) {
+//     db.all(sql, [], (err, rows) => {
+//         if (err) {
+//           throw err;
+//         }
+//         console.log(rows[0]);
+//         // rows.forEach((row) => {
+//         //   console.log(row.name);
+//         // });
+//         return rows[0];
+//       });
+// }
 
-console.log(testquery("SELECT * FROM Users"));
+// console.log(testquery("SELECT * FROM Users"));
 
-module.exports = {};
+// module.exports = {};
 

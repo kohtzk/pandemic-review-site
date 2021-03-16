@@ -14,6 +14,9 @@ app.use(express.static("frontend"));//Allows public access to the public folder
 //listen for requests, uses localhost by default
 app.listen(3000);
 
+const sqlite = require('sqlite3');
+var db = new sqlite.Database('./pandemicDatabase.db');
+
 // request: { "username" : username, "password" : password}
 // response: { "result" : "success" OR "failed" }
 app.post('/newaccount', function (req, res, next) {
@@ -69,6 +72,37 @@ app.post('/profile', function (req, res, next) {
         };
     res.send(JSON.stringify(profiledata));
 })
+                     
+// app.post('/testrequest', function (req, res, next) {
+//     var sql = "SELECT * FROM Users"
+//     var params = []
+//     db.all(sql, params, (err, rows) => {
+//         if (err) {
+//             console.log("aaaaaa");
+//             // do error stuff
+//         }
+//         res.json({
+//             "message":"success",
+//             "data":rows
+//         })
+//     });
+//     console.log("hi!");
+// })
+
+app.post("/testrequest", (req, res, next) => {
+    var sql = "select * from Users"
+    var params = []
+    db.all(sql, params, (err, rows) => {
+        if (err) {
+          res.status(400).json({"error":err.message});
+          return;
+        }
+        res.json({
+            "message":"success",
+            "data":rows
+        })
+      });
+});
 
 // request: { "businessid" : businessid }
 // response: { "username" : username, "name" : name, "businessID" : businessid }                      

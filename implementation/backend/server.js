@@ -23,6 +23,7 @@ function testfunction() {
 }
 
 app.post('/newaccount', function (req, res, next) {
+    console.log("Request to /newaccount");
     console.log(req.body);
     // add new username and password is correct
     let result = { "message": "success",
@@ -33,6 +34,7 @@ app.post('/newaccount', function (req, res, next) {
 })
 
 app.post('/newbusiness', function (req, res, next) {
+  console.log("Request to /newbusiness");
     console.log(req.body);
     // put data in database
     let result = { "message": "success",
@@ -52,10 +54,8 @@ app.post('/addreview', function (req, res, next) {
     res.send(JSON.stringify(result));
 })
 
-// request: { "username" : username, "password" : password}
-// response: { "result" : "failed" OR "some sort of unique ID" }
-app.post('/login', function (req, res, next) {
-    // database.login_verification("Ha.lon", "Test")
+app.post('/login', async function (req, res, next) {
+    await database.login_verification("Ha.lon", "Test")
     console.log(req.body);
     res.json({"message":"success"});
 })

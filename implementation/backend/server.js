@@ -59,9 +59,7 @@ app.post('/login', async function (req, res, next) {
     console.log(req.body);
     res.json({"message":"success"});
 })
-
-// request: { "userid" : userid }
-// response: { "username" : username, "name" : name, "businessID" : businessid }                      
+                 
 app.post('/profile', function (req, res, next) {
     let username = req.body.username;
     // get user information
@@ -77,22 +75,6 @@ app.post('/profile', function (req, res, next) {
     res.json(resdata);
 })
                      
-// app.post('/testrequest', function (req, res, next) {
-//     var sql = "SELECT * FROM Users"
-//     var params = []
-//     db.all(sql, params, (err, rows) => {
-//         if (err) {
-//             console.log("aaaaaa");
-//             // do error stuff
-//         }
-//         res.json({
-//             "message":"success",
-//             "data":rows
-//         })
-//     });
-//     console.log("hi!");
-// })
-
 // can use window.location.hostname to get the host
 
 app.post("/testrequest", (req, res, next) => {
@@ -130,14 +112,57 @@ app.post('/business', function (req, res, next) {
     res.send(JSON.stringify(profiledata));
 })
 
-// request: { "businessid" : businessid }
-// response: { "businessname" : businessname, "businessowner" : userid, "contact" : { "phone" : number, "email" : email }, 
-//             "location" : { "number" : number, "street" : street, "postcode" : postcode }, "type" : businesstype }
 app.post('/getreviews', function (req, res, next) {
-    let business = req.body.businessid;
-    // get data from database
-    let reviews = { "reviews": [] };
-    res.send(JSON.stringify(reviews));
+  console.log("Request to /newaccount");
+  console.log(req.body);
+  // get data from database
+  let reviews = { 
+    "message":"success",
+    "data": [{
+      "review_id": 0,
+      "business_id": 0,
+      "user_id": 0,
+      "date": "21/01/2001",
+      "text": "this is a review",
+      "oneway": 0,
+      "sanitizer": 0,
+      "mask_usage": 0,
+      "bouncers": 0,
+      "temperature_checking": 0,
+      "staff_ppe": 0,
+      "social_distancing": 0,
+      "ventilation": 0
+    }, {
+      "review_id": 1,
+      "business_id": 4,
+      "user_id": 0,
+      "date": "21/01/2001",
+      "text": "this is another review",
+      "oneway": 0,
+      "sanitizer": 0,
+      "mask_usage": 0,
+      "bouncers": 0,
+      "temperature_checking": 0,
+      "staff_ppe": 0,
+      "social_distancing": 0,
+      "ventilation": 0
+    }, {
+      "review_id": 1,
+      "business_id": 8,
+      "user_id": 0,
+      "date": "21/01/2001",
+      "text": "review review review, this is a review",
+      "oneway": 0,
+      "sanitizer": 0,
+      "mask_usage": 0,
+      "bouncers": 0,
+      "temperature_checking": 0,
+      "staff_ppe": 0,
+      "social_distancing": 0,
+      "ventilation": 0
+    }
+  ] };
+  res.json(reviews);
 })
 
 // app.get('/', (req, res) => {

@@ -1,21 +1,10 @@
-class LoginService {
-  constructor() {
-    this.token = null;
-  }
-
-  async loginUser(credentials) {
-    return fetch("http://localhost:3000/login", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(credentials),
-    }).then((data) => data.json()).then((data) => {
-      if (data.success == true) {
-        this.token = data.token;
-      }
-    });
-  }
+export async function loginUser(credentials) {
+  console.log(credentials);
+  return fetch("http://localhost:3000/login", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(credentials),
+  }).then((data) => data.json());
 }
-
-export default new LoginService();

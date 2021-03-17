@@ -57,6 +57,7 @@ app.post('/addreview', function (req, res, next) {
 app.post('/login', function (req, res, next) {
     // database.login_verification("Ha.lon", "Test")
     console.log(req.body);
+    res.json({"message":"success"});
 })
 
 // request: { "userid" : userid }
@@ -65,12 +66,15 @@ app.post('/profile', function (req, res, next) {
     let username = req.body.username;
     // get user information
     let profiledata = { 
+        "id": 1,
         "username" : "theTree",
         "name": "Trevor Wood",
         "email" : "theTree@theTree.tree",
         "businessID": "null"
         };
-    res.send(JSON.stringify(profiledata));
+    resdata = { "message": "success",
+                "data": profiledata}
+    res.json(resdata);
 })
                      
 // app.post('/testrequest', function (req, res, next) {

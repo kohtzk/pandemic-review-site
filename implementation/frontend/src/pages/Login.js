@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "./Login.css";
 import { loginUser } from "../services/login";
 
-const axios = require('axios');
+// const axios = require('axios');
 
 // axios.post('http://localhost:3000/testrequest', {"message": "success"}).then(resp => {
 //     console.log(resp.data);

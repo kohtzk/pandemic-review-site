@@ -137,7 +137,12 @@ function Home() {
             type="text"
           ></input>
         </div>
-        <img style={{ height: "100%" }} src="/images/mapPlaceholder.jpg" />
+        {/* <img style={{ height: "100%" }} src="/images/mapPlaceholder.jpg" /> */}
+        <iframe
+          className="mapElem"
+          frameborder="0" styles="border:0"
+          src="https://www.google.com/maps/embed/v1/search?key=AIzaSyBWYTh2WMhAw_I_6FfL8C9HI2vKyjC4-aQ&q=shops+in+Bath&zoom=16">
+        </iframe>
       </div>
     </div>
   );

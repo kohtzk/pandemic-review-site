@@ -2,6 +2,12 @@ import React, { useState } from "react";
 import "./Login.css";
 import { loginUser } from "../services/login";
 
+const axios = require('axios');
+
+axios.post('http://localhost:3000/testrequest').then(resp => {
+    console.log(resp.data);
+});
+
 function Login() {
   const [username, setUsername] = useState();
   const [password, setPassword] = useState();

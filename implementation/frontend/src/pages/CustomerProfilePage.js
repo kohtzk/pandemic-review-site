@@ -17,12 +17,10 @@ class CustomerProfilePage extends React.Component {
       customerID: 0
     };
   }
-  //componentDidMount()
-  loadPage = async =>{
+  async componentDidMount() {
     await getProfile({"id" : this.state.customerID})
-    .then((response) => console.log(response));
-  };
-  loadPage;
+    .then((response) => console.log(response)); 
+  }
 
   render() {
     const custProfile_component = this.state.custD.map((profile) => (

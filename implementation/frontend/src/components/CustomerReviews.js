@@ -19,7 +19,7 @@ class CustomerReviews extends React.Component{
         })
     }
     render(){
-        console.log(this.state.submit)
+        //console.log(this.state.submit)
         return(
             <div className = "contact-card">
                 <h2> Review details</h2>

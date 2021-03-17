@@ -14,33 +14,88 @@ class CustomerProfilePage extends React.Component {
     this.state = {
       custD: customerData,
       custR: reviewData,
-      customerID: 0
+      customerID: 0,
+      got_customerData : null
     };
   }
 
+<<<<<<< Updated upstream
   async componentDidMount() {
     await getProfile({"id" : this.state.customerID})
     .then((response) => {
       console.log(response);
       console.log("its more code!!!");
+=======
+  // setCustomerDetails(details){
+  //   console.log(details);
+  // }
+
+  componentDidMount() {
+    console.log("In componentDidMount")
+    getProfile({"id" : this.state.customerID})
+    .then((response) => {
+      this.setState({got_customerData:response});
+      console.log(response)
+>>>>>>> Stashed changes
     }); 
   }
 
+  // async componentDidMount() {
+  //   const response = await getProfile({"id" : this.state.customerID});
+  //   const json = await response.json();
+  //   this.setState({data:json});
+  // }
+
+  
+
   render() {
-    const custProfile_component = this.state.custD.map((profile) => (
-      <CustomerDetails key={profile.id} profileS={profile} />
-    ));
 
-    const custProfileReview_component = this.state.custR.map((review) => (
-      <CustomerReviews key={review.id} reviewS={review} />
-    ));
+    console.log("thisstate");
+    console.log(this.state.got_customerData);
+    
+    // const custProfile_component = this.state.custD.map((profile) => (
+    //   <CustomerDetails key={profile.id} profileS={profile} />
+    // ));
 
-    return (
-      <div className = "body_Profilepage">
-        <div className = "inner">{custProfile_component[1]}</div>
-        <div className = "inner">{custProfileReview_component}</div>
-      </div>
-    );
+    //FAIL ATTEMPT
+    // const custProfile_component = this.state.data.map((profile) => (
+    //   <CustomerDetails key={profile.id} profileS={profile} />
+    // ));
+
+    //OLD CUST REVIEW
+    // const custProfileReview_component = this.state.custR.map((review) => (
+    //   <CustomerReviews key={review.id} reviewS={review} />
+    // ));
+
+    // return (
+    //   <div className = "body_Profilepage">
+    //     <div className = "inner">{custProfile_component[1]}</div>
+    //     <div className = "inner">{custProfileReview_component}</div>
+    //   </div>
+    // );
+    
+
+      if ( this.state.got_customerData == null){
+        console.log("loading data")
+        return(null)
+      }
+      else{ 
+
+      return(
+        <div className = "body_Profilepage">
+        <div className = "inner">
+              <CustomerDetails 
+              profileS = {this.state.got_customerData}
+            />
+          </div>
+          {/* <div className = "inner">{custProfileReview_component}</div> */}
+        </div>
+
+      )      
+
+      } 
+       
+    
   }
 }
 export default CustomerProfilePage;

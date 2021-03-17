@@ -14,17 +14,32 @@ class CustomerDetails extends React.Component{
     }
     //<p>Password: {this.props.profileS.password}</p>
     
+    // render(){
+    //     //console.log(this.convertToDots())
+    //     return(
+    //         <div className = "contact-card">
+    //             <h1>Customer Profile</h1>
+    //             <h3>Name: {this.props.profileS.name}</h3>
+    //             <img src = {this.props.profileS.profilepic}/>
+    //             <h3>Email: {this.props.profileS.email}</h3>                
+    //             <p>Password: {this.convertToDots()}</p>
+    //             <p>Number of reviews: {this.props.profileS.numberOfReviews}</p>
+            
+    //         </div>
+    //     )
+
+    // }
+
     render(){
-        console.log(this.convertToDots())
+        console.log("props inside")
+        console.log(this.props.profileS)
         return(
+            
             <div className = "contact-card">
                 <h1>Customer Profile</h1>
-                <h3>Name: {this.props.profileS.name}</h3>
-                <img src = {this.props.profileS.profilepic}/>
-                <h3>Email: {this.props.profileS.email}</h3>                
-                <p>Password: {this.convertToDots()}</p>
-                <p>Number of reviews: {this.props.profileS.numberOfReviews}</p>
-            
+                <h3>Name: {this.props.profileS.data.name}</h3>
+                <h3>Username: {this.props.profileS.data.username}</h3>
+                <h3>Email: {this.props.profileS.data.email}</h3>                
             </div>
         )
 

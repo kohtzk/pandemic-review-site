@@ -25,11 +25,11 @@ function testfunction() {
 // request: { "username" : username, "password" : password}
 // response: { "result" : "success" OR "failed" }
 app.post('/newaccount', function (req, res, next) {
-    let username = req.body.username;
-    let password = req.body.password;
+    console.log(req.body);
     // add new username and password is correct
-    let result = { "result": "failed" };
-    res.send(JSON.stringify(result));
+    let result = { "message": "success",
+                   "data": null };
+    res.json(result);
 })
 
 // request: { "businessname" : businessname, "businessowner" : userid, "contact" : { "phone" : number, "email" : email }, 

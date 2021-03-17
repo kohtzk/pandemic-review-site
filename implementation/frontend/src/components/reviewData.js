@@ -10,3 +10,21 @@ const reviewData = [
 ];
 
 export default reviewData;
+
+/**
+ * 
+ * All the data i will get given from the server about a review
+  bouncers: 0
+  business_id: 0
+  date: "21/01/2001"
+  mask_usage: 0
+  oneway: 0
+  review_id: 0
+  sanitizer: 0
+  social_distancing: 0
+  staff_ppe: 0
+  temperature_checking: 0
+  text: "this is a review"
+  user_id: 0
+  ventilation: 0
+ */

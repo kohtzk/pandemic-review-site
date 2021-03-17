@@ -31,8 +31,8 @@ class CustomerDetails extends React.Component{
     // }
 
     render(){
-        console.log("props inside")
-        console.log(this.props.profileS)
+        //console.log("props inside")
+        //console.log(this.props.profileS)
         return(
             
             <div className = "contact-card">

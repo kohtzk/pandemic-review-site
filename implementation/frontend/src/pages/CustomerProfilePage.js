@@ -7,7 +7,8 @@ import reviewData from "../components/reviewData";
 import "./style2.css"; 
 
 import { getProfile } from "../services/getProfile";
-
+import{ getReviews } from "../services/getReviews";
+ 
 class CustomerProfilePage extends React.Component {
   constructor() {
     super();
@@ -15,7 +16,8 @@ class CustomerProfilePage extends React.Component {
       custD: customerData,
       custR: reviewData,
       customerID: 0,
-      got_customerData : null
+      got_customerData : null,
+      got_reviewData : null
     };
   }
   // setCustomerDetails(details){
@@ -27,9 +29,17 @@ class CustomerProfilePage extends React.Component {
     await getProfile({"id" : this.state.customerID})
     .then((response) => {
       this.setState({got_customerData:response});
-      console.log(response)
+      //console.log(response)
 
     }); 
+    
+    await getReviews({"user_id" : this.state.customerID, "business_id": null})
+    .then((response) => {
+      this.setState({got_reviewData:response});
+      //console.log(response)
+
+    }); 
+    
   }
 
   // async componentDidMount() {
@@ -42,8 +52,8 @@ class CustomerProfilePage extends React.Component {
 
   render() {
 
-    console.log("thisstate");
-    console.log(this.state.got_customerData);
+    console.log("this.state.got_reviewData");
+    console.log(this.state.got_reviewData);
     
     // const custProfile_component = this.state.custD.map((profile) => (
     //   <CustomerDetails key={profile.id} profileS={profile} />
@@ -53,12 +63,7 @@ class CustomerProfilePage extends React.Component {
     // const custProfile_component = this.state.data.map((profile) => (
     //   <CustomerDetails key={profile.id} profileS={profile} />
     // ));
-
-    //OLD CUST REVIEW
-    // const custProfileReview_component = this.state.custR.map((review) => (
-    //   <CustomerReviews key={review.id} reviewS={review} />
-    // ));
-
+    
     // return (
     //   <div className = "body_Profilepage">
     //     <div className = "inner">{custProfile_component[1]}</div>
@@ -67,23 +72,31 @@ class CustomerProfilePage extends React.Component {
     // );
     
 
-      if ( this.state.got_customerData == null){
+      if ( this.state.got_customerData == null || this.state.got_reviewData == null){
         console.log("loading data")
         return(null)
       }
-      else{ 
+      else if(this.state.got_customerData != null && this.state.got_reviewData != null){ 
 
-      return(
-        <div className = "body_Profilepage">
-        <div className = "inner">
-              <CustomerDetails 
-              profileS = {this.state.got_customerData}
-            />
+        // const custProfileReview_array = this.state.got_reviewData.map((review) => (
+        //   <CustomerReviews key={review.data.id} reviewS={review} />
+        // ));
+    
+        return(
+          <div className = "body_Profilepage">
+            <div className = "inner">
+                <CustomerDetails 
+                profileS = {this.state.got_customerData}
+              />
+            </div>
+            <div className = "inner">
+              <CustomerReviews
+                reviewS = {this.state.got_reviewData.data[0]}
+              />
+            </div>
           </div>
-          {/* <div className = "inner">{custProfileReview_component}</div> */}
-        </div>
 
-      )      
+        )      
 
       } 
        

@@ -1,6 +1,6 @@
 export async function getReviews(reviews) {
     //console.log(profileID);
-    return fetch("http://localhost:3000/profile", {
+    return fetch("http://localhost:3000/getreviews", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

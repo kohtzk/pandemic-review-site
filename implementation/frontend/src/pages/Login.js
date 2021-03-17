@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import "./Login.css";
-import loginService from "../services/login";
+import { loginUser } from "../services/login";
 
 const axios = require('axios');
 
-axios.post('http://localhost:3000/testrequest').then(resp => {
+axios.post('http://localhost:3000/testrequest', {"message": "success"}).then(resp => {
     console.log(resp.data);
 });
 
@@ -14,11 +14,10 @@ function Login() {
   const [accType, setAccType] = useState();
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await loginService.loginUser({
+    await loginUser({
       username: username,
       password: password,
-      accType: accType,
-    }).then((_) => props.history.replace("/"));
+    }).then((response) => console.log(response));
   };
   return (
     <div className="outerForm">

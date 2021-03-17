@@ -48,7 +48,7 @@ function Navbar() {
             activeClassName="activenavlink"
             to="/view-b"
           >
-            VIEW BUSINESS REVIEW
+            VIEW BUSINESS REVIEWS
           </NavLink>
         </li>
         <li>

@@ -4,6 +4,7 @@ import CustomerDetails from "../components/CustomerDetails";
 import CustomerReviews from "../components/CustomerReviews";
 import customerData from "../components/customerData";
 import reviewData from "../components/reviewData";
+import "./style2.css" 
 
 class CustomerProfilePage extends React.Component {
   constructor() {
@@ -24,9 +25,9 @@ class CustomerProfilePage extends React.Component {
     ));
 
     return (
-      <div>
-        <div>{custProfile_component[1]}</div>
-        <div>{custProfileReview_component}</div>
+      <div className = "body_Profilepage">
+        <div className = "inner">{custProfile_component[1]}</div>
+        <div className = "inner">{custProfileReview_component}</div>
       </div>
     );
   }

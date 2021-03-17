@@ -21,30 +21,14 @@ function App() {
       <BrowserRouter>
         <Navbar />
         <Switch>
-          <Route exact path="/">
-            <Home />
-          </Route>
-          <Route path="/login">
-            <Login />
-          </Route>
-          <Route path="/c-profile">
-            <CustomerProfilePage />
-          </Route>
-          <Route path="/b-profile">
-            <Priv_BusinessProfilePage />
-          </Route>
-          <Route path="/add-review">
-            <AddCustomerReview />
-          </Route>
-          <Route path="/c-account-creation">
-            <UserCreation />
-          </Route>
-          <Route path="/b-account-creation">
-            <BusinessCreation />
-          </Route>
-          <Route path="/view-b">
-            <ViewBusinessProperty />
-          </Route>
+        <Route exact path="/" component={Home} />
+          <Route path="/login" component={Login} />
+          <Route path="/c-profile" component={CustomerProfilePage} />
+          <Route path="/b-profile" component={Priv_BusinessProfilePage} />
+          <Route path="/add-review" component={AddCustomerReview} />
+          <Route path="/c-account-creation" component={UserCreation} />
+          <Route path="/b-account-creation" component={BusinessCreation} />
+          <Route path="/view-b" component={ViewBusinessProperty} />
         </Switch>
       </BrowserRouter>
     </div>

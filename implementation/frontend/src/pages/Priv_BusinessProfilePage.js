@@ -1,17 +1,17 @@
 import React from "react";
 
 import reviewData from "../components/reviewData";
-
-import BusinessReviews from "../components/BusinessReviews";
+import BusinessReviews from "../components/BusinessReviews"
 import BusinessDetails from "../components/BusinessDetails";
 import BusinessData from "../components/BusinessData";
+import "./style2.css" 
 
 class Priv_BusinessProfilePage extends React.Component {
   constructor() {
     super();
     this.state = {
       custR: reviewData,
-      busD: BusinessData,
+      busD: BusinessData
     };
   }
 
@@ -31,9 +31,9 @@ class Priv_BusinessProfilePage extends React.Component {
     ));
 
     return (
-      <div>
-        <div>{busPrivData_component}</div>
-        <div>{busPrivReview_component}</div>
+      <div className = "body_Profilepage">
+        <div className = "inner">{busPrivData_component}</div>
+        <div className = "inner">{busPrivReview_component}</div>
       </div>
     );
   }

@@ -16,9 +16,19 @@
   flex-direction: column;
 }
 
+.searchBarButton {
+  display: flex;
+  flex-direction: row;
+}
+
 .searchBar {
   width: 100%;
   font-size: 150%;
+}
+
+.searchButton {
+  font-size: 150%;
+  height: 100%;
 }
 
 .mapElem {

@@ -1,23 +1,19 @@
 import React, { useState } from "react";
 import "./Login.css";
-import { loginUser } from "../services/login";
+import loginService from "../services/login";
 
-// const axios = require('axios');
-
-// axios.post('http://localhost:3000/testrequest', {"message": "success"}).then(resp => {
-//     console.log(resp.data);
-// });
-
-function Login() {
+function Login(props) {
   const [username, setUsername] = useState();
   const [password, setPassword] = useState();
   const [accType, setAccType] = useState();
-  const handleSubmit = async (e) => {
+
+  const handleSubmit = async e => {
     e.preventDefault();
-    await loginUser({
+    await loginService.loginUser({
       username: username,
       password: password,
-    }).then((response) => console.log(response));
+      accType: accType
+    }).then(_ => props.history.replace("/"));
   };
   return (
     <div className="outerForm">

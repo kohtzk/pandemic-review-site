@@ -47,13 +47,7 @@ app.post('/addreview', function (req, res, next) {
 // request: { "username" : username, "password" : password}
 // response: { "result" : "failed" OR "some sort of unique ID" }
 app.post('/login', function (req, res, next) {
-    return new Promise(async (resolve, reject) => {
-        let email = req.body.email;
-        let pass = req.body.password;
-        await database.loginVer(email,pass).then(result => {
-            resolve(result)
-        })
-    })
+    database.login_verification("Ha.lon", "Test")
 })
 
 // request: { "userid" : userid }

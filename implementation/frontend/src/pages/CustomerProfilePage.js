@@ -13,9 +13,9 @@ class CustomerProfilePage extends React.Component {
   constructor() {
     super();
     this.state = {
-      custD: customerData,
-      custR: reviewData,
-      customerID: 0,
+      //custD: customerData,
+      //custR: reviewData,
+      customerID: 0,  // NEED TO UPDATE SO THAT ITS A COOKIE
       got_customerData : null,
       got_reviewData : null,
       numOfReviews : 3

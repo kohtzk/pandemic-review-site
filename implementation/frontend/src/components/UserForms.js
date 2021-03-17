@@ -1,19 +1,26 @@
 import React, { Component } from 'react'
+import {createCustomer} from "../services/createCustomer";
 
 class UserForms extends Component {
     constructor(props){
         super(props)
         this.state = {
             email: '',
+            name: '',
             username: '',
-            password: ''
+            password: '',
+            businessid: null
         }
         this.handleCreate = this.handleCreate.bind(this)
         this.handleEmail = this.handleEmail.bind(this)
         this.handlePassword = this.handlePassword.bind(this)
         this.handleUsername = this.handleUsername.bind(this)
+        this.handleName = this.handleName.bind(this)
     }
 
+    handleName(e){
+        this.setState({name: e.target.value})
+    }
 
     handleEmail(e){
         this.setState({email: e.target.value})
@@ -27,11 +34,11 @@ class UserForms extends Component {
         this.setState({password: e.target.value})
     }
 
-    handleCreate(){
-        //TO DATABASE HERE
-        console.log("Email" + this.state.email)
-        console.log("Username" + this.state.username)
-        console.log("Password" + this.state.password)
+    handleCreate = async (e) =>{
+        e.preventDefault();
+        await createCustomer(this.state)
+            .then((response) => console.log(response));
+
     }
 
 
@@ -45,6 +52,11 @@ class UserForms extends Component {
                 </div>
 
                 <div className="forms">
+                    <label>Full Name:</label>
+                    <input type="text" className="form-control" placeholder="Enter your full name" value={this.state.name} onChange={this.handleName}/>
+                </div>
+
+                <div className="forms">
                     <label>Username:</label>
                     <input type="text" className="form-control" placeholder="Enter username" value={this.state.username} onChange={this.handleUsername}/>
                 </div>
@@ -54,7 +66,7 @@ class UserForms extends Component {
                     <input type="password" className="form-control" placeholder="Enter password" value={this.state.password} onChange={this.handlePassword}/>
                 </div>
 
-                <button type="submit" className="submit-button">Create account</button>
+                <button type="submit" className="submit-button" onClick={this.handleCreate}>Create account</button>
                 <p>
                     Already have an account? <a href="#">Log in</a>
                 </p>

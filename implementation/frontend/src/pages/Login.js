@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "./Login.css";
 import loginService from "../services/login";
 
-function Login() {
+function Login(props) {
   const [username, setUsername] = useState();
   const [password, setPassword] = useState();
   const [accType, setAccType] = useState();
@@ -12,7 +12,7 @@ function Login() {
       username: username,
       password: password,
       accType: accType,
-    }).then((_) => console.log(loginService.token));
+    }).then((_) => props.history.replace("/"));
   };
   return (
     <div className="outerForm">

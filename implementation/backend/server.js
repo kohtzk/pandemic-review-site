@@ -144,3 +144,119 @@ app.get('/', (req, res) => {
 // app.use((req, res) => {
 //     res.status(404).sendFile('frontend/404.html', { root: __dirname });
 // });
+
+app.get('/businesses', (req, res, next) => {
+    const businesses = [
+      {
+        name: "The Whole Bagel",
+        location: "Upper Borough Walls",
+        rating: "5",
+        type: "food",
+      },
+      {
+        name: "Lush",
+        location: "Union St.",
+        rating: "5",
+        type: "cosmetics",
+      },
+      {
+        name: "The Whole Bagel",
+        location: "Upper Borough Walls",
+        rating: "5",
+        type: "food",
+      },
+      {
+        name: "Lush",
+        location: "Union St.",
+        rating: "5",
+        type: "cosmetics",
+      },
+      {
+        name: "The Whole Bagel",
+        location: "Upper Borough Walls",
+        rating: "5",
+        type: "food",
+      },
+      {
+        name: "Lush",
+        location: "Union St.",
+        rating: "5",
+        type: "cosmetics",
+      },
+      {
+        name: "The Whole Bagel",
+        location: "Upper Borough Walls",
+        rating: "5",
+        type: "food",
+      },
+      {
+        name: "Lush",
+        location: "Union St.",
+        rating: "5",
+        type: "cosmetics",
+      },
+      {
+        name: "The Whole Bagel",
+        location: "Upper Borough Walls",
+        rating: "5",
+        type: "food",
+      },
+      {
+        name: "Lush",
+        location: "Union St.",
+        rating: "5",
+        type: "cosmetics",
+      },
+      {
+        name: "The Whole Bagel",
+        location: "Upper Borough Walls",
+        rating: "5",
+        type: "food",
+      },
+      {
+        name: "Lush",
+        location: "Union St.",
+        rating: "5",
+        type: "cosmetics",
+      },
+      {
+        name: "The Whole Bagel",
+        location: "Upper Borough Walls",
+        rating: "5",
+        type: "food",
+      },
+      {
+        name: "Lush",
+        location: "Union St.",
+        rating: "5",
+        type: "cosmetics",
+      },
+      {
+        name: "The Whole Bagel",
+        location: "Upper Borough Walls",
+        rating: "5",
+        type: "food",
+      },
+      {
+        name: "Lush",
+        location: "Union St.",
+        rating: "5",
+        type: "cosmetics",
+      },
+      {
+        name: "The Whole Bagel",
+        location: "Upper Borough Walls",
+        rating: "5",
+        type: "food",
+      },
+      {
+        name: "Lush",
+        location: "Union St.",
+        rating: "5",
+        type: "cosmetics",
+      }
+    ];
+  
+    res.send(JSON.stringify(businesses));
+  })
+  

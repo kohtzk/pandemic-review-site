@@ -5,9 +5,11 @@ import "./style.css";
 
 function BusinessCreation() {
   return (
-    <div>
-      <CreationHeader />
-      <BusinessForms />
+    <div className="creation-outer">
+        <div className ="creation-inner">
+            <CreationHeader />
+            <BusinessForms />
+        </div>
     </div>
   );
 }

@@ -147,7 +147,7 @@ app.post('/getreviews', function (req, res, next) {
       "social_distancing": 0,
       "ventilation": 0
     }, {
-      "review_id": 1,
+      "review_id": 2,
       "business_id": 8,
       "user_id": 0,
       "date": "21/01/2001",

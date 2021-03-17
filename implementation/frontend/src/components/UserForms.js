@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import {createAccount} from "../services/createAccount";
+import {Link} from "react-router-dom";
 
 class UserForms extends Component {
     constructor(props){
@@ -68,7 +69,7 @@ class UserForms extends Component {
 
                 <button type="submit" className="submit-button" onClick={this.handleCreate}>Create account</button>
                 <p>
-                    Already have an account? <a href="#">Log in</a>
+                    Already have an account? <Link to={{pathname: '../Login'}}>Log in</Link>
                 </p>
             </form>
         )

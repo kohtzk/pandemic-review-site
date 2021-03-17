@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import {createAccount} from "../services/createAccount";
 import {createBusiness} from "../services/createBusiness";
+import {Link} from 'react-router-dom'
 
 class BusinessForms extends Component {
     constructor(props){
@@ -182,7 +183,7 @@ class BusinessForms extends Component {
                   Create account
               </button>
               <p>
-                  Already have an account? <a href="#">Log in</a>
+                  Already have an account? <Link to={{pathname: '../Login'}}>Log in</Link>
               </p>
           </form>
         );

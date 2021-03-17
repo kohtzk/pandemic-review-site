@@ -22,8 +22,8 @@ body {
 }
 
 .forms {
-  justify-content: center;
   display: flex;
+  justify-content: center;
   flex-direction: column;
   text-align: left;
   padding-bottom: 10px;

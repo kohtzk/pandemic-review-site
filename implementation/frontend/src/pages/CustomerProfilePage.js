@@ -18,25 +18,17 @@ class CustomerProfilePage extends React.Component {
       got_customerData : null
     };
   }
-
-<<<<<<< Updated upstream
-  async componentDidMount() {
-    await getProfile({"id" : this.state.customerID})
-    .then((response) => {
-      console.log(response);
-      console.log("its more code!!!");
-=======
   // setCustomerDetails(details){
   //   console.log(details);
   // }
 
-  componentDidMount() {
+  async componentDidMount() {
     console.log("In componentDidMount")
-    getProfile({"id" : this.state.customerID})
+    await getProfile({"id" : this.state.customerID})
     .then((response) => {
       this.setState({got_customerData:response});
       console.log(response)
->>>>>>> Stashed changes
+
     }); 
   }
 

@@ -2,7 +2,13 @@ import React, { useState } from "react";
 import "./Login.css";
 import loginService from "../services/login";
 
-function Login(props) {
+const axios = require('axios');
+
+axios.post('http://localhost:3000/testrequest').then(resp => {
+    console.log(resp.data);
+});
+
+function Login() {
   const [username, setUsername] = useState();
   const [password, setPassword] = useState();
   const [accType, setAccType] = useState();

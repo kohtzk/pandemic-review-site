@@ -1,15 +1,14 @@
 const express = require('express');
 const database = require('./database');
 const cors = require('cors')
-
 //express app
 const app = express();
 
-app.use(cors())
+app.use(cors());
 
-app.use(express.urlencoded({ extended: true }))
+app.use(express.urlencoded({ extended: true }));
 
-app.use(express.static("../frontend"));//Allows public access to the public folder
+// app.use(express.static("../frontend"));//Allows public access to the public folder
 
 //listen for requests, uses localhost by default
 app.listen(3000);
@@ -50,14 +49,7 @@ app.post('/addreview', function (req, res, next) {
 // request: { "username" : username, "password" : password}
 // response: { "result" : "failed" OR "some sort of unique ID" }
 app.post('/login', function (req, res, next) {
-    res.send(JSON.stringify({ "success": true, "token": "dkjhfskjdhf" }))
-    // return new Promise(async (resolve, reject) => {
-    //     let email = req.body.email;
-    //     let pass = req.body.password;
-    //     await database.loginVer(email,pass).then(result => {
-    //         resolve(result)
-    //     })
-    // })
+    database.login_verification("Ha.lon", "Test")
 })
 
 // request: { "userid" : userid }
@@ -90,7 +82,12 @@ app.post('/profile', function (req, res, next) {
 //     console.log("hi!");
 // })
 
+// can use window.location.hostname to get the host
+
 app.post("/testrequest", (req, res, next) => {
+    console.log("got a request");
+    console.log(req.body);
+    // res.send(JSON.stringify(req));
     var sql = "select * from Users"
     var params = []
     db.all(sql, params, (err, rows) => {
@@ -98,10 +95,14 @@ app.post("/testrequest", (req, res, next) => {
           res.status(400).json({"error":err.message});
           return;
         }
-        res.json({
+        // res.json({
+        //     "message":"success",
+        //     "data":rows
+        // });
+        res.send(JSON.stringify({
             "message":"success",
             "data":rows
-        })
+        }));
       });
 });
 
@@ -128,13 +129,13 @@ app.post('/getreviews', function (req, res, next) {
     res.send(JSON.stringify(reviews));
 })
 
-app.get('/', (req, res) => {
-    res.sendFile('/frontend/public/index.html', { root: __dirname + "/.."});
-});
-
-// app.get('/test', (req, res) => {
-//     res.sendFile('frontend/test.html', { root: __dirname });
+// app.get('/', (req, res) => {
+//     res.sendFile('/frontend/build/index.html', { root: __dirname + "/.."});
 // });
+
+app.get('/test', (req, res) => {
+    res.sendFile('test.html', { root: __dirname });
+});
 
 // app.get('/login', (req, res) => {
 //     res.sendFile('frontend/login.html', { root: __dirname });

@@ -19,3 +19,10 @@ const customerData = [
     },
 ]
 export default customerData
+
+/**
+ * id
+ * username (same as the customerID)
+ * name
+ * email
+ */

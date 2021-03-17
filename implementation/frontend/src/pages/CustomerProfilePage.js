@@ -4,7 +4,9 @@ import CustomerDetails from "../components/CustomerDetails";
 import CustomerReviews from "../components/CustomerReviews";
 import customerData from "../components/customerData";
 import reviewData from "../components/reviewData";
-import "./style2.css" 
+import "./style2.css"; 
+
+import { getProfile } from "../services/getProfile";
 
 class CustomerProfilePage extends React.Component {
   constructor() {
@@ -12,8 +14,15 @@ class CustomerProfilePage extends React.Component {
     this.state = {
       custD: customerData,
       custR: reviewData,
+      customerID: 0
     };
   }
+  //componentDidMount()
+  loadPage = async =>{
+    await getProfile({"id" : this.state.customerID})
+    .then((response) => console.log(response));
+  };
+  loadPage;
 
   render() {
     const custProfile_component = this.state.custD.map((profile) => (

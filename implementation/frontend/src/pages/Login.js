@@ -4,9 +4,9 @@ import { loginUser } from "../services/login";
 
 const axios = require('axios');
 
-axios.post('http://localhost:3000/testrequest', {"message": "success"}).then(resp => {
-    console.log(resp.data);
-});
+// axios.post('http://localhost:3000/testrequest', {"message": "success"}).then(resp => {
+//     console.log(resp.data);
+// });
 
 function Login() {
   const [username, setUsername] = useState();

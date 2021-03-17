@@ -4,7 +4,7 @@ import { loginUser } from "../services/login";
 
 const axios = require('axios');
 
-axios.post('http://localhost:3000/testrequest').then(resp => {
+axios.post('http://localhost:3000/testrequest', {"message": "success"}).then(resp => {
     console.log(resp.data);
 });
 
@@ -13,6 +13,7 @@ function Login() {
   const [password, setPassword] = useState();
   const [accType, setAccType] = useState();
   const handleSubmit = async (e) => {
+    e.preventDefault();
     await loginUser({
       username: username,
       password: password,

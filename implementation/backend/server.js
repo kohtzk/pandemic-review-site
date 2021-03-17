@@ -6,6 +6,8 @@ const app = express();
 
 app.use(cors());
 
+app.use(express.json());
+
 app.use(express.urlencoded({ extended: true }));
 
 // app.use(express.static("../frontend"));//Allows public access to the public folder
@@ -15,6 +17,10 @@ app.listen(3000);
 
 const sqlite = require('sqlite3');
 var db = new sqlite.Database('./pandemicDatabase.db');
+
+function testfunction() {
+
+}
 
 // request: { "username" : username, "password" : password}
 // response: { "result" : "success" OR "failed" }
@@ -49,7 +55,8 @@ app.post('/addreview', function (req, res, next) {
 // request: { "username" : username, "password" : password}
 // response: { "result" : "failed" OR "some sort of unique ID" }
 app.post('/login', function (req, res, next) {
-    database.login_verification("Ha.lon", "Test")
+    // database.login_verification("Ha.lon", "Test")
+    console.log(req.body);
 })
 
 // request: { "userid" : userid }

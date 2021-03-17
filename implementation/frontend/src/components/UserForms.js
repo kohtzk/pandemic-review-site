@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import {createCustomer} from "../services/createCustomer";
+import {createAccount} from "../services/createAccount";
 
 class UserForms extends Component {
     constructor(props){
@@ -36,7 +36,7 @@ class UserForms extends Component {
 
     handleCreate = async (e) =>{
         e.preventDefault();
-        await createCustomer(this.state)
+        await createAccount(this.state)
             .then((response) => console.log(response));
 
     }

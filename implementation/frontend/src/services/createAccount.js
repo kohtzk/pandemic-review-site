@@ -1,4 +1,4 @@
-export async function createCustomer(details) {
+export async function createAccount(details) {
     console.log(details);
     return fetch("http://localhost:3000/newaccount", {
         method: "POST",

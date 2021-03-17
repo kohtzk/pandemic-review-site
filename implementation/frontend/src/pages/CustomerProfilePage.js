@@ -17,9 +17,13 @@ class CustomerProfilePage extends React.Component {
       customerID: 0
     };
   }
+
   async componentDidMount() {
     await getProfile({"id" : this.state.customerID})
-    .then((response) => console.log(response)); 
+    .then((response) => {
+      console.log(response);
+      console.log("its more code!!!");
+    }); 
   }
 
   render() {

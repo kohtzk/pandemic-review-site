@@ -22,24 +22,24 @@ function testfunction() {
 
 }
 
-// request: { "username" : username, "password" : password}
-// response: { "result" : "success" OR "failed" }
 app.post('/newaccount', function (req, res, next) {
     console.log(req.body);
     // add new username and password is correct
     let result = { "message": "success",
-                   "data": null };
+                   "data": {
+                     "user_id": 0 
+    }};
     res.json(result);
 })
 
-// request: { "businessname" : businessname, "businessowner" : userid, "contact" : { "phone" : number, "email" : email }, 
-//            "location" : { "number" : number, "street" : street, "postcode" : postcode }, "type" : businesstype }
-// response: { "result" : "success" OR "failed" }
-app.post('/addbusiness', function (req, res, next) {
-    let review = req.body;
+app.post('/newbusiness', function (req, res, next) {
+    console.log(req.body);
     // put data in database
-    let result = { "success": true };
-    res.send(JSON.stringify(result));
+    let result = { "message": "success",
+                   "data": {
+                     "business_id": 0 
+    }};
+    res.json(result);
 })
 
 // request: { "user" : userid, "business" : businessid, "oneway" : rating, "sanitizer" : rating, "personlimit" : rating, 

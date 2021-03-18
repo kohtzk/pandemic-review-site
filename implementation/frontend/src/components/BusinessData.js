@@ -12,3 +12,9 @@ const BusinessData = [
 ];
 
 export default BusinessData;
+
+/** 
+ * "username" : "theTree",
+    "name": "Trevor Wood",
+    "businessID": "thetreecompany"
+*/

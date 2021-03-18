@@ -5,9 +5,11 @@ import "./style.css";
 
 function UserCreation() {
   return (
-    <div>
-      <CreationHeader />
-      <UserForms />
+    <div className="creation-outer">
+        <div className="creation-inner">
+            <CreationHeader />
+            <UserForms />
+        </div>
     </div>
   );
 }

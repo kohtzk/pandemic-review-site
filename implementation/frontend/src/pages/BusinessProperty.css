@@ -23,12 +23,12 @@
 
 .image {
   position: fixed;
-  bottom: 500px;
-  right: 445px;
+  bottom: 493px;
+  right: 425px;
   border: 1px solid #ddd;
   border-radius: 4px;
   padding: 5px;
-  width: 660px;
+  width: 610px;
 }
 
 .rating {

@@ -1,8 +1,8 @@
 const Database = require('better-sqlite3');
 var db = new Database('pandemicDatabase.db');
 
-function get_userid(iemail){
-    const id = db.prepare('SELECT user_id uid FROM users WHERE email = ?').get(iemail)
+function get_userid(un){
+    const id = db.prepare('SELECT user_id uid FROM users WHERE user_name = ?').get(un)
     if(id != undefined){
         return id.uid
     } else {return "Fail"}}

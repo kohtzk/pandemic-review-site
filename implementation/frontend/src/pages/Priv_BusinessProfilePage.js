@@ -3,8 +3,9 @@ import React from "react";
 import reviewData from "../components/reviewData";
 import BusinessReviews from "../components/BusinessReviews"
 import BusinessDetails from "../components/BusinessDetails";
-import BusinessData from "../components/BusinessData";
-import "./style2.css" 
+//import BusinessData from "../components/BusinessData";
+import NoBusinessProfile from "../components/NoBusinessProfile"
+import "./style2.css"; 
 import { getBusiness } from "../services/getBusiness";
 import{ getReviews } from "../services/getReviews";
 
@@ -29,10 +30,6 @@ class Priv_BusinessProfilePage extends React.Component {
   async componentDidMount() {
     //console.log("In componentDidMount business")
     this.setID()
-    // if(this.state.businessID == null){
-
-    //   businessID
-    // }
     await getBusiness({"id" : this.state.businessID})
     .then((response) => {
       this.setState({got_businessData:response});
@@ -71,6 +68,11 @@ class Priv_BusinessProfilePage extends React.Component {
     if(this.state.got_businessData == null || this.state.got_reviewData == null){
       console.log("loading data")
         return(null)
+    }
+    else if(this.state.businessID == null){
+      return(
+        <NoBusinessProfile/>
+      )     
     }
     else if(this.state.got_businessData != null && this.state.got_reviewData != null){ 
 

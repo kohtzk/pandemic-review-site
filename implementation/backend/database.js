@@ -24,9 +24,9 @@ function login(username, password) {
 }
 
 function user_details(id){
-    const details = db.prepare('SELECT name name, user_name un FROM users WHERE user_id = ?').get(id)
+    const details = db.prepare('SELECT name name, user_name un, email email, business_id bid FROM users WHERE user_id = ?').get(id)
     if(details != undefined){
-        info = [details.name, details.un]
+        info = [details.name, details.un, details.email, details.bid]
         return info
     } else {return "Fail"}}
 

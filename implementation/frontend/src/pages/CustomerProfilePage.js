@@ -21,10 +21,11 @@ class CustomerProfilePage extends React.Component {
       got_reviewData : null,
       numOfReviews : 3
     };
+
+    //BINDINGS
+    //this.handleClick = this.handleClick.bind(this)
+    this.setID = this.setID.bind(this)
   }
-  // setCustomerDetails(details){
-  //   console.log(details);
-  // }
 
   async componentDidMount() {
     //console.log("In componentDidMount")

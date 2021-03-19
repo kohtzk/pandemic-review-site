@@ -16,15 +16,23 @@ class Priv_BusinessProfilePage extends React.Component {
     this.state = {
       //businessID : 0, // NEED TO UPDATE SO THAT ITS A COOKIE
       businessID : null,
+      businessStatus : true,
       got_businessData : null,
       got_reviewData : null
 
-    };
+    }
+    //BINDING
+    this.setID = this.setID.bind(this) 
+    
   }
 
   async componentDidMount() {
     //console.log("In componentDidMount business")
     this.setID()
+    // if(this.state.businessID == null){
+
+    //   businessID
+    // }
     await getBusiness({"id" : this.state.businessID})
     .then((response) => {
       this.setState({got_businessData:response});

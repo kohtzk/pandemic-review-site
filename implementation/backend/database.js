@@ -15,7 +15,7 @@ function login_verification(id){
     else{return "Fail"}}
 
 function user_details(id){
-    const details = db.prepare('SELECT name name user_name un FROM users WHERE user_id = ?').get(id)
+    const details = db.prepare('SELECT name name, user_name un FROM users WHERE user_id = ?').get(id)
     if(details != undefined){
         info = [details.name, details.un]
         return info

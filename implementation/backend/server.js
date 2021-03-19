@@ -47,8 +47,8 @@ app.post('/addreview', function (req, res, next) {
     res.send(JSON.stringify(result));
 })
 
-app.post('/login', async function (req, res, next) {
-
+app.get('/login', async function (req, res, next) {
+    database.add_review(1, 1, "Shit", [1,2,2,2,2,2,2,3])
 })
                  
 app.post('/profile', function (req, res, next) {

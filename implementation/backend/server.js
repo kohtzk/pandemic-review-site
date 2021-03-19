@@ -48,7 +48,7 @@ app.post('/addreview', function (req, res, next) {
 })
 
 app.get('/login', async function (req, res, next) {
-    database.add_review(1, 1, "Shit", [1,2,2,2,2,2,2,3])
+    console.log(database.get_user_reviews(6))
 })
                  
 app.post('/profile', function (req, res, next) {

@@ -20,16 +20,23 @@ app.post('/newaccount', function (req, res, next) {
     console.log(req.body);
 
     var details = req.body;
-    var id = database.create_user(details.name, details.username, details.email, password);
+    var name = details.name;
+    var username = details.username;
+    var email = details.email;
+    var password = details.password;
+
+    // check if user exists
+
+    var id = database.create_user(name, username, email, password);
     
     // check if business id is not null, then connect the user to the business
 
     if (id == "Fail") {
       var result = { "message": "failure" };
     } else {
-      var result = { "message": "success",
-                   "data": {
-                     "user_id": id 
+      var result = {  "message": "success",
+                      "data": {
+                        "user_id": id 
       }};
     }
     res.json(result);
@@ -37,23 +44,39 @@ app.post('/newaccount', function (req, res, next) {
 
 app.post('/newbusiness', function (req, res, next) {
   console.log("Request to /newbusiness");
-    console.log(req.body);
-    // put data in database
-    let result = { "message": "success",
-                   "data": {
-                     "business_id": 0 
+  console.log(req.body);
+
+  var name = req.body.name;
+  var email = req.body.email;
+  var address = req.body.address;
+  var postcode = req.body.postcode;
+  var description = req.body.description;
+
+  // check if business exists
+  
+  var id = database.insert_business(email, name, address, postcode, description);
+
+  // check if user_id exists, and if it does tie the user to the business
+  
+  if (id == "Fail") {
+    var result = { "message": "failure" };
+  } else {
+    var result = { "message": "success",
+                 "data": {
+                   "business_id": id 
     }};
-    res.json(result);
+  }
+  res.json(result);
 })
 
-// request: { "user" : userid, "business" : businessid, "oneway" : rating, "sanitizer" : rating, "personlimit" : rating, 
-//            "masks" : rating, "bouncers" : rating, "tempcheck" : rating, "staffppe" : rating }
-// response: { "result" : "success" OR "failed" }
 app.post('/addreview', function (req, res, next) {
-    let review = req.body;
-    // put data in database
-    let result = { "result": "success" };
-    res.send(JSON.stringify(result));
+  console.log("Request to /addreview");
+  console.log(req.body);
+
+  
+  // put data in database
+  let result = { "result": "success" };
+  res.send(JSON.stringify(result));
 })
 
 app.get('/login', async function (req, res, next) {

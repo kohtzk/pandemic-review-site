@@ -34,12 +34,14 @@ app.post('/newaccount', function (req, res, next) {
     if (id == "Fail") {
       var result = { "message": "failure" };
     } else {
-      var result = {  "message": "success",
-                      "data": {
-                        "user_id": id 
-      }};
+      var result = { "message": "success",
+                      "data": { "user_id": id }};
     }
     res.json(result);
+})
+
+app.get('/login', async function (req, res, next) {
+  console.log(database.get_user_reviews(6))
 })
 
 app.post('/newbusiness', function (req, res, next) {
@@ -62,9 +64,7 @@ app.post('/newbusiness', function (req, res, next) {
     var result = { "message": "failure" };
   } else {
     var result = { "message": "success",
-                 "data": {
-                   "business_id": id 
-    }};
+                   "data": { "business_id": id }};
   }
   res.json(result);
 })
@@ -94,15 +94,9 @@ app.post('/addreview', function (req, res, next) {
     var result = { "message": "failure" };
   } else {
     var result = { "message": "success",
-                 "data": {
-                   "review_id": id 
-    }};
+                 "data": { "review_id": id }};
   }
   res.json(result);
-})
-
-app.get('/login', async function (req, res, next) {
-    console.log(database.add_review(7))
 })
                  
 app.post('/profile', function (req, res, next) {

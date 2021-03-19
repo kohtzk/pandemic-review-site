@@ -73,10 +73,32 @@ app.post('/addreview', function (req, res, next) {
   console.log("Request to /addreview");
   console.log(req.body);
 
-  
-  // put data in database
-  let result = { "result": "success" };
-  res.send(JSON.stringify(result));
+  var business_id = req.body.business_id;
+  var user_id = req.body.user_id;
+  var text = req.body.text;
+  var scores = req.body.scores;
+  // var scores = {
+  //   "oneway": 0,
+  //   "sanitizer": 0,
+  //   "mask_usage": 0,
+  //   "bouncers": 0,
+  //   "temperature_checking": 0,
+  //   "staff_ppe": 0,
+  //   "social_distancing": 0,
+  //   "ventilation": 0
+  // }
+
+  var id = database.add_review(business_id, user_id, text, scores);
+
+  if (id == "Fail") {
+    var result = { "message": "failure" };
+  } else {
+    var result = { "message": "success",
+                 "data": {
+                   "review_id": id 
+    }};
+  }
+  res.json(result);
 })
 
 app.get('/login', async function (req, res, next) {

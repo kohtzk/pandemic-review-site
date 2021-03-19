@@ -70,7 +70,8 @@ function delete_business(id){
 function add_review(bid, uid, body, scores){
     const ins = db.prepare('INSERT INTO reviews(business_id, user_id, text, oneway, sanitizer, mask_usage, bouncers, temperature_checking, staff_ppe, social_distancing, ventilation) VALUES(?,?,?,?,?,?,?,?,?,?,?)')
     try{
-        ins.run(bid, uid, body, scores[0], scores[1], scores[2], scores[3], scores[4], scores[5], scores[6], scores[7])
+        ins.run(bid, uid, body, scores.oneway, scores.sanitizer, scores.mask_usage, scores.bouncers, 
+            scores.temperature_checking, scores.staff_ppe, scores.social_distancing, scores.ventilation);
         //return body
     } catch (err) {return "Fail"}}
 

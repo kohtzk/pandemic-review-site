@@ -41,7 +41,11 @@ app.post('/newaccount', function (req, res, next) {
 })
 
 app.get('/login', async function (req, res, next) {
-  console.log(database.get_user_reviews(6))
+  console.log("Request to /login");
+  console.log(req.body);
+
+  
+  
 })
 
 app.post('/newbusiness', function (req, res, next) {

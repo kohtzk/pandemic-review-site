@@ -15,7 +15,7 @@ function login_verification(id){
     else{return "Fail"}}
 
 function user_details(id){
-    const details = db.prepare('SELECT name name user_name un FROM users WHERE user_id = ?').get(id)
+    const details = db.prepare('SELECT name name, user_name un FROM users WHERE user_id = ?').get(id)
     if(details != undefined){
         info = [details.name, details.un]
         return info
@@ -44,13 +44,18 @@ function delete_user(id){
         //return id
     } catch (err) {return "Fail"}}
 
-function insert_business(iemail, ibusiness_name, ilocation, ipost_code, id, desc, uid){
+function claim_ownership(bid, uid){
+    try {
+        const update_user = db.prepare('UPDATE users SET business_id = ? WHERE user_id = ?').run(bid, uid)
+        //return bid
+    } catch (err) {return "Fail"}
+}
+
+function insert_business(iemail, ibusiness_name, ilocation, ipost_code, desc){
     const business_insert = db.prepare('INSERT INTO businesses(business_name, location, post_code, email, description) VALUES(?, ?, ?, ?, ?)')
-    const update_user = db.prepare('UPDATE users SET business_id = ? WHERE user_id = ?')
     try{
         business_insert.run(ibusiness_name, ilocation, ipost_code, iemail, desc)
-        update_user.run(id, uid)
-        return id
+        //return id
     } catch (err) {return "Fail"}}
 
 function delete_business(id){
@@ -77,5 +82,5 @@ function get_user_reviews(id){
     const reviews = db.prepare('SELECT * FROM reviews WHERE user_id = ?').all(id)
     return reviews}
 
-module.exports = {get_userid, login_verification, user_details, business_details, create_user, insert_business, delete_business, delete_user, add_review, get_business_reviews, get_user_reviews};
+module.exports = {get_userid, claim_ownership, login_verification, user_details, business_details, create_user, insert_business, delete_business, delete_user, add_review, get_business_reviews, get_user_reviews};
 

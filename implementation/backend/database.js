@@ -14,8 +14,8 @@ function login_verification(id){
     }
     else{return "Fail"}}
 
-function user_details(iemail){
-    const details = db.prepare('SELECT name name FROM users WHERE email = ?').get(iemail)
+function user_details(id){
+    const details = db.prepare('SELECT name name FROM users WHERE user-id = ?').get(id)
     if(details != undefined){
         return details.name
     } else {return "Fail"}}

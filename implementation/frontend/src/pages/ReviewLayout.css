@@ -92,3 +92,19 @@
   background: #4CAF50;
   cursor: pointer;
 }
+
+.submitButton {
+  background-color: #f64f59;
+  transition-duration: 1s;
+  border: none;
+  border-radius: 10px;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  font-size: 15px;
+}
+
+.submitButton:hover {
+  background-color: #12c2e9;
+  color: white;
+}

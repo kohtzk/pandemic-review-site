@@ -43,6 +43,9 @@ export default function ReviewLayout(props) {
         <button className="reviewButton">Add written review</button>
         <input className="reviewText" type="text" />
       </div>
+      <div>
+        <button className="submitButton">submit</button>
+      </div>
     </div>
   );
 }

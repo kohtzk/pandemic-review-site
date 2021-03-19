@@ -19,8 +19,8 @@ class CustomerReviews extends React.Component{
         })
     }
     render(){
-        console.log("inside review props")
-        console.log(this.state.reviewS)
+        // console.log("inside review props")
+        // console.log(this.state.reviewS)
         return(
             <div className = "contact-card">
                 <h2> Review details</h2>

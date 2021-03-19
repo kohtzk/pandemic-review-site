@@ -8,13 +8,14 @@ import "./style2.css"
 import { getBusiness } from "../services/getBusiness";
 import{ getReviews } from "../services/getReviews";
 
+import LoginService from "../services/login";
+
 class Priv_BusinessProfilePage extends React.Component {
   constructor() {
     super();
     this.state = {
-      custR: reviewData,
-      busD: BusinessData,
-      businessID : 0, // NEED TO UPDATE SO THAT ITS A COOKIE
+      //businessID : 0, // NEED TO UPDATE SO THAT ITS A COOKIE
+      businessID : null,
       got_businessData : null,
       got_reviewData : null
 
@@ -22,7 +23,8 @@ class Priv_BusinessProfilePage extends React.Component {
   }
 
   async componentDidMount() {
-    console.log("In componentDidMount business")
+    //console.log("In componentDidMount business")
+    this.setID()
     await getBusiness({"id" : this.state.businessID})
     .then((response) => {
       this.setState({got_businessData:response});
@@ -37,6 +39,13 @@ class Priv_BusinessProfilePage extends React.Component {
     }); 
 
   }
+
+  setID(){
+    console.log(this.state.customerID)
+    this.setState({customerID : LoginService.token})
+    console.log(this.state.customerID)
+  }
+
 
   render() {
     // const busPrivData_component = this.state.busD.map((B_profile) => (

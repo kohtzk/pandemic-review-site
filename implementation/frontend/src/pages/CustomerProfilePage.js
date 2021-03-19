@@ -8,14 +8,15 @@ import "./style2.css";
 
 import { getProfile } from "../services/getProfile";
 import{ getReviews } from "../services/getReviews";
+
+import LoginService from "../services/login";
  
 class CustomerProfilePage extends React.Component {
   constructor() {
     super();
     this.state = {
-      //custD: customerData,
-      //custR: reviewData,
-      customerID: 0,  // NEED TO UPDATE SO THAT ITS A COOKIE
+      //customerID: LoginService.token,
+      customerID : null,
       got_customerData : null,
       got_reviewData : null,
       numOfReviews : 3
@@ -26,35 +27,35 @@ class CustomerProfilePage extends React.Component {
   // }
 
   async componentDidMount() {
-    console.log("In componentDidMount")
+    //console.log("In componentDidMount")
+    this.setID() //CALLED IN THE IF STATEMENT IN RENDER()
+    console.log("LoginService")
+    console.log(this.state.customerID)
     await getProfile({"id" : this.state.customerID})
     .then((response) => {
       this.setState({got_customerData:response});
-      //console.log(response)
 
     }); 
     
     await getReviews({"user_id" : this.state.customerID, "business_id": null})
     .then((response) => {
       this.setState({got_reviewData:response});
-      //console.log(response)
-
     }); 
     
   }
 
-  // async componentDidMount() {
-  //   const response = await getProfile({"id" : this.state.customerID});
-  //   const json = await response.json();
-  //   this.setState({data:json});
-  // }
+  setID(){
+    console.log(this.state.customerID)
+    this.setState({customerID : LoginService.token})
+    console.log(this.state.customerID)
+  }
 
   
 
   render() {
 
-    console.log("this.state.got_reviewData");
-    console.log(this.state.got_reviewData);
+    //console.log("this.state.got_reviewData");
+    //console.log(this.state.got_reviewData);
     
     
     // const custProfile_component = this.state.custD.map((profile) => (
@@ -76,8 +77,10 @@ class CustomerProfilePage extends React.Component {
 
       if ( this.state.got_customerData == null || this.state.got_reviewData == null){
         console.log("loading data")
+        //this.setID() CANT PUT THIS HERE BECAUSE IT GETS CALLED TOO MUCH
         return(null)
       }
+      //ADD IN A CHECK THAT THE USER HAS BEEN LOGGED IN BY TESTING THE CUSTOMER ID      
       else if(this.state.got_customerData != null && this.state.got_reviewData != null){ 
 
         const custProfileReview_array = this.state.got_reviewData.data.map((review) => (

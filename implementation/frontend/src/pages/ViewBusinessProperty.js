@@ -3,8 +3,8 @@ import BusinessProperty from "../components/BusinessProperty";
 import businessData from "../components/businessDataTwo";
 import { getBusiness } from "../services/getBusiness";
 import { getReviews } from "../services/getReviews";
-import BusinessReviews from "../components/BusinessReviews";
 import "../pages/BusinessProperty.css";
+import PublicBusinessInformation from "../components/PublicBusinessInformation";
 
 class ViewBusinessProperty extends React.Component {
   constructor() {
@@ -39,7 +39,7 @@ class ViewBusinessProperty extends React.Component {
       ));
 
       const displayAllReviews = this.state.gettingReviewData.data.map((review) => (
-        <BusinessReviews key={review.review_id} B_reviewS={review} />
+        <PublicBusinessInformation key={review.business_id} publicBusinessInformation={review} />
       ));
 
       return(
@@ -47,14 +47,12 @@ class ViewBusinessProperty extends React.Component {
           <div>
             {businesses}
           </div>
-
           <div className="displayAllReviews">
             {displayAllReviews}
           </div>
         </div>
       );
     }
-    
   }
 }
 

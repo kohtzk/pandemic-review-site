@@ -8,11 +8,12 @@ const reviewData = [
         description2: "Hand sanitizer availability",
         description3: "Customer limits into a building enforced",
         description4: "Percentage of customers wearing masks",
-        description5: "COVID banners",
+        description5: "COVID bouncers",
         description6: "Temeperature check on customers",
         description7: "Staffs wearing PPE correctly",
         description8: "Social distancing enforced",
-        description9: "Good ventilation"
+        description9: "Good ventilation",
+        description10: "Overall rating",
     },
 ]
 

@@ -38,6 +38,10 @@ export default function ReviewLayout(props) {
         <h1>{props.review.description9}</h1>
         <button className = "addReviewButton">Yes</button>
         <button className = "addReviewButton">No</button>
+        <h1>{props.review.description10}</h1>
+        <div className="slidecontainer">
+          <input type="range" min="1" max="100" value="50" className="slider"/>
+        </div>
       </div>
       <div>
         <button className="reviewButton">Add written review</button>

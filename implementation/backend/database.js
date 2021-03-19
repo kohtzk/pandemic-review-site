@@ -11,8 +11,7 @@ function login_verification(id){
     const verify = db.prepare('SELECT password password FROM users WHERE user_id = ?').get(id)
     if(verify != undefined){
         return verify.password
-    }
-    else{return "Fail"}}
+    } else{return "Fail"}}
 
 function login(username, password) {
     var id = get_userid(username);
@@ -31,11 +30,11 @@ function user_details(id){
     } else {return "Fail"}}
 
 function business_details(id){ //Text details column
-    const details = db.prepare('SELECT business_name name, location loc, post_code code FROM businesses WHERE business_id = ?').get(id)
+    const details = db.prepare('SELECT business_name name, location loc, post_code code, email email, description desc FROM businesses WHERE business_id = ?').get(id)
     if(details != undefined){
-        const toSend = [details.name, details.loc, details.code]
-        return toSend }
-    else {return "Fail"}}
+        const toSend = [details.name, details.loc, details.code, details.email, details.desc]
+        return toSend
+    } else {return "Fail"}}
 
 function create_user(iname, i_user_name, iemail, ipassword){ //add to database
     const create = db.prepare('INSERT INTO users(name, user_name, email, password) VALUES(?, ?, ?, ?)')
@@ -57,8 +56,7 @@ function claim_ownership(bid, uid){
     try {
         const update_user = db.prepare('UPDATE users SET business_id = ? WHERE user_id = ?').run(bid, uid)
         //return bid
-    } catch (err) {return "Fail"}
-}
+    } catch (err) {return "Fail"}}
 
 function insert_business(iemail, ibusiness_name, ilocation, ipost_code, desc){
     const business_insert = db.prepare('INSERT INTO businesses(business_name, location, post_code, email, description) VALUES(?, ?, ?, ?, ?)')

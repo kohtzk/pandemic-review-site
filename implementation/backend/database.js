@@ -48,5 +48,18 @@ function delete_business(iemail){
         remove.run(id.business)
     } catch (err) {return "Fail"}}
 
-module.exports = {login_verification, user_details, business_details, create_user, insert_business, delete_business, delete_user};
+function add_review(iemail, ibusiness_name, body, scores){
+    const user = db.prepare('SELECT user_id id FROM users WHERE email = ?').get(iemail)
+    const business = db.prepare('SELECT business_id id FROM business WHERE name = ?').get(ibusiness_name)
+    const ins = db.prepare('INSERT INTO reviews(business_id, user_id, text, oneway, sanitizer, mask_usage, bouncers, temperature_checking, staff_ppe, social_distancing, ventilation) VALUES(?,?,?,?,?,?,?,?,?,?,?,?)')
+    try{ins.run(business.id, user.id, body, scores[0], scores[1], scores[2], scores[3], scores[4], scores[5], scores[6], scores[7])}
+    catch (err) {return "Fail"}
+}
+
+function get_reviews(ibusiness_name){
+    const business = db.prepare('SELECT business_id id FROM business WHERE name = ?').get(ibusiness_name)
+    const reviews = db.prepare('SELECT * FROM reviews WHERE business_id = ?').all(business.id)
+    return reviews
+}
+module.exports = {login_verification, user_details, business_details, create_user, insert_business, delete_business, delete_user, add_review, get_reviews};
 

@@ -69,10 +69,12 @@ function delete_business(id){
 
 function add_review(bid, uid, body, scores){
     const ins = db.prepare('INSERT INTO reviews(business_id, user_id, text, oneway, sanitizer, mask_usage, bouncers, temperature_checking, staff_ppe, social_distancing, ventilation) VALUES(?,?,?,?,?,?,?,?,?,?,?)')
+    const get_id = db.prepare('SELECT review_id rid FROM reviews WHERE rowid = ?')
     try{
-        ins.run(bid, uid, body, scores.oneway, scores.sanitizer, scores.mask_usage, scores.bouncers, 
+        const insert = ins.run(bid, uid, body, scores.oneway, scores.sanitizer, scores.mask_usage, scores.bouncers,
             scores.temperature_checking, scores.staff_ppe, scores.social_distancing, scores.ventilation);
-        //return body
+        const id = get_id.get(insert.lastInsertRowid)
+        return id
     } catch (err) {return "Fail"}}
 
 function get_business_reviews(id){ //User ID version

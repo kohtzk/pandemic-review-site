@@ -102,7 +102,7 @@ app.post('/addreview', function (req, res, next) {
 })
 
 app.get('/login', async function (req, res, next) {
-    console.log(database.get_user_reviews(6))
+    console.log(database.add_review(7))
 })
                  
 app.post('/profile', function (req, res, next) {

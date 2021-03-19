@@ -93,14 +93,17 @@ app.post("/testrequest", (req, res, next) => {
 // request: { "businessid" : businessid }
 // response: { "username" : username, "name" : name, "businessID" : businessid }                      
 app.post('/business', function (req, res, next) {
-    let username = req.body.username;
-    // get user information
+    // let username = req.body.username;
+    // get business information
     let profiledata = { 
-        "username" : "theTree",
-        "name": "Trevor Wood",
-        "businessID": "thetreecompany"
+        "businessID": 0,
+        "business_name" : "theTreeco",
+        "location": "90 West Avenue",
+        "postcode": "BA23QB",
+        "email": "thetree@tree.com",
+        "description": "this is a company description"
         };
-    res.send(JSON.stringify(profiledata));
+    res.json(profiledata);
 })
 
 app.post('/getreviews', function (req, res, next) {

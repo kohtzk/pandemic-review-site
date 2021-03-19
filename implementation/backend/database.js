@@ -14,6 +14,15 @@ function login_verification(id){
     }
     else{return "Fail"}}
 
+function login(username, password) {
+    var id = get_userid(username);
+    if (password == login_verification(id)) {
+        return id;
+    } else {
+        return "Fail";
+    }
+}
+
 function user_details(id){
     const details = db.prepare('SELECT name name, user_name un FROM users WHERE user_id = ?').get(id)
     if(details != undefined){
@@ -85,5 +94,5 @@ function get_user_reviews(id){
     const reviews = db.prepare('SELECT * FROM reviews WHERE user_id = ?').all(id)
     return reviews}
 
-module.exports = {get_userid, claim_ownership, login_verification, user_details, business_details, create_user, insert_business, delete_business, delete_user, add_review, get_business_reviews, get_user_reviews};
+module.exports = {get_userid, claim_ownership, login_verification, user_details, business_details, create_user, insert_business, delete_business, delete_user, add_review, get_business_reviews, get_user_reviews, login};
 

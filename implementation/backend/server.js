@@ -44,8 +44,33 @@ app.get('/login', async function (req, res, next) {
   console.log("Request to /login");
   console.log(req.body);
 
-  
-  
+  var username = req.body.username;
+  var password = req.body.password;
+
+  var id = database.login(username, password);
+
+  if (id == "Fail") {
+    var result = { "message": "failure" };
+  } else {
+    var result = { "message": "success",
+                    "data": { "user_id": id }};
+  }
+  res.json(result);
+})
+                 
+app.post('/profile', function (req, res, next) {
+    let user_id = req.body.user_id;
+    // get user information
+    // let profiledata = { 
+    //     "id": 1,
+    //     "username" : "theTree",
+    //     "name": "Trevor Wood",
+    //     "email" : "theTree@theTree.tree",
+    //     "businessID": "null"
+    //     };
+    // resdata = { "message": "success",
+    //             "data": profiledata}
+    res.json(resdata);
 })
 
 app.post('/newbusiness', function (req, res, next) {
@@ -101,21 +126,6 @@ app.post('/addreview', function (req, res, next) {
                  "data": { "review_id": id }};
   }
   res.json(result);
-})
-                 
-app.post('/profile', function (req, res, next) {
-    let username = req.body.username;
-    // get user information
-    let profiledata = { 
-        "id": 1,
-        "username" : "theTree",
-        "name": "Trevor Wood",
-        "email" : "theTree@theTree.tree",
-        "businessID": "null"
-        };
-    resdata = { "message": "success",
-                "data": profiledata}
-    res.json(resdata);
 })
                      
 // can use window.location.hostname to get the host

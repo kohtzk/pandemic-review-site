@@ -18,11 +18,20 @@ app.listen(3000);
 app.post('/newaccount', function (req, res, next) {
     console.log("Request to /newaccount");
     console.log(req.body);
-    // add new username and password is correct
-    let result = { "message": "success",
+
+    var details = req.body;
+    var id = database.create_user(details.name, details.username, details.email, password);
+    
+    // check if business id is not null, then connect the user to the business
+
+    if (id == "Fail") {
+      var result = { "message": "failure" };
+    } else {
+      var result = { "message": "success",
                    "data": {
-                     "user_id": 0 
-    }};
+                     "user_id": id 
+      }};
+    }
     res.json(result);
 })
 
@@ -47,8 +56,8 @@ app.post('/addreview', function (req, res, next) {
     res.send(JSON.stringify(result));
 })
 
-app.get('/login', async function (req, res, next) {
-    database.add_review(1, 1, "Shit", [1,2,2,2,2,2,2,3])
+app.post('/login', async function (req, res, next) {
+
 })
                  
 app.post('/profile', function (req, res, next) {

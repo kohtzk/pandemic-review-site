@@ -1,59 +1,52 @@
-const sqlite = require('sqlite3');
-var db = new sqlite.Database('./pandemicDatabase.db');
+const Database = require('better-sqlite3');
+var db = new Database('pandemicDatabase.db');
 
-
-function login_verification(iemail, ipassword){
-    db.all("SELECT Email db_email, Password db_password FROM Users WHERE Email  = ?", [iemail, ipassword], (err,rows) => {
-        if(err){throw err;}
-        rows.forEach((row) => {
-            var obj = {email:row.db_email, password:row.db_password}
-            JSON.stringify(obj)})})}
+function login_verification(iemail){
+    const verify = db.prepare('SELECT password password FROM users WHERE email = ?').get(iemail)
+    if(verify != undefined){return verify.password}
+    else{return "Fail"}}
 
 function user_details(iemail){
-    db.all("SELECT Email db_email, Name db_name FROM Users WHERE Email  = ?", [iemail], (err,rows) => {
-        if(err){throw err;}
-        rows.forEach((row) => {
-            var obj = {name:row.db_name}
-            JSON.stringify(obj)})})}
+    const details = db.prepare('SELECT name name FROM users WHERE email = ?').get(iemail)
+    if(details != undefined){return details.name}
+    else {return "Fail"}}
 
 function business_details(iemail){
-    db.all("SELECT email emailS, business_name business_name, location loc, post_code post_code FROM businesses WHERE email  = ?", [iemail], (err,rows) => {
-        if(err){throw err;}
-        rows.forEach((row) => {
-            var obj = {"name":row.business_name, "location":row.loc, "post_code":row.post_code}
-            JSON.stringify(obj)})})}
+    const details = db.prepare('SELECT business_name name, location loc, post_code code FROM businesses WHERE email = ?').get(iemail)
+    if(details != undefined){
+        const toSend = [details.name, details.loc, details.code]
+        return toSend }
+    else {return "Fail"}}
 
 function create_user(iname, iemail, ipassword){
-    db.run("INSERT INTO users(name, email, password) VALUES(?, ?, ?)", [iname,iemail,ipassword], (err) => {
-        if (err) {throw err;}
-        //Return Acceptance
-    })}
-
-function insert_business(iemail, ibusiness_name, ilocation, ipost_code){
-    db.run("INSERT INTO businesses(business_name, location, post_code, email) VALUES(?, ?, ?, ?)", [ibusiness_name, ilocation, ipost_code, iemail], (err) => {
-        if (err) {throw err}
-        db.all("SELECT email emailS, businessID business_id FROM businesses WHERE email  = ?", [iemail], (err,rows) => {
-            if(err){throw err;}
-            id = rows[0].business_id
-            db.run("UPDATE users SET business_id = ? WHERE email = ?", [id, iemail], (err) => {
-              if(err) {throw err}
-            })})})}
-
-function delete_business(iemail){
-    db.all("SELECT email emailS, business_id business_id FROM businesses WHERE email  = ?", [iemail], (err,rows) => {
-        if(err) {throw err}
-        bid = rows[0].business_id
-        db.run("Update users SET business_id = NULL WHERE business_id = ?", [bid], (err) => {
-            if (err) {throw err}
-            db.run("DELETE from businesses WHERE business_id = ?", [bid], (err) => {
-                if(err) {throw err}
-            })})})}
+    const create = db.prepare('INSERT INTO users(name, email, password) VALUES(?, ?, ?)')
+    try {create.run(iname, iemail, ipassword)}
+    catch (err) {return "Fail"}}
 
 function delete_user(iemail){
-    db.run("DELETE from users WHERE email = ?", [iemail], (err) => {
-        if (err) {throw err}
-    })
-}
+    const del_user = db.prepare('DELETE from users WHERE email = ?')
+    try {del_user.run(iemail)}
+    catch (err) {return "Fail"}}
+
+function insert_business(iemail, ibusiness_name, ilocation, ipost_code){
+    const business_insert = db.prepare('INSERT INTO businesses(business_name, location, post_code, email) VALUES(?, ?, ?, ?)')
+    const get_id = db.prepare('SELECT business_id business FROM businesses WHERE email  = ?')
+    const update_user = db.prepare('UPDATE users SET business_id = ? WHERE email = ?')
+    try{
+        business_insert.run(ibusiness_name, ilocation, ipost_code, iemail)
+        const id = get_id.get(iemail)
+        update_user.run(id.business, iemail)
+    } catch (err) {return "Fail"}}
+
+function delete_business(iemail){
+    const select = db.prepare('SELECT business_id business FROM businesses WHERE email  = ?')
+    const update = db.prepare('Update users SET business_id = NULL WHERE business_id = ?')
+    const remove = db.prepare('DELETE from businesses WHERE business_id = ?')
+    try{
+        const id = select.get(iemail)
+        update.run(id.business)
+        remove.run(id.business)
+    } catch (err) {return "Fail"}}
 
 module.exports = {login_verification, user_details, business_details, create_user, insert_business, delete_business, delete_user};
 

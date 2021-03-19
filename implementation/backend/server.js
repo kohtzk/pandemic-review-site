@@ -15,13 +15,6 @@ app.use(express.urlencoded({ extended: true }));
 //listen for requests, uses localhost by default
 app.listen(3000);
 
-const sqlite = require('sqlite3');
-var db = new sqlite.Database('./pandemicDatabase.db');
-
-function testfunction() {
-
-}
-
 app.post('/newaccount', function (req, res, next) {
     console.log("Request to /newaccount");
     console.log(req.body);
@@ -55,9 +48,7 @@ app.post('/addreview', function (req, res, next) {
 })
 
 app.post('/login', async function (req, res, next) {
-    await database.login_verification("Ha.lon", "Test")
-    console.log(req.body);
-    res.json({"message":"success"});
+
 })
                  
 app.post('/profile', function (req, res, next) {

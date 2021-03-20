@@ -60,9 +60,11 @@ function claim_ownership(bid, uid){
 
 function insert_business(iemail, ibusiness_name, ilocation, ipost_code, desc){
     const business_insert = db.prepare('INSERT INTO businesses(business_name, location, post_code, email, description) VALUES(?, ?, ?, ?, ?)')
+    const get_id = db.prepare('SELECT business_id bid FROM businesses WHERE rowid = ?')
     try{
         business_insert.run(ibusiness_name, ilocation, ipost_code, iemail, desc)
-        //return id
+        const id = get_id.get(business_insert.lastInsertRowid)
+        return id
     } catch (err) {return "Fail"}}
 
 function delete_business(id){

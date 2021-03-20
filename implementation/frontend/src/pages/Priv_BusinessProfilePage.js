@@ -28,27 +28,37 @@ class Priv_BusinessProfilePage extends React.Component {
   }
 
   async componentDidMount() {
-    //console.log("In componentDidMount business")
+    console.log("In componentDidMount business")
     this.setID()
     await getBusiness({"id" : this.state.businessID})
     .then((response) => {
-      this.setState({got_businessData:response});
-      //console.log(response)
+      console.log("response: ",response)
+      if (response.message !== 'success') {
+        alert("business profile data read failed");
+      }
+      else if (response.message === 'success'){
+        this.setState({got_businessData:response});
+      }     
 
     }); 
 
     await getReviews({"user_id" : null, "business_id": this.state.businessID})
     .then((response) => {
-      this.setState({got_reviewData:response});
-      //console.log(response)
+      if (response.message !== 'success') {
+        alert("business review data read failed");
+      }
+      else if (response.message === 'success'){
+        this.setState({got_reviewData:response});
+      }     
+
     }); 
 
   }
 
   setID(){
-    console.log(this.state.customerID)
-    this.setState({customerID : LoginService.token})
-    console.log(this.state.customerID)
+    console.log("businessID BEFORE: ",this.state.businessID)
+    this.setState({businessID : LoginService.token})
+    console.log("businessID AFTER: ",this.state.businessID)
   }
 
 

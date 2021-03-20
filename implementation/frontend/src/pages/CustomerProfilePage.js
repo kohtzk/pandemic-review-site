@@ -30,25 +30,38 @@ class CustomerProfilePage extends React.Component {
   async componentDidMount() {
     //console.log("In componentDidMount")
     this.setID() //CALLED IN THE IF STATEMENT IN RENDER()
-    console.log("LoginService")
-    console.log(this.state.customerID)
+    console.log("LoginService", this.state.customerID)
     await getProfile({"id" : this.state.customerID})
     .then((response) => {
-      this.setState({got_customerData:response});
+
+      if (response.message !== 'success') {
+        alert("customer profile data read failed");
+      }
+      else if (response.message === 'success'){
+        //console.log(response);
+        this.setState({got_customerData:response});
+      }     
 
     }); 
     
     await getReviews({"user_id" : this.state.customerID, "business_id": null})
     .then((response) => {
-      this.setState({got_reviewData:response});
+      if (response.message !== 'success') {
+        alert("customer review data read failed");
+      }
+      else if (response.message === 'success'){
+
+        this.setState({got_reviewData:response});
+      }   
+      
     }); 
     
   }
 
   setID(){
-    console.log(this.state.customerID)
+    console.log("customerID BEFORE: ",this.state.customerID)
     this.setState({customerID : LoginService.token})
-    console.log(this.state.customerID)
+    console.log("customerID AFTER: ",this.state.customerID)
   }
 
   

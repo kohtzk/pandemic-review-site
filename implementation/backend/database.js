@@ -98,8 +98,7 @@ function search(query){
     let data = like.all(format)
     if(data.length != 0){
         return data
-    } else {return "Fail"}
-}
+    } else {return "Fail"}}
 
 module.exports = {search, get_userid, claim_ownership, login_verification, user_details, business_details, create_user, insert_business, delete_business, delete_user, add_review, get_business_reviews, get_user_reviews, login};
 

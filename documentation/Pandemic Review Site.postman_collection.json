@@ -1,0 +1,285 @@
+{
+	"info": {
+		"_postman_id": "b7650f9b-0d0f-4c5c-86a6-8f0082d521e8",
+		"name": "Pandemic Review Site",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "newaccount",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"name\",\r\n    \"username\": \"username\",\r\n    \"email\": \"email\",\r\n    \"password\": \"password\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/newaccount",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"newaccount"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\": \"username\",\r\n    \"password\": \"password\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/login",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "linkbusiness",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"user_id\":9\r\n    \"business_id\":1\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/linkbusiness",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"linkbusiness"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getreviews",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"user_id\":9\r\n    \"business_id\":1\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/linkbusiness",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"linkbusiness"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "profile",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"user_id\":9\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/profile",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"profile"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "addreview",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"business_id\": 5,\r\n    \"user_id\": 9,\r\n    \"text\": \"text\",\r\n    \"scores\": {\r\n        \"oneway\": 0,\r\n        \"sanitizer\": 0,\r\n        \"mask_usage\": 0,\r\n        \"bouncers\": 0,\r\n        \"temperature_checking\": 0,\r\n        \"staff_ppe\": 0,\r\n        \"social_distancing\": 0,\r\n        \"ventilation\": 0\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/addreview",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"addreview"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "newbusiness",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"name\",\r\n    \"email\": \"emaillll\",\r\n    \"address\": \"address\",\r\n    \"postcode\": \"postcode\",\r\n    \"description\": \"description\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/newbusiness",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"newbusiness"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "business profile",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"business_id\": 5\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/businessprofile",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"businessprofile"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "averagereview",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"business_id\": 5\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/averagereview",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"averagereview"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "namesearch",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"business_id\": 5\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/businessprofile",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"businessprofile"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"variable": [
+		{
+			"key": "/",
+			"value": "localhost:3000/"
+		}
+	]
+}

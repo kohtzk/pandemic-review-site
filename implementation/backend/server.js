@@ -1,7 +1,10 @@
+// import { Loader } from '@googlemaps/js-api-loader';
 const express = require('express');
 const database = require('./database');
 const cors = require('cors')
+
 //express app
+
 const app = express();
 
 app.use(cors());
@@ -18,276 +21,258 @@ app.listen(3000);
 app.post('/newaccount', function (req, res, next) {
     console.log("Request to /newaccount");
     console.log(req.body);
-    // add new username and password is correct
-    let result = { "message": "success",
-                   "data": {
-                     "user_id": 0 
-    }};
+
+    var details = req.body;
+    var name = details.name;
+    var username = details.username;
+    var email = details.email;
+    var password = details.password;
+
+    // check if user exists
+
+    var id = database.create_user(name, username, email, password);
+    
+    // check if business id is not null, then connect the user to the business
+
+    if (id == "Fail") {
+      var result = { "message": "failure" };
+    } else {
+      var result = { "message": "success",
+                      "data": { "user_id": id }};
+    }
     res.json(result);
+})
+
+app.post('/login', function (req, res, next) {
+  console.log("Request to /login");
+  console.log(req.body);
+
+  var username = req.body.username;
+  var password = req.body.password;
+
+  var id = database.login(username, password);
+
+  if (id == "Fail") {
+    var result = { "message": "failure" };
+  } else {
+    var result = { "message": "success",
+                    "data": { "user_id": id }};
+  }
+  res.json(result);
+})
+                 
+app.post('/profile', function (req, res, next) {
+  console.log("Request to /profile");
+  console.log(req.body);
+
+  var user_id = req.body.user_id;
+  var details = database.user_details(user_id);
+  
+  if (details == "Fail") {
+    var result = { "message": "failure" };
+  } else {
+    var profile = { 
+      "name": details[0],
+      "username": details[1],
+      "email": details[2],
+      "business_id": details[3]
+     }
+     var result = { "message": "success",
+                    "data": profile };
+  }
+  res.json(result);
+})
+
+app.post('/linkbusiness', function (req, res, next) {
+  console.log("Request to /linkbusiness");
+  console.log(req.body);
+  
+  var user_id = req.body.user_id;
+  var business_id = req.body.business_id;
+
+  var error = database.claim_ownership(business_id, user_id);
+
+  if (error == "Fail") {
+    var result = { "message": "failure" };
+  } else { 
+    var result = { "message": "success" };
+  }
+  res.json(result);
 })
 
 app.post('/newbusiness', function (req, res, next) {
   console.log("Request to /newbusiness");
-    console.log(req.body);
-    // put data in database
-    let result = { "message": "success",
-                   "data": {
-                     "business_id": 0 
-    }};
-    res.json(result);
-})
+  console.log(req.body);
 
-// request: { "user" : userid, "business" : businessid, "oneway" : rating, "sanitizer" : rating, "personlimit" : rating, 
-//            "masks" : rating, "bouncers" : rating, "tempcheck" : rating, "staffppe" : rating }
-// response: { "result" : "success" OR "failed" }
-app.post('/addreview', function (req, res, next) {
-    let review = req.body;
-    // put data in database
-    let result = { "result": "success" };
-    res.send(JSON.stringify(result));
-})
+  var name = req.body.name;
+  var email = req.body.email;
+  var address = req.body.address;
+  var postcode = req.body.postcode;
+  var description = req.body.description;
 
-app.post('/login', async function (req, res, next) {
+  // check if business exists
+  
+  var id = database.insert_business(email, name, address, postcode, description);
 
-})
-                 
-app.post('/profile', function (req, res, next) {
-    let username = req.body.username;
-    // get user information
-    let profiledata = { 
-        "id": 1,
-        "username" : "theTree",
-        "name": "Trevor Wood",
-        "email" : "theTree@theTree.tree",
-        "businessID": "null"
-        };
-    resdata = { "message": "success",
-                "data": profiledata}
-    res.json(resdata);
+  // check if user_id exists, and if it does tie the user to the business
+  
+  if (id == "Fail") {
+    var result = { "message": "failure" };
+  } else {
+    var result = { "message": "success",
+                   "data": { "business_id": id }};
+  }
+  res.json(result);
 })
                      
-// can use window.location.hostname to get the host
+app.post('/businessprofile', function (req, res, next) {
+  console.log("Request to /businessprofile");
+  console.log(req.body);
 
-app.post("/testrequest", (req, res, next) => {
-    console.log("got a request");
-    console.log(req.body);
-    // res.send(JSON.stringify(req));
-    var sql = "select * from Users"
-    var params = []
-    db.all(sql, params, (err, rows) => {
-        if (err) {
-          res.status(400).json({"error":err.message});
-          return;
-        }
-        res.json({
-            "message":"success",
-            "data":rows
-        });
-        // res.send(JSON.stringify({
-        //     "message":"success",
-        //     "data":rows
-        // }));
-      });
-});
+  var business_id = req.body.business_id;
+  var details = database.business_details(business_id);
+  
+  if (details == "Fail") {
+    var result = { "message": "failure" };
+  } else {
+    var profile = { 
+      "name": details[0],
+      "address": details[1],
+      "postcode": details[2],
+      "email": details[3],
+      "description": details[4]
+     }
+     var result = { "message": "success",
+                    "data": profile };
+  }
+  res.json(result);
+})
 
-// request: { "businessid" : businessid }
-// response: { "username" : username, "name" : name, "businessID" : businessid }                      
-app.post('/business', function (req, res, next) {
-    // let username = req.body.username;
-    // get business information
-    let profiledata = { 
-        "businessID": 0,
-        "business_name" : "theTreeco",
-        "location": "90 West Avenue",
-        "postcode": "BA23QB",
-        "email": "thetree@tree.com",
-        "description": "this is a company description"
-        };
-    res.json(profiledata);
+app.post('/addreview', function (req, res, next) {
+  console.log("Request to /addreview");
+  console.log(req.body);
+
+  var business_id = req.body.business_id;
+  var user_id = req.body.user_id;
+  var text = req.body.text;
+  var scores = req.body.scores;
+  // var scores = {
+  //   "oneway": 0,
+  //   "sanitizer": 0,
+  //   "mask_usage": 0,
+  //   "bouncers": 0,
+  //   "temperature_checking": 0,
+  //   "staff_ppe": 0,
+  //   "social_distancing": 0,
+  //   "ventilation": 0
+  // }
+
+  var id = database.add_review(business_id, user_id, text, scores);
+
+  if (id == "Fail") {
+    var result = { "message": "failure" };
+  } else {
+    var result = { "message": "success",
+                 "data": { "review_id": id }};
+  }
+  res.json(result);
 })
 
 app.post('/getreviews', function (req, res, next) {
-  console.log("Request to /newaccount");
+  console.log("Request to /getreviews");
   console.log(req.body);
-  // get data from database
-  let reviews = { 
-    "message":"success",
-    "data": [{
-      "review_id": 0,
-      "business_id": 0,
-      "user_id": 0,
-      "date": "21/01/2001",
-      "text": "this is a review",
-      "oneway": 0,
-      "sanitizer": 0,
-      "mask_usage": 0,
-      "bouncers": 0,
-      "temperature_checking": 0,
-      "staff_ppe": 0,
-      "social_distancing": 0,
-      "ventilation": 0
-    }, {
-      "review_id": 1,
-      "business_id": 4,
-      "user_id": 0,
-      "date": "21/01/2001",
-      "text": "this is another review",
-      "oneway": 0,
-      "sanitizer": 0,
-      "mask_usage": 0,
-      "bouncers": 0,
-      "temperature_checking": 0,
-      "staff_ppe": 0,
-      "social_distancing": 0,
-      "ventilation": 0
-    }, {
-      "review_id": 2,
-      "business_id": 8,
-      "user_id": 0,
-      "date": "21/01/2001",
-      "text": "review review review, this is a review",
-      "oneway": 0,
-      "sanitizer": 0,
-      "mask_usage": 0,
-      "bouncers": 0,
-      "temperature_checking": 0,
-      "staff_ppe": 0,
-      "social_distancing": 0,
-      "ventilation": 0
-    }
-  ] };
-  res.json(reviews);
+  
+  var user_id = req.body.user_id;
+  var business_id = req.body.business_id;
+
+  if (user_id != null) {
+    var reviews = database.get_user_reviews(user_id);
+  } else if (business_id != null) {
+    var reviews = database.get_business_reviews(business_id);
+  } else {
+    var reviews = "Fail";
+  }
+
+  if (reviews == "Fail") {
+    var result = { "message": "failure" };
+  } else {
+    var result = { "message": "success",
+                 "data": reviews};
+  }
+  res.json(result);
 })
 
-// app.get('/', (req, res) => {
-//     res.sendFile('/frontend/build/index.html', { root: __dirname + "/.."});
-// });
-
-app.get('/test', (req, res) => {
-    res.sendFile('test.html', { root: __dirname });
-});
-
-// app.get('/login', (req, res) => {
-//     res.sendFile('frontend/login.html', { root: __dirname });
-// });
-
-// 404 page
-// app.use((req, res) => {
-//     res.status(404).sendFile('frontend/404.html', { root: __dirname });
-// });
-
-app.get('/businesses', (req, res, next) => {
-    const businesses = [
-      {
-        name: "The Whole Bagel",
-        location: "Upper Borough Walls",
-        rating: "5",
-        type: "food",
-      },
-      {
-        name: "Lush",
-        location: "Union St.",
-        rating: "5",
-        type: "cosmetics",
-      },
-      {
-        name: "The Whole Bagel",
-        location: "Upper Borough Walls",
-        rating: "5",
-        type: "food",
-      },
-      {
-        name: "Lush",
-        location: "Union St.",
-        rating: "5",
-        type: "cosmetics",
-      },
-      {
-        name: "The Whole Bagel",
-        location: "Upper Borough Walls",
-        rating: "5",
-        type: "food",
-      },
-      {
-        name: "Lush",
-        location: "Union St.",
-        rating: "5",
-        type: "cosmetics",
-      },
-      {
-        name: "The Whole Bagel",
-        location: "Upper Borough Walls",
-        rating: "5",
-        type: "food",
-      },
-      {
-        name: "Lush",
-        location: "Union St.",
-        rating: "5",
-        type: "cosmetics",
-      },
-      {
-        name: "The Whole Bagel",
-        location: "Upper Borough Walls",
-        rating: "5",
-        type: "food",
-      },
-      {
-        name: "Lush",
-        location: "Union St.",
-        rating: "5",
-        type: "cosmetics",
-      },
-      {
-        name: "The Whole Bagel",
-        location: "Upper Borough Walls",
-        rating: "5",
-        type: "food",
-      },
-      {
-        name: "Lush",
-        location: "Union St.",
-        rating: "5",
-        type: "cosmetics",
-      },
-      {
-        name: "The Whole Bagel",
-        location: "Upper Borough Walls",
-        rating: "5",
-        type: "food",
-      },
-      {
-        name: "Lush",
-        location: "Union St.",
-        rating: "5",
-        type: "cosmetics",
-      },
-      {
-        name: "The Whole Bagel",
-        location: "Upper Borough Walls",
-        rating: "5",
-        type: "food",
-      },
-      {
-        name: "Lush",
-        location: "Union St.",
-        rating: "5",
-        type: "cosmetics",
-      },
-      {
-        name: "The Whole Bagel",
-        location: "Upper Borough Walls",
-        rating: "5",
-        type: "food",
-      },
-      {
-        name: "Lush",
-        location: "Union St.",
-        rating: "5",
-        type: "cosmetics",
-      }
-    ];
-  
-    res.send(JSON.stringify(businesses));
+// not currently used
+app.post('/businesses', function (req, res, next) {
+    res.json(database.all_businesses());
   })
+// console.log(database.all_businesses());
+
+// var service = new google.maps.DistanceMatrixService();
+
+app.post('/namesearch', function (req, res, next) {
+  console.log("Request to /namesearch");
+  console.log(req.body);
   
+  var query = req.body.query;
+  var searchresult = database.search(query);
+  var businesses = [];
+  for (i = 0; i < searchresult.length; i++) {
+    let b = searchresult[i];
+    businesses.push({   
+      "business_id": b.business_id,
+      "name": b.business_name,
+      "email": b.email,
+      "address": b.location,
+      "postcode": b.post_code,
+      "description": b.description
+    });
+  }
+
+  var result = { "message": "success",
+                 "data": businesses};
+  res.json(result);
+})
+
+app.post('/averagereview', function (req, res, next) {
+  console.log("Request to /averagereview");
+  console.log(req.body);
+  
+  var business_id = req.body.business_id;
+  var reviewsum = { 
+    "oneway": 0,
+    "sanitizer": 0,
+    "mask_usage": 0,
+    "bouncers": 0,
+    "temperature_checking": 0,
+    "staff_ppe": 0,
+    "social_distancing": 0,
+    "ventilation": 0
+  }
+
+  var reviews = database.get_business_reviews(business_id);
+
+  for (i = 0; i < reviews.length; i++) {
+    reviewsum.oneway += reviews[i].oneway;
+    reviewsum.sanitizer += reviews[i].sanitizer;
+    reviewsum.mask_usage += reviews[i].mask_usage;
+    reviewsum.bouncers += reviews[i].bouncers;
+    reviewsum.temperature_checking += reviews[i].temperature_checking;
+    reviewsum.staff_ppe += reviews[i].staff_ppe;
+    reviewsum.social_distancing += reviews[i].social_distancing;
+    reviewsum.ventilation += reviews[i].ventilation;
+  }
+
+  reviewsum.oneway /= reviews.length;
+  reviewsum.sanitizer /= reviews.length;
+  reviewsum.mask_usage /= reviews.length;
+  reviewsum.bouncers /= reviews.length;
+  reviewsum.temperature_checking /= reviews.length;
+  reviewsum.staff_ppe /= reviews.length;
+  reviewsum.social_distancing /= reviews.length;
+  reviewsum.ventilation /= reviews.length;
+
+  var result = { "message": "success",
+                 "data": reviewsum};
+  res.json(result);
+})

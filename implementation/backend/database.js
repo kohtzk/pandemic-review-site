@@ -66,10 +66,11 @@ function insert_business(iemail, ibusiness_name, ilocation, ipost_code, desc){
     const business_insert = db.prepare('INSERT INTO businesses(business_name, location, post_code, email, description) VALUES(?, ?, ?, ?, ?)')
     const get_id = db.prepare('SELECT business_id bid FROM businesses WHERE rowid = ?')
     try{
-        business_insert.run(ibusiness_name, ilocation, ipost_code, iemail, desc)
-        const id = get_id.get(business_insert.lastInsertRowid)
-        return id
-    } catch (err) {return "Fail"}}
+        const insert = business_insert.run(ibusiness_name, ilocation, ipost_code, iemail, desc)
+        const id = get_id.get(insert.lastInsertRowid)
+        return id.bid
+    } catch (err) { throw err;
+        return "Fail"}}
 
 function delete_business(id){
     const update = db.prepare('Update users SET business_id = NULL WHERE business_id = ?')
@@ -87,7 +88,7 @@ function add_review(bid, uid, body, scores){
         const insert = ins.run(bid, uid, body, scores.oneway, scores.sanitizer, scores.mask_usage, scores.bouncers,
             scores.temperature_checking, scores.staff_ppe, scores.social_distancing, scores.ventilation);
         const id = get_id.get(insert.lastInsertRowid)
-        return id
+        return id.rid
     } catch (err) {return "Fail"}}
 
 function get_business_reviews(id){ //User ID version
@@ -98,17 +99,14 @@ function get_user_reviews(id){
     const reviews = db.prepare('SELECT * FROM reviews WHERE user_id = ?').all(id)
     return reviews}
 
-<<<<<<< Updated upstream
 function search(query){
-    const like = db.prepare('SELECT business_name name, business_id id FROM businesses WHERE business_name LIKE ?')
+    const like = db.prepare('SELECT * FROM businesses WHERE business_name LIKE ?')
     let format = '%' + query + '%'
     let data = like.all(format)
-    if(data.length != 0){
-        return data
-    } else {return "Fail"}}
+    return data}
+    // if(data.length != 0){
+    //     return data
+    // } else {return "Fail"}}
 
 module.exports = {search, get_userid, claim_ownership, login_verification, user_details, business_details, create_user, insert_business, delete_business, delete_user, add_review, get_business_reviews, get_user_reviews, login};
-=======
-module.exports = {get_userid, claim_ownership, login_verification, user_details, business_details, create_user, insert_business, delete_business, delete_user, add_review, get_business_reviews, get_user_reviews, login, all_businesses};
->>>>>>> Stashed changes
 

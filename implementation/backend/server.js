@@ -202,121 +202,77 @@ app.post('/getreviews', function (req, res, next) {
   res.json(result);
 })
 
-app.get('/businesses', (req, res, next) => {
+// not currently used
+app.post('/businesses', function (req, res, next) {
     res.json(database.all_businesses());
   })
 // console.log(database.all_businesses());
 
 // var service = new google.maps.DistanceMatrixService();
 
+app.post('/namesearch', function (req, res, next) {
+  console.log("Request to /namesearch");
+  console.log(req.body);
+  
+  var query = req.body.query;
+  var searchresult = database.search(query);
+  var businesses = [];
+  for (i = 0; i < searchresult.length; i++) {
+    let b = searchresult[i];
+    businesses.push({   
+      "business_id": b.business_id,
+      "name": b.business_name,
+      "email": b.email,
+      "address": b.location,
+      "postcode": b.post_code,
+      "description": b.description
+    });
+  }
 
-  // const businesses = [
-  //   {
-  //     name: "The Whole Bagel",
-  //     location: "Upper Borough Walls",
-  //     rating: "5",
-  //     type: "food",
-  //   },
-  //   {
-  //     name: "Lush",
-  //     location: "Union St.",
-  //     rating: "5",
-  //     type: "cosmetics",
-  //   },
-  //   {
-  //     name: "The Whole Bagel",
-  //     location: "Upper Borough Walls",
-  //     rating: "5",
-  //     type: "food",
-  //   },
-  //   {
-  //     name: "Lush",
-  //     location: "Union St.",
-  //     rating: "5",
-  //     type: "cosmetics",
-  //   },
-  //   {
-  //     name: "The Whole Bagel",
-  //     location: "Upper Borough Walls",
-  //     rating: "5",
-  //     type: "food",
-  //   },
-  //   {
-  //     name: "Lush",
-  //     location: "Union St.",
-  //     rating: "5",
-  //     type: "cosmetics",
-  //   },
-  //   {
-  //     name: "The Whole Bagel",
-  //     location: "Upper Borough Walls",
-  //     rating: "5",
-  //     type: "food",
-  //   },
-  //   {
-  //     name: "Lush",
-  //     location: "Union St.",
-  //     rating: "5",
-  //     type: "cosmetics",
-  //   },
-  //   {
-  //     name: "The Whole Bagel",
-  //     location: "Upper Borough Walls",
-  //     rating: "5",
-  //     type: "food",
-  //   },
-  //   {
-  //     name: "Lush",
-  //     location: "Union St.",
-  //     rating: "5",
-  //     type: "cosmetics",
-  //   },
-  //   {
-  //     name: "The Whole Bagel",
-  //     location: "Upper Borough Walls",
-  //     rating: "5",
-  //     type: "food",
-  //   },
-  //   {
-  //     name: "Lush",
-  //     location: "Union St.",
-  //     rating: "5",
-  //     type: "cosmetics",
-  //   },
-  //   {
-  //     name: "The Whole Bagel",
-  //     location: "Upper Borough Walls",
-  //     rating: "5",
-  //     type: "food",
-  //   },
-  //   {
-  //     name: "Lush",
-  //     location: "Union St.",
-  //     rating: "5",
-  //     type: "cosmetics",
-  //   },
-  //   {
-  //     name: "The Whole Bagel",
-  //     location: "Upper Borough Walls",
-  //     rating: "5",
-  //     type: "food",
-  //   },
-  //   {
-  //     name: "Lush",
-  //     location: "Union St.",
-  //     rating: "5",
-  //     type: "cosmetics",
-  //   },
-  //   {
-  //     name: "The Whole Bagel",
-  //     location: "Upper Borough Walls",
-  //     rating: "5",
-  //     type: "food",
-  //   },
-  //   {
-  //     name: "Lush",
-  //     location: "Union St.",
-  //     rating: "5",
-  //     type: "cosmetics",
-  //   }
-  // ];
+  var result = { "message": "success",
+                 "data": businesses};
+  res.json(result);
+})
+
+app.post('/averagereview', function (req, res, next) {
+  console.log("Request to /averagereview");
+  console.log(req.body);
+  
+  var business_id = req.body.business_id;
+  var reviewsum = { 
+    "oneway": 0,
+    "sanitizer": 0,
+    "mask_usage": 0,
+    "bouncers": 0,
+    "temperature_checking": 0,
+    "staff_ppe": 0,
+    "social_distancing": 0,
+    "ventilation": 0
+  }
+
+  var reviews = database.get_business_reviews(business_id);
+
+  for (i = 0; i < reviews.length; i++) {
+    reviewsum.oneway += reviews[i].oneway;
+    reviewsum.sanitizer += reviews[i].sanitizer;
+    reviewsum.mask_usage += reviews[i].mask_usage;
+    reviewsum.bouncers += reviews[i].bouncers;
+    reviewsum.temperature_checking += reviews[i].temperature_checking;
+    reviewsum.staff_ppe += reviews[i].staff_ppe;
+    reviewsum.social_distancing += reviews[i].social_distancing;
+    reviewsum.ventilation += reviews[i].ventilation;
+  }
+
+  reviewsum.oneway /= reviews.length;
+  reviewsum.sanitizer /= reviews.length;
+  reviewsum.mask_usage /= reviews.length;
+  reviewsum.bouncers /= reviews.length;
+  reviewsum.temperature_checking /= reviews.length;
+  reviewsum.staff_ppe /= reviews.length;
+  reviewsum.social_distancing /= reviews.length;
+  reviewsum.ventilation /= reviews.length;
+
+  var result = { "message": "success",
+                 "data": reviewsum};
+  res.json(result);
+})

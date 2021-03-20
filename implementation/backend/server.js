@@ -1,7 +1,10 @@
+// import { Loader } from '@googlemaps/js-api-loader';
 const express = require('express');
 const database = require('./database');
 const cors = require('cors')
+
 //express app
+
 const app = express();
 
 app.use(cors());
@@ -40,7 +43,7 @@ app.post('/newaccount', function (req, res, next) {
     res.json(result);
 })
 
-app.get('/login', async function (req, res, next) {
+app.post('/login', function (req, res, next) {
   console.log("Request to /login");
   console.log(req.body);
 
@@ -59,18 +62,42 @@ app.get('/login', async function (req, res, next) {
 })
                  
 app.post('/profile', function (req, res, next) {
-    let user_id = req.body.user_id;
-    // get user information
-    // let profiledata = { 
-    //     "id": 1,
-    //     "username" : "theTree",
-    //     "name": "Trevor Wood",
-    //     "email" : "theTree@theTree.tree",
-    //     "businessID": "null"
-    //     };
-    // resdata = { "message": "success",
-    //             "data": profiledata}
-    res.json(resdata);
+  console.log("Request to /profile");
+  console.log(req.body);
+
+  var user_id = req.body.user_id;
+  var details = database.user_details(user_id);
+  
+  if (details == "Fail") {
+    var result = { "message": "failure" };
+  } else {
+    var profile = { 
+      "name": details[0],
+      "username": details[1],
+      "email": details[2],
+      "business_id": details[3]
+     }
+     var result = { "message": "success",
+                    "data": profile };
+  }
+  res.json(result);
+})
+
+app.post('/linkbusiness', function (req, res, next) {
+  console.log("Request to /linkbusiness");
+  console.log(req.body);
+  
+  var user_id = req.body.user_id;
+  var business_id = req.body.business_id;
+
+  var error = database.claim_ownership(business_id, user_id);
+
+  if (error == "Fail") {
+    var result = { "message": "failure" };
+  } else { 
+    var result = { "message": "success" };
+  }
+  res.json(result);
 })
 
 app.post('/newbusiness', function (req, res, next) {
@@ -94,6 +121,29 @@ app.post('/newbusiness', function (req, res, next) {
   } else {
     var result = { "message": "success",
                    "data": { "business_id": id }};
+  }
+  res.json(result);
+})
+                     
+app.post('/businessprofile', function (req, res, next) {
+  console.log("Request to /businessprofile");
+  console.log(req.body);
+
+  var business_id = req.body.business_id;
+  var details = database.business_details(business_id);
+  
+  if (details == "Fail") {
+    var result = { "message": "failure" };
+  } else {
+    var profile = { 
+      "name": details[0],
+      "address": details[1],
+      "postcode": details[2],
+      "email": details[3],
+      "description": details[4]
+     }
+     var result = { "message": "success",
+                    "data": profile };
   }
   res.json(result);
 })
@@ -127,229 +177,146 @@ app.post('/addreview', function (req, res, next) {
   }
   res.json(result);
 })
-                     
-// can use window.location.hostname to get the host
-
-app.post("/testrequest", (req, res, next) => {
-    console.log("got a request");
-    console.log(req.body);
-    // res.send(JSON.stringify(req));
-    var sql = "select * from Users"
-    var params = []
-    db.all(sql, params, (err, rows) => {
-        if (err) {
-          res.status(400).json({"error":err.message});
-          return;
-        }
-        res.json({
-            "message":"success",
-            "data":rows
-        });
-        // res.send(JSON.stringify({
-        //     "message":"success",
-        //     "data":rows
-        // }));
-      });
-});
-
-// request: { "businessid" : businessid }
-// response: { "username" : username, "name" : name, "businessID" : businessid }                      
-app.post('/business', function (req, res, next) {
-    // let username = req.body.username;
-    // get business information
-    let profiledata = { 
-        "businessID": 0,
-        "business_name" : "theTreeco",
-        "location": "90 West Avenue",
-        "postcode": "BA23QB",
-        "email": "thetree@tree.com",
-        "description": "this is a company description"
-        };
-    res.json(profiledata);
-})
 
 app.post('/getreviews', function (req, res, next) {
-  console.log("Request to /newaccount");
+  console.log("Request to /getreviews");
   console.log(req.body);
-  // get data from database
-  let reviews = { 
-    "message":"success",
-    "data": [{
-      "review_id": 0,
-      "business_id": 0,
-      "user_id": 0,
-      "date": "21/01/2001",
-      "text": "this is a review",
-      "oneway": 0,
-      "sanitizer": 0,
-      "mask_usage": 0,
-      "bouncers": 0,
-      "temperature_checking": 0,
-      "staff_ppe": 0,
-      "social_distancing": 0,
-      "ventilation": 0
-    }, {
-      "review_id": 1,
-      "business_id": 4,
-      "user_id": 0,
-      "date": "21/01/2001",
-      "text": "this is another review",
-      "oneway": 0,
-      "sanitizer": 0,
-      "mask_usage": 0,
-      "bouncers": 0,
-      "temperature_checking": 0,
-      "staff_ppe": 0,
-      "social_distancing": 0,
-      "ventilation": 0
-    }, {
-      "review_id": 1,
-      "business_id": 8,
-      "user_id": 0,
-      "date": "21/01/2001",
-      "text": "review review review, this is a review",
-      "oneway": 0,
-      "sanitizer": 0,
-      "mask_usage": 0,
-      "bouncers": 0,
-      "temperature_checking": 0,
-      "staff_ppe": 0,
-      "social_distancing": 0,
-      "ventilation": 0
-    }
-  ] };
-  res.json(reviews);
+  
+  var user_id = req.body.user_id;
+  var business_id = req.body.business_id;
+
+  if (user_id != null) {
+    var reviews = database.get_user_reviews(user_id);
+  } else if (business_id != null) {
+    var reviews = database.get_business_reviews(business_id);
+  } else {
+    var reviews = "Fail";
+  }
+
+  if (reviews == "Fail") {
+    var result = { "message": "failure" };
+  } else {
+    var result = { "message": "success",
+                 "data": reviews};
+  }
+  res.json(result);
 })
 
-// app.get('/', (req, res) => {
-//     res.sendFile('/frontend/build/index.html', { root: __dirname + "/.."});
-// });
-
-app.get('/test', (req, res) => {
-    res.sendFile('test.html', { root: __dirname });
-});
-
-// app.get('/login', (req, res) => {
-//     res.sendFile('frontend/login.html', { root: __dirname });
-// });
-
-// 404 page
-// app.use((req, res) => {
-//     res.status(404).sendFile('frontend/404.html', { root: __dirname });
-// });
-
 app.get('/businesses', (req, res, next) => {
-    const businesses = [
-      {
-        name: "The Whole Bagel",
-        location: "Upper Borough Walls",
-        rating: "5",
-        type: "food",
-      },
-      {
-        name: "Lush",
-        location: "Union St.",
-        rating: "5",
-        type: "cosmetics",
-      },
-      {
-        name: "The Whole Bagel",
-        location: "Upper Borough Walls",
-        rating: "5",
-        type: "food",
-      },
-      {
-        name: "Lush",
-        location: "Union St.",
-        rating: "5",
-        type: "cosmetics",
-      },
-      {
-        name: "The Whole Bagel",
-        location: "Upper Borough Walls",
-        rating: "5",
-        type: "food",
-      },
-      {
-        name: "Lush",
-        location: "Union St.",
-        rating: "5",
-        type: "cosmetics",
-      },
-      {
-        name: "The Whole Bagel",
-        location: "Upper Borough Walls",
-        rating: "5",
-        type: "food",
-      },
-      {
-        name: "Lush",
-        location: "Union St.",
-        rating: "5",
-        type: "cosmetics",
-      },
-      {
-        name: "The Whole Bagel",
-        location: "Upper Borough Walls",
-        rating: "5",
-        type: "food",
-      },
-      {
-        name: "Lush",
-        location: "Union St.",
-        rating: "5",
-        type: "cosmetics",
-      },
-      {
-        name: "The Whole Bagel",
-        location: "Upper Borough Walls",
-        rating: "5",
-        type: "food",
-      },
-      {
-        name: "Lush",
-        location: "Union St.",
-        rating: "5",
-        type: "cosmetics",
-      },
-      {
-        name: "The Whole Bagel",
-        location: "Upper Borough Walls",
-        rating: "5",
-        type: "food",
-      },
-      {
-        name: "Lush",
-        location: "Union St.",
-        rating: "5",
-        type: "cosmetics",
-      },
-      {
-        name: "The Whole Bagel",
-        location: "Upper Borough Walls",
-        rating: "5",
-        type: "food",
-      },
-      {
-        name: "Lush",
-        location: "Union St.",
-        rating: "5",
-        type: "cosmetics",
-      },
-      {
-        name: "The Whole Bagel",
-        location: "Upper Borough Walls",
-        rating: "5",
-        type: "food",
-      },
-      {
-        name: "Lush",
-        location: "Union St.",
-        rating: "5",
-        type: "cosmetics",
-      }
-    ];
-  
-    res.send(JSON.stringify(businesses));
+    res.json(database.all_businesses());
   })
-  
+// console.log(database.all_businesses());
+
+// var service = new google.maps.DistanceMatrixService();
+
+
+  // const businesses = [
+  //   {
+  //     name: "The Whole Bagel",
+  //     location: "Upper Borough Walls",
+  //     rating: "5",
+  //     type: "food",
+  //   },
+  //   {
+  //     name: "Lush",
+  //     location: "Union St.",
+  //     rating: "5",
+  //     type: "cosmetics",
+  //   },
+  //   {
+  //     name: "The Whole Bagel",
+  //     location: "Upper Borough Walls",
+  //     rating: "5",
+  //     type: "food",
+  //   },
+  //   {
+  //     name: "Lush",
+  //     location: "Union St.",
+  //     rating: "5",
+  //     type: "cosmetics",
+  //   },
+  //   {
+  //     name: "The Whole Bagel",
+  //     location: "Upper Borough Walls",
+  //     rating: "5",
+  //     type: "food",
+  //   },
+  //   {
+  //     name: "Lush",
+  //     location: "Union St.",
+  //     rating: "5",
+  //     type: "cosmetics",
+  //   },
+  //   {
+  //     name: "The Whole Bagel",
+  //     location: "Upper Borough Walls",
+  //     rating: "5",
+  //     type: "food",
+  //   },
+  //   {
+  //     name: "Lush",
+  //     location: "Union St.",
+  //     rating: "5",
+  //     type: "cosmetics",
+  //   },
+  //   {
+  //     name: "The Whole Bagel",
+  //     location: "Upper Borough Walls",
+  //     rating: "5",
+  //     type: "food",
+  //   },
+  //   {
+  //     name: "Lush",
+  //     location: "Union St.",
+  //     rating: "5",
+  //     type: "cosmetics",
+  //   },
+  //   {
+  //     name: "The Whole Bagel",
+  //     location: "Upper Borough Walls",
+  //     rating: "5",
+  //     type: "food",
+  //   },
+  //   {
+  //     name: "Lush",
+  //     location: "Union St.",
+  //     rating: "5",
+  //     type: "cosmetics",
+  //   },
+  //   {
+  //     name: "The Whole Bagel",
+  //     location: "Upper Borough Walls",
+  //     rating: "5",
+  //     type: "food",
+  //   },
+  //   {
+  //     name: "Lush",
+  //     location: "Union St.",
+  //     rating: "5",
+  //     type: "cosmetics",
+  //   },
+  //   {
+  //     name: "The Whole Bagel",
+  //     location: "Upper Borough Walls",
+  //     rating: "5",
+  //     type: "food",
+  //   },
+  //   {
+  //     name: "Lush",
+  //     location: "Union St.",
+  //     rating: "5",
+  //     type: "cosmetics",
+  //   },
+  //   {
+  //     name: "The Whole Bagel",
+  //     location: "Upper Borough Walls",
+  //     rating: "5",
+  //     type: "food",
+  //   },
+  //   {
+  //     name: "Lush",
+  //     location: "Union St.",
+  //     rating: "5",
+  //     type: "cosmetics",
+  //   }
+  // ];

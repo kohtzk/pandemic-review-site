@@ -36,13 +36,17 @@ function business_details(id){ //Text details column
         return toSend
     } else {return "Fail"}}
 
+function all_businesses(){ //Text details column
+    const details = db.prepare('SELECT * FROM businesses').all()
+    return details}
+
 function create_user(iname, i_user_name, iemail, ipassword){ //add to database
     const create = db.prepare('INSERT INTO users(name, user_name, email, password) VALUES(?, ?, ?, ?)')
     const id = db.prepare('SELECT user_id id FROM users WHERE email = ?')
     try {
         create.run(iname, i_user_name, iemail, ipassword)
         let val = id.get(iemail)
-        return val.uid
+        return val.id
     } catch (err) {return "Fail"}}
 
 function delete_user(id){
@@ -94,6 +98,7 @@ function get_user_reviews(id){
     const reviews = db.prepare('SELECT * FROM reviews WHERE user_id = ?').all(id)
     return reviews}
 
+<<<<<<< Updated upstream
 function search(query){
     const like = db.prepare('SELECT business_name name, business_id id FROM businesses WHERE business_name LIKE ?')
     let format = '%' + query + '%'
@@ -103,4 +108,7 @@ function search(query){
     } else {return "Fail"}}
 
 module.exports = {search, get_userid, claim_ownership, login_verification, user_details, business_details, create_user, insert_business, delete_business, delete_user, add_review, get_business_reviews, get_user_reviews, login};
+=======
+module.exports = {get_userid, claim_ownership, login_verification, user_details, business_details, create_user, insert_business, delete_business, delete_user, add_review, get_business_reviews, get_user_reviews, login, all_businesses};
+>>>>>>> Stashed changes
 

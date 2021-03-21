@@ -13,23 +13,15 @@ class BusinessDetails extends React.Component {
   }
 
   render() {
-    // return (
-    //   <div>
-    //     <h1> PRIVATE Business Profile </h1>
-    //     <h3>Name: {this.props.B_profileS.name}</h3>
-    //     <img src={this.props.B_profileS.profilePic} />
-    //     <h3>Email: {this.props.B_profileS.email}</h3>
-    //     <p>Password: {this.convertToDots()}</p>
-    //     <h3>Business Name: {this.props.B_profileS.businessName}</h3>
-    //     <h3>Location: {this.props.B_profileS.location}</h3>
-    //   </div>
-    // );
+    console.log("B_profileS: ", this.props.B_profileS)
 
     return (
       <div>
         <h1> PRIVATE Business Profile </h1>
-        <h3>Name: {this.props.B_profileS.name}</h3>
-        <h3>Username: {this.props.B_profileS.username}</h3>
+        <h3>Name: {this.props.B_profileS.data.name}</h3>
+        <h3>Email: {this.props.B_profileS.data.email}</h3>
+        <p>Postcode: {this.props.B_profileS.data.postcode}</p>
+        <p>Description: {this.props.B_profileS.data.description}</p>
       </div>
     );
   }

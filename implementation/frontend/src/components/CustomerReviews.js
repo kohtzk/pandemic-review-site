@@ -27,7 +27,7 @@ class CustomerReviews extends React.Component{
                 <h3>Business Name: {this.props.reviewS.business_name}</h3>
                 <h3>Date of Review: {this.props.reviewS.date}</h3>
                 <p>Review text: {this.props.reviewS.text}</p>
-                <button Click={this.handleClick}>Delete Review</button>              
+                {/* <button click={this.handleClick}>Delete Review</button>               */}
             </div>
     
         )

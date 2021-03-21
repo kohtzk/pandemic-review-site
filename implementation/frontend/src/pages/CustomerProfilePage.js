@@ -30,43 +30,7 @@ class CustomerProfilePage extends React.Component {
   async componentDidMount() {
     console.log("In componentDidMount")
     this.setID()
-    this.getData()
-
-
-    // try {
-    //   console.log("In try")
-    //   //this.setID()
-    //   this.setState({customerID : 1}) //DOING A HARD CODED TEST
-    //   console.log("customerID", this.state.customerID)
-    //   await getProfile({"id" : this.state.customerID})
-    //   .then((response) => {
-
-    //     if (response.message !== 'success') {
-    //       alert("customer profile data read failed");
-    //     }
-    //     else if (response.message === 'success'){
-    //       console.log("got_customerData: ",response);
-    //       this.setState({got_customerData:response});
-    //     }     
-
-    //   }); 
-      
-    //   await getReviews({"user_id" : this.state.customerID, "business_id": null})
-    //   .then((response) => {
-    //     if (response.message !== 'success') {
-    //       alert("customer review data read failed");
-    //     }
-    //     else if (response.message === 'success'){
-
-    //       this.setState({got_reviewData:response});
-    //     }   
-        
-    //   }); 
-    // }
-    // catch(TypeError){
-    //   alert("cant access profile page till have logged in");
-    // }
-    
+    this.getData()    
   }
 
   async getData(){
@@ -110,35 +74,16 @@ class CustomerProfilePage extends React.Component {
     console.log("customerID BEFORE: ",this.state.customerID)
     //this.setState({customerID : LoginService.token})
     //this.setState({customerID : 1})
-    this.state.customerID = 9
+    this.state.customerID = 1
     console.log("LoginService.token: ", LoginService.token)
     //this.state.customerID = LoginService.token
     console.log("customerID AFTER: ",this.state.customerID)
   }
-
+  
   
 
   render() {
 
-    //console.log("this.state.got_reviewData");
-    //console.log(this.state.got_reviewData);
-    
-    
-    // const custProfile_component = this.state.custD.map((profile) => (
-    //   <CustomerDetails key={profile.id} profileS={profile} />
-    // ));
-
-    //FAIL ATTEMPT
-    // const custProfile_component = this.state.data.map((profile) => (
-    //   <CustomerDetails key={profile.id} profileS={profile} />
-    // ));
-    
-    // return (
-    //   <div className = "body_Profilepage">
-    //     <div className = "inner">{custProfile_component[1]}</div>
-    //     <div className = "inner">{custProfileReview_component}</div>
-    //   </div>
-    // );
     
 
       if ( this.state.got_customerData == null || this.state.got_reviewData == null){

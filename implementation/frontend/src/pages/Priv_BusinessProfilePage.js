@@ -2,8 +2,7 @@ import React from "react";
 
 import reviewData from "../components/reviewData";
 import BusinessReviews from "../components/BusinessReviews"
-import BusinessDetails from "../components/BusinessDetails";
-//import BusinessData from "../components/BusinessData";
+import BusinessDetails from "../components/BusinessDetails"
 import NoBusinessProfile from "../components/NoBusinessProfile"
 import "./style2.css"; 
 import { getBusiness } from "../services/getBusiness";
@@ -30,14 +29,30 @@ class Priv_BusinessProfilePage extends React.Component {
   async componentDidMount() {
     console.log("In componentDidMount business")
     this.setID()
-    await getBusiness({"id" : this.state.businessID})
-    .then((response) => {
-      console.log("response: ",response)
+    this.getData()
+    
+
+  }
+
+  setID(){
+    console.log("businessID BEFORE: ",this.state.businessID)
+    //this.setState({businessID : LoginService.token})
+    this.state.businessID = 1
+    console.log("businessID AFTER: ",this.state.businessID)
+  }
+
+  async getData(){
+    try{
+      console.log("In try")
+      await getBusiness({"business_id" : this.state.businessID})
+      .then((response) => {
+      console.log("response business details: ",response)
       if (response.message !== 'success') {
         alert("business profile data read failed");
       }
       else if (response.message === 'success'){
         this.setState({got_businessData:response});
+        console.log("got_businessData: ",this.state.got_businessData)
       }     
 
     }); 
@@ -53,27 +68,15 @@ class Priv_BusinessProfilePage extends React.Component {
 
     }); 
 
-  }
-
-  setID(){
-    console.log("businessID BEFORE: ",this.state.businessID)
-    this.setState({businessID : LoginService.token})
-    console.log("businessID AFTER: ",this.state.businessID)
+    }
+    catch(TypeError){ //MAKE THIS CATCH THE ERROR WHERE ID = NULL
+      console.log("got_businessData: ",this.state.got_businessData)
+      alert("cant access profile page till have logged it?")
+    }
   }
 
 
   render() {
-    // const busPrivData_component = this.state.busD.map((B_profile) => (
-    //   <BusinessDetails key={B_profile.id} B_profileS={B_profile} />
-    // ));
-
-    // const busPrivReview_component = this.state.custR.map((review) => (
-    //   <BusinessReviews
-    //     key={review.id}
-    //     B_reviewS={review}
-    //   />
-    // ));
-
 
     if(this.state.got_businessData == null || this.state.got_reviewData == null){
       console.log("loading data")

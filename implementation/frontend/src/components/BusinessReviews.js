@@ -18,25 +18,16 @@ class BusinessReviews extends React.Component {
     });
   }
   render() {
-    // return (
-    //   <div className="contact-card">
-    //     <h2> Review details</h2>
-    //     <h3>CustomerID: {this.props.B_reviewS.CustomerID}</h3>
-    //     <h3>Date of Review: {this.props.B_reviewS.reviewDate}</h3>
-    //     <p>Review text: {this.props.B_reviewS.reviewText}</p>
-    //     <button onClick={this.handleClick}>Delete Review</button>
-    //   </div>
-    // );
-
+    
     return (
       <div className="contact-card">
         <h2> Review details</h2>
         <h3>UserID: {this.props.B_reviewS.user_id}</h3>
-        <h3>Date of Review: {this.props.B_reviewS.date}</h3>
+        {/* <h3>Date of Review: {this.props.B_reviewS.date}</h3> */}
         <p>Review text: {this.props.B_reviewS.text}</p>
-        <button onClick={this.handleClick}>Delete Review</button>
+        <button onClick={this.handleClick}>Delete Review</button> 
       </div>
-    );
+    );//NEED TO EITHER MAKE THE BUTTON INTERACTIVE OR DELET IT!!
 
   }
 }

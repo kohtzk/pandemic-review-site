@@ -1,6 +1,7 @@
 import * as React from "react";
 import review from "../components/review";
 import ReviewLayout from "../components/ReviewLayout";
+import Navbar from "../components/Navbar.js";
 
 class AddCustomerReview extends React.Component {
   constructor() {
@@ -15,7 +16,7 @@ class AddCustomerReview extends React.Component {
       <ReviewLayout key={review.id} review={review} />
     ));
 
-    return <div>{reviews}</div>;
+    return <><Navbar /><div>{reviews}</div></>;
   }
 }
 

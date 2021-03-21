@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import "./Login.css";
 import loginService from "../services/login";
+import { Link } from "react-router-dom";
+import Navbar from "../components/Navbar"
 
 function Login(props) {
 
@@ -17,6 +19,7 @@ function Login(props) {
     }).then(_ => props.history.replace("/"));
   };
   return (
+    <><Navbar />
     <div className="outerForm">
       <h1 className="formItem">Log in to your account</h1>
       <form onSubmit={handleSubmit}>
@@ -65,21 +68,12 @@ function Login(props) {
         </p>
       </form>
 
-      <a
-        href="https://reactjs.org/docs/hello-world.html"
-        target="_blank"
-        className="formItem"
-      >
-        Forgot password?
-      </a>
-
       <div className="formItem">
         <p>Don't have an account yet?</p>
-        <a href="https://reactjs.org/docs/hello-world.html" target="_blank">
-          Create account
-        </a>
+        <p><Link to="/c-account-creation">Create personal account</Link></p>
+        <p><Link to="/b-account-creation">Create business account</Link></p>
       </div>
-    </div>
+    </div></>
   );
 }
 

@@ -9,6 +9,7 @@ import { getBusiness } from "../services/getBusiness";
 import{ getReviews } from "../services/getReviews";
 
 import LoginService from "../services/login";
+import Navbar from "../components/Navbar.js";
 
 class Priv_BusinessProfilePage extends React.Component {
   constructor() {
@@ -94,7 +95,7 @@ class Priv_BusinessProfilePage extends React.Component {
       ));
 
       return (
-        <div className = "body_Profilepage">
+        <> <Navbar /><div className = "body_Profilepage">
           <div className = "inner">
             <BusinessDetails
               B_profileS = {this.state.got_businessData}
@@ -103,7 +104,7 @@ class Priv_BusinessProfilePage extends React.Component {
           <div className = "inner">
             {businessReview_array}
           </div>
-        </div>
+        </div></>
       );
 
     }    

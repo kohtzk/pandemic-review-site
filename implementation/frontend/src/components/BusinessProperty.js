@@ -8,13 +8,15 @@ class BusinessProperty extends React.Component {
   }
 
   render(){
+    console.log("businessProperty data: ",this.props.businessProperty.data);
     return (
+      
       <div className="Font">
-        <h1>{this.props.businessProperty.name}</h1>
-        <h2>{this.props.businessProperty.address}</h2>
-        <h2>{this.props.businessProperty.postcode}</h2>
-        <h2>{this.props.businessProperty.email}</h2>
-        <h2>{this.props.businessProperty.description}</h2>
+        <h1>{this.props.businessProperty.data.name}</h1>
+        <h2>{this.props.businessProperty.data.address}</h2>
+        <h2>{this.props.businessProperty.data.postcode}</h2>
+        <h2>{this.props.businessProperty.data.email}</h2>
+        <h2>{this.props.businessProperty.data.description}</h2>
       </div>
     );
   }

@@ -1,48 +1,28 @@
-import React from "react";
-
-class LoginService extends React.Component {
+class LoginService {
   constructor() {
-    super()
-    this.state = {}
-    // this.state = {
-    //   token : null
-    // }
-    // //MAYBE ADD BINDING
-    this.loginUser =  this.loginUser.bind(this)
+    this.token = null
   }
 
-  // async loginUser(credentials) {
-  //   console.log("called loginUser")
-  //   return fetch("http://localhost:3000/login", {
-  //     method: "POST",
-  //     headers: {
-  //       "Accept": "application/json",
-  //     },
-  //     body: JSON.stringify(credentials),
-  //   }).then((data) => data.json()).then((data) => {
-  //     if (data.success == true) {
-  //       console.log("assiging the loginUser to: ", data.token)
-  //       this.token = data.token;
-  //     }
-  //   });
-  // }
-
   async loginUser(credentials) {
-    console.log("called loginUser and sending", credentials)
+    console.log("Attempting to log in user with credentials: ", credentials)
+
     return fetch("http://localhost:3000/login", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(credentials),
-    }).then((response) => response.json()).then((response) => {
-      console.log("respones: ", response)
-      if (response.message == "success") {
-        console.log("assiging the loginUser to: ", response.data.user_id)
-        //this.setState({token : response.data.user_id})
-        this.state.token = response.data.user_id
-      }
-    });
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(credentials),
+      })
+      .then((response) => response.json())
+      .then((response) => {
+        console.log("Response: ", response)
+        if (response.message == "success") {
+          console.log("Login succeeded for user with ID", response.data.user_id)
+          this.token = response.data.user_id
+        } else {
+          console.log("Login failed, response: ", response)
+        }
+      });
   }
 }
 

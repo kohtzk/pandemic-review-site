@@ -9,14 +9,12 @@ import "./style2.css";
 import { getProfile } from "../services/getProfile";
 import{ getReviews } from "../services/getReviews";
 
-import LoginService from "../services/login";
+import loginService from "../services/login";
  
 class CustomerProfilePage extends React.Component {
   constructor() {
     super();
     this.state = {
-      //customerID: LoginService.token,
-      customerID : null,
       got_customerData : null,
       got_reviewData : null,
       numOfReviews : 3
@@ -24,63 +22,49 @@ class CustomerProfilePage extends React.Component {
 
     //BINDINGS
     //this.handleClick = this.handleClick.bind(this)
-    this.setID = this.setID.bind(this)
   }
 
   async componentDidMount() {
     console.log("In componentDidMount")
-    this.setID()
     this.getData()    
   }
 
   async getData(){
-    try {
-      console.log("In try")
-      //this.setState({customerID : 1}) //DOING A HARD CODED TEST
-      console.log("customerID", this.state.customerID)
-      await getProfile({"user_id" : this.state.customerID})
-      .then((response) => {
-        console.log("response: ", response) //THE DATABASE IS FAILING TO RETURN ANYTHING!?
-
-        if (response.message !== 'success') {
-          alert("customer profile data read failed");
-        }
-        else if (response.message === 'success'){
-          console.log("got_customerData: ",response);
-          this.setState({got_customerData:response});
-        }     
-
-      }); 
-      
-      await getReviews({"user_id" : this.state.customerID, "business_id": null})
-      .then((response) => {
-        console.log("respones: ", response)
-        if (response.message !== 'success') {
-          alert("customer review data read failed");
-        }
-        else if (response.message === 'success'){
-
-          this.setState({got_reviewData:response});
-        }   
-        
-      }); 
-    }
-    catch(TypeError){
+    if (loginService.token === null) {
       alert("cant access profile page till have logged in");
+      return;
     }
+
+    console.log("customerID", loginService.token)
+    await getProfile({"user_id" : loginService.token})
+    .then((response) => {
+      console.log("response: ", response) //THE DATABASE IS FAILING TO RETURN ANYTHING!?
+
+      if (response.message !== 'success') {
+        alert("customer profile data read failed");
+      }
+      else if (response.message === 'success'){
+        console.log("got_customerData: ",response);
+        this.setState({got_customerData:response});
+      }     
+
+    }); 
+    
+    await getReviews({"user_id" : loginService.token, "business_id": null})
+    .then((response) => {
+      console.log("respones: ", response)
+      if (response.message !== 'success') {
+        alert("customer review data read failed");
+      }
+      else if (response.message === 'success'){
+
+        this.setState({got_reviewData:response});
+      }   
+      
+    }); 
   }
 
-  setID(){
-    console.log("customerID BEFORE: ",this.state.customerID)
-    //this.setState({customerID : LoginService.token})
-    //this.setState({customerID : 1})
-    this.state.customerID = 1
-    console.log("LoginService.token: ", LoginService.token)
-    //this.state.customerID = LoginService.token
-    console.log("customerID AFTER: ",this.state.customerID)
-  }
-  
-  
+// DO NOT USE setID function- code should access the loginService directly
 
   render() {
 

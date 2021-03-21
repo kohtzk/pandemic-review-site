@@ -10,6 +10,7 @@ import { getProfile } from "../services/getProfile";
 import{ getReviews } from "../services/getReviews";
 
 import loginService from "../services/login";
+import Navbar from "../components/Navbar.js";
  
 class CustomerProfilePage extends React.Component {
   constructor() {
@@ -85,7 +86,7 @@ class CustomerProfilePage extends React.Component {
         let n = this.state.numOfReviews;
     
         return(
-          <div className = "body_Profilepage">
+          <><Navbar /><div className = "body_Profilepage">
             <div className = "inner">
                 <CustomerDetails 
                 profileS = {this.state.got_customerData}
@@ -99,7 +100,7 @@ class CustomerProfilePage extends React.Component {
               
 
             </div>
-          </div>
+          </div></>
 
         )      
 

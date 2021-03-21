@@ -7,6 +7,7 @@ import { getReviews } from "../services/getReviews";
 import { getBusinessProfile } from "../services/getBusinessProfile";
 import { getAverageReview } from "../services/getAverageReview";
 import "../pages/BusinessProperty.css";
+import Navbar from "../components/Navbar.js";
 
 class ViewBusinessProperty extends React.Component {
   constructor() {
@@ -41,7 +42,7 @@ class ViewBusinessProperty extends React.Component {
       return null;
     }
     else if(this.state.businessID == null){
-      return(<NoSuchBusiness />)
+      return(<><Navbar /><NoSuchBusiness /></>)
     }
     else if(this.state.gettingBusinessData != null || this.state.gettingReviewData != null){
       const businessProfile = this.state.gettingBusinessData.data.map((business) => (
@@ -57,7 +58,7 @@ class ViewBusinessProperty extends React.Component {
       ))
 
       return(
-        <div>
+        <><Navbar /><div>
           <div>
             {businessProfile}
           </div>
@@ -67,7 +68,7 @@ class ViewBusinessProperty extends React.Component {
           <div className="displayAllReviews">
             {displayAllReviews}
           </div>
-        </div>
+        </div> </>
       );
     }
   }

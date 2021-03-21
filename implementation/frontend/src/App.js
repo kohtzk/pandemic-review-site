@@ -9,6 +9,8 @@ import UserCreation from "./pages/UserCreation.js";
 import BusinessCreation from "./pages/BusinessCreation.js";
 import Priv_BusinessProfilePage from "./pages/Priv_BusinessProfilePage.js";
 import ViewBusinessProperty from "./pages/ViewBusinessProperty.js";
+import loginService from "./services/login.js";
+import { useEffect, useState } from "react";
 
 <script
   src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"
@@ -19,9 +21,8 @@ function App() {
   return (
     <div className="App">
       <BrowserRouter>
-        <Navbar />
         <Switch>
-        <Route exact path="/" component={Home} />
+          <Route exact path="/" component={Home} />
           <Route path="/login" component={Login} />
           <Route path="/c-profile" component={CustomerProfilePage} />
           <Route path="/b-profile" component={Priv_BusinessProfilePage} />

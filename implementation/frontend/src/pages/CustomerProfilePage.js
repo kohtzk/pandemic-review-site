@@ -10,7 +10,9 @@ import { getProfile } from "../services/getProfile";
 import { getReviews } from "../services/getReviews";
 
 import loginService from "../services/login";
+
 import Navbar from "../components/Navbar.js";
+import NoReviews from "../components/NoReviews"; 
 
 class CustomerProfilePage extends React.Component {
   constructor() {
@@ -30,17 +32,18 @@ class CustomerProfilePage extends React.Component {
     this.getData();
   }
 
-  async getData() {
-    if (loginService.token === null) {
+  async getData(){
+    if (loginService.token == null) {
       alert("cant access profile page till have logged in");
       return;
     }
 
-    console.log("customerID", loginService.token);
-    await getProfile({ user_id: loginService.token }).then((response) => {
-      console.log("response: ", response); //THE DATABASE IS FAILING TO RETURN ANYTHING!?
+    console.log("customerID", loginService.token)
+    await getProfile({"user_id" : loginService.token})
+    .then((response) => {
+      console.log("response: ", response) 
 
-      if (response.message !== "success") {
+      if (response.message !== 'success') {
         alert("customer profile data read failed");
       } else if (response.message === "success") {
         console.log("got_customerData: ", response);
@@ -62,44 +65,58 @@ class CustomerProfilePage extends React.Component {
 
   // DO NOT USE setID function- code should access the loginService directly
 
-  render() {
-    if (
-      this.state.got_customerData == null ||
-      this.state.got_reviewData == null
-    ) {
-      console.log("loading data");
-      //this.setID() CANT PUT THIS HERE BECAUSE IT GETS CALLED TOO MUCH
-      return null;
-    }
-    //ADD IN A CHECK THAT THE USER HAS BEEN LOGGED IN BY TESTING THE CUSTOMER ID
-    else if (
-      this.state.got_customerData != null &&
-      this.state.got_reviewData != null
-    ) {
-      const custProfileReview_array = this.state.got_reviewData.data.map(
-        (review) => <CustomerReviews key={review.review_id} reviewS={review} />
-      );
+  render() {    
 
-      let n = this.state.numOfReviews;
+      if ( this.state.got_customerData == null || this.state.got_reviewData == null){
+        console.log("loading data")
+        //this.setID() CANT PUT THIS HERE BECAUSE IT GETS CALLED TOO MUCH
+        
+        return(<Navbar/>)
+      }
+      //ADD IN A CHECK THAT THE USER HAS BEEN LOGGED IN BY TESTING THE CUSTOMER ID      
+      else if(this.state.got_customerData != null && this.state.got_reviewData != null){ 
 
-      return (
-        <>
-          <Navbar />
+        //Checks if there are reviews to display before displaying them
+        if(this.state.got_reviewData.data.length == 0){
+          return(
+            <><Navbar /><div className = "card-body">
+              <div className = "card-body">
+                  <CustomerDetails 
+                  profileS = {this.state.got_customerData}
+                />
+              </div>
+              <div className = "card2">
+                  <NoReviews/>
+               </div>
+            </div></>
+          )      
+        }else{
+          const custProfileReview_array = this.state.got_reviewData.data.map((review) => (
+            <CustomerReviews key={review.review_id} reviewS={review} />
+          ));
 
-          <div className="card-body">
-            <div className="card-body">
-              <CustomerDetails profileS={this.state.got_customerData} />
-            </div>
-            <div className="card2">
-              {/* <CustomerReviews
-                reviewS = {this.state.got_reviewData.data}
-              /> */}
-              {custProfileReview_array}
-            </div>
-          </div>
-        </>
-      );
-    }
+          return(
+            <><Navbar /><div className = "card-body">
+              <div className = "card-body">
+                  <CustomerDetails 
+                  profileS = {this.state.got_customerData}
+                />
+              </div>
+              <div className = "card2">
+                  {/* <CustomerReviews
+                  reviewS = {this.state.got_reviewData.data}
+                /> */}
+                {custProfileReview_array}
+               </div>
+            </div></>
+          )      
+  
+        }
+    
+   
+      } 
+       
+
   }
 }
 export default CustomerProfilePage;

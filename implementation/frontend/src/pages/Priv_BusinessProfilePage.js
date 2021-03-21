@@ -8,44 +8,39 @@ import "./style2.css";
 import { getBusiness } from "../services/getBusiness";
 import{ getReviews } from "../services/getReviews";
 
-import LoginService from "../services/login";
+import loginService from "../services/login";
+import NoReviews from "../components/NoReviews";
+
 import Navbar from "../components/Navbar.js";
 
 class Priv_BusinessProfilePage extends React.Component {
   constructor() {
     super();
     this.state = {
-      //businessID : 0, // NEED TO UPDATE SO THAT ITS A COOKIE
-      businessID : null,
       businessStatus : true,
       got_businessData : null,
       got_reviewData : null
 
     }
-    //BINDING
-    this.setID = this.setID.bind(this) 
     
   }
 
   async componentDidMount() {
     console.log("In componentDidMount business")
-    this.setID()
     this.getData()
     
 
   }
 
-  setID(){
-    console.log("businessID BEFORE: ",this.state.businessID)
-    //this.setState({businessID : LoginService.token})
-    this.state.businessID = 1
-    console.log("businessID AFTER: ",this.state.businessID)
-  }
-
   async getData(){
+
+    if(loginService.token == null){
+      alert("cant access profile page till have logged in");
+      return;
+    }
     try{
       console.log("In try")
-      await getBusiness({"business_id" : this.state.businessID})
+      await getBusiness({"business_id" :loginService.token})
       .then((response) => {
       console.log("response business details: ",response)
       if (response.message !== 'success') {
@@ -58,7 +53,7 @@ class Priv_BusinessProfilePage extends React.Component {
 
     }); 
 
-    await getReviews({"user_id" : null, "business_id": this.state.businessID})
+    await getReviews({"user_id" : null, "business_id": loginService.token})
     .then((response) => {
       if (response.message !== 'success') {
         alert("business review data read failed");
@@ -81,32 +76,49 @@ class Priv_BusinessProfilePage extends React.Component {
 
     if(this.state.got_businessData == null || this.state.got_reviewData == null){
       console.log("loading data")
-        return(null)
+        return(<Navbar/>)
     }
-    else if(this.state.businessID == null){
+    else if(loginService.token == null){
       return(
         <NoBusinessProfile/>
       )     
     }
-    else if(this.state.got_businessData != null && this.state.got_reviewData != null){ 
-
-      const businessReview_array = this.state.got_reviewData.data.map((review) => (
-        <BusinessReviews key={review.review_id} B_reviewS={review} />
-      ));
-
-      return (
-        <> <Navbar /><div className = "body_Profilepage">
-          <div className = "inner">
-            <BusinessDetails
-              B_profileS = {this.state.got_businessData}
-            />
+    else if(this.state.got_businessData != null && this.state.got_reviewData != null){
+      
+      //if()
+      console.log("else if 2: this.state.got_reviewData", this.state.got_reviewData)
+      if(this.state.got_reviewData.data.length == 0){
+        return (
+          <><Navbar /><div className = "body_Profilepage">            
+            <div className = "inner">
+              <BusinessDetails
+                B_profileS = {this.state.got_businessData}
+              />
+              </div>
+            <div className = "inner">
+              <NoReviews/>
             </div>
-          <div className = "inner">
-            {businessReview_array}
-          </div>
-        </div></>
-      );
+          </div></>
+        );
+      }else{
+        const businessReview_array = this.state.got_reviewData.data.map((review) => (
+          <BusinessReviews key={review.review_id} B_reviewS={review} />
+        ));
 
+        return (
+          <><Navbar /><div className = "body_Profilepage">
+            <div className = "inner">
+              <BusinessDetails
+                B_profileS = {this.state.got_businessData}
+              />
+              </div>
+            <div className = "inner">
+              {businessReview_array}
+            </div>
+          </div></>
+        );
+
+      }
     }    
   }
 }

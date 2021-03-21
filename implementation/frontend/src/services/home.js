@@ -1,6 +1,6 @@
 export async function businessSearch(query) {
     return fetch("http://localhost:3000/businesses?q=" + encodeURIComponent(query), {
-      method: "GET",
+      method: "POST",
       headers: {
         "Content-Type": "application/json",
       },

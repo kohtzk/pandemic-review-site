@@ -28,39 +28,91 @@ class CustomerProfilePage extends React.Component {
   }
 
   async componentDidMount() {
-    //console.log("In componentDidMount")
-    this.setID() //CALLED IN THE IF STATEMENT IN RENDER()
-    console.log("LoginService", this.state.customerID)
-    await getProfile({"id" : this.state.customerID})
-    .then((response) => {
+    console.log("In componentDidMount")
+    this.setID()
+    this.getData()
 
-      if (response.message !== 'success') {
-        alert("customer profile data read failed");
-      }
-      else if (response.message === 'success'){
-        //console.log(response);
-        this.setState({got_customerData:response});
-      }     
 
-    }); 
-    
-    await getReviews({"user_id" : this.state.customerID, "business_id": null})
-    .then((response) => {
-      if (response.message !== 'success') {
-        alert("customer review data read failed");
-      }
-      else if (response.message === 'success'){
+    // try {
+    //   console.log("In try")
+    //   //this.setID()
+    //   this.setState({customerID : 1}) //DOING A HARD CODED TEST
+    //   console.log("customerID", this.state.customerID)
+    //   await getProfile({"id" : this.state.customerID})
+    //   .then((response) => {
 
-        this.setState({got_reviewData:response});
-      }   
+    //     if (response.message !== 'success') {
+    //       alert("customer profile data read failed");
+    //     }
+    //     else if (response.message === 'success'){
+    //       console.log("got_customerData: ",response);
+    //       this.setState({got_customerData:response});
+    //     }     
+
+    //   }); 
       
-    }); 
+    //   await getReviews({"user_id" : this.state.customerID, "business_id": null})
+    //   .then((response) => {
+    //     if (response.message !== 'success') {
+    //       alert("customer review data read failed");
+    //     }
+    //     else if (response.message === 'success'){
+
+    //       this.setState({got_reviewData:response});
+    //     }   
+        
+    //   }); 
+    // }
+    // catch(TypeError){
+    //   alert("cant access profile page till have logged in");
+    // }
     
+  }
+
+  async getData(){
+    try {
+      console.log("In try")
+      //this.setState({customerID : 1}) //DOING A HARD CODED TEST
+      console.log("customerID", this.state.customerID)
+      await getProfile({"user_id" : this.state.customerID})
+      .then((response) => {
+        console.log("response: ", response) //THE DATABASE IS FAILING TO RETURN ANYTHING!?
+
+        if (response.message !== 'success') {
+          alert("customer profile data read failed");
+        }
+        else if (response.message === 'success'){
+          console.log("got_customerData: ",response);
+          this.setState({got_customerData:response});
+        }     
+
+      }); 
+      
+      await getReviews({"user_id" : this.state.customerID, "business_id": null})
+      .then((response) => {
+        console.log("respones: ", response)
+        if (response.message !== 'success') {
+          alert("customer review data read failed");
+        }
+        else if (response.message === 'success'){
+
+          this.setState({got_reviewData:response});
+        }   
+        
+      }); 
+    }
+    catch(TypeError){
+      alert("cant access profile page till have logged in");
+    }
   }
 
   setID(){
     console.log("customerID BEFORE: ",this.state.customerID)
-    this.setState({customerID : LoginService.token})
+    //this.setState({customerID : LoginService.token})
+    //this.setState({customerID : 1})
+    this.state.customerID = 9
+    console.log("LoginService.token: ", LoginService.token)
+    //this.state.customerID = LoginService.token
     console.log("customerID AFTER: ",this.state.customerID)
   }
 

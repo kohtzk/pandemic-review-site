@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import {createAccount} from "../services/createAccount";
 import {createBusiness} from "../services/createBusiness";
 import {Link} from 'react-router-dom'
+import {linkBusiness} from "../services/linkBusiness";
 
 class BusinessForms extends Component {
     constructor(props){
@@ -64,28 +65,40 @@ class BusinessForms extends Component {
 
     handleCreate = async (e) =>{
         e.preventDefault();
-        await createBusiness(this.state)
+        let businessID;
+        await createBusiness({name : this.state.businessName, email : this.state.businessEmail, address : this.state.businessAddress, postcode : this.state.businessPostcode, description: "This business is a business"})
             .then((response) => {
                 if (response.message !== 'success') {
                     alert("Business account creation failed, please try again");
                 }
                 else if (response.message === 'success'){
-                    console.log(response);
                     this.state.businessid = response.data.business_id;
-                    this.handleAccount();
+                    businessID = response.data.business_id
                 }
                 });
-    }
 
-    handleAccount = async () =>{
-        await createAccount(this.state)
+        await createAccount({name : this.state.ownerName, username : this.state.username, email : this.state.userEmail, password : this.state.password})
             .then((response) => {
                 if (response.message !== 'success'){
                     alert('failure');
                 }
-            })
+                else if (response.message === 'success') {
+                    this.linkBusinessAndUser({business_id : businessID, user_id : response.data.user_id})
+                }
+            });
     }
 
+
+    linkBusinessAndUser = async (ids) =>{
+        await linkBusiness(ids).then((response) => {
+            if (response.message !== 'success'){
+                alert('Couldnt link account to business')
+            }
+            else if (response.message === 'success'){
+                window.location.replace('/');
+            }
+        })
+    }
 
     render() {
         return (

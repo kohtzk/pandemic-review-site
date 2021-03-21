@@ -8,6 +8,8 @@ import { getBusiness } from "../services/getBusiness";
 import { getAverageReview } from "../services/getAverageReview";
 import "../pages/BusinessProperty.css";
 
+import Navbar from "../components/Navbar.js";
+
 class ViewBusinessProperty extends React.Component {
   constructor() {
     super();
@@ -71,7 +73,7 @@ class ViewBusinessProperty extends React.Component {
   render() {
     if(this.state.gettingBusinessData == null || this.state.gettingReviewData == null || this.state.gettingAverageRating == null){ // || this.state.gettingReviewData == null){
       console.log("return null", this.state.gettingAverageRating, this.state.gettingBusinessData, this.state.gettingReviewData);
-      return null;
+      return(<Navbar/>);
     }
     else if(this.state.gettingBusinessData != null && this.state.gettingReviewData != null && this.state.gettingAverageRating != null){
       console.log("gettingBusinessData1: ", this.state.gettingBusinessData.data)
@@ -82,7 +84,7 @@ class ViewBusinessProperty extends React.Component {
 
       console.log("Before return",this.state.gettingAverageRating)
       return(
-        <div>
+        <><Navbar/><div>
           <div>
             <BusinessProperty 
             businessProperty={this.state.gettingBusinessData} />
@@ -94,7 +96,7 @@ class ViewBusinessProperty extends React.Component {
           <div className="displayAllReviews">
             {displayAllReviews}
           </div>
-        </div>
+        </div></>
       );
     }
   }

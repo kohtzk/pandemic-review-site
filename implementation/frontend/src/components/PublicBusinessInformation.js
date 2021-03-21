@@ -10,8 +10,8 @@ class PublicBusinessInformation extends React.Component {
   render() {
 
     return (
-      <div className="publicBusinessInformation">
-        <h1>Average Rating of {this.props.publicBusinessInformation.business_id}</h1>
+      <div>
+        <h1>Average Rating for {this.props.publicBusinessInformation.business_id}</h1>
         <p>One Way System Overall Rating: {this.props.publicBusinessInformation.oneway}</p>
         <p>Sanitizer Overall Rating: {this.props.publicBusinessInformation.sanitizer}</p>
         <p>Customers Wearing Masks In The Business Overall Rating: {this.props.publicBusinessInformation.mask_usage}</p>

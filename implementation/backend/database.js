@@ -92,15 +92,17 @@ function add_review(bid, uid, body, scores){
     } catch (err) {return "Fail"}}
 
 function get_business_reviews(id){
-    const reviews = db.prepare('SELECT review_id rid, reviews.business_id bid, users.user_id uid, user_name un, text text, oneway ow, sanitizer st,' +
-        ' mask_usage mu, bouncers bn, temperature_checking tc, staff_ppe sppe, social_distancing sd, ventilation vt FROM reviews INNER JOIN' +
-        ' users ON users.user_id = reviews.user_id WHERE reviews.business_id = ?').all(id)
+    const reviews = db.prepare('SELECT date date, review_id rid, reviews.business_id bid, users.user_id uid, user_name un, business_name bun, text text,' +
+        ' oneway ow, sanitizer st, mask_usage mu, bouncers bn, temperature_checking tc, staff_ppe sppe, social_distancing sd, ventilation vt FROM reviews' +
+        ' INNER JOIN users ON users.user_id = reviews.user_id INNER JOIN businesses ON reviews.business_id = businesses.business_id WHERE' +
+        ' reviews.business_id = ?').all(id)
     return reviews}
 
 function get_user_reviews(id){
-    const reviews = db.prepare('SELECT review_id rid, reviews.business_id bid, users.user_id uid, user_name un, text text, oneway ow, sanitizer st,' +
-        ' mask_usage mu, bouncers bn, temperature_checking tc, staff_ppe sppe, social_distancing sd, ventilation vt FROM reviews INNER JOIN' +
-        ' users ON users.user_id = reviews.user_id WHERE reviews.user_id = ?').all(id)
+    const reviews = db.prepare('SELECT date date, review_id rid, reviews.business_id bid, users.user_id uid, user_name un, business_name bun, text text,' +
+        ' oneway ow, sanitizer st, mask_usage mu, bouncers bn, temperature_checking tc, staff_ppe sppe, social_distancing sd, ventilation vt FROM reviews' +
+        ' INNER JOIN users ON users.user_id = reviews.user_id INNER JOIN businesses ON reviews.business_id = businesses.business_id WHERE' +
+        ' reviews.user_id = ?').all(id)
     return reviews}
 
 function search(query){

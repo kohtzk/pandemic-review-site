@@ -234,9 +234,9 @@ app.post('/namesearch', function (req, res, next) {
   res.json(result);
 })
 
-// app.get('/Trev', function (req, res, next){
-//   console.log(database.get_business_reviews(1))
-// }) - Trev's testing
+app.get('/Trev', function (req, res, next){
+   console.log(database.get_user_reviews(1))
+}) //- Trev's testing
 
 app.post('/averagereview', function (req, res, next) {
   console.log("Request to /averagereview");

@@ -35,6 +35,7 @@ class CustomerProfilePage extends React.Component {
       return;
     }
 
+
     console.log("customerID", loginService.token)
     await getProfile({"user_id" : loginService.token})
     .then((response) => {
@@ -62,6 +63,7 @@ class CustomerProfilePage extends React.Component {
       }   
       
     }); 
+
   }
 
 // DO NOT USE setID function- code should access the loginService directly
@@ -85,13 +87,13 @@ class CustomerProfilePage extends React.Component {
         let n = this.state.numOfReviews;
     
         return(
-          <div className = "body_Profilepage">
-            <div className = "inner">
+          <div className = "card-body">
+            <div className = "card-body">
                 <CustomerDetails 
                 profileS = {this.state.got_customerData}
               />
             </div>
-            <div className = "inner">
+            <div className = "card2">
                 {/* <CustomerReviews
                 reviewS = {this.state.got_reviewData.data}
               /> */}

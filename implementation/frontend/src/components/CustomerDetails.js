@@ -35,7 +35,7 @@ class CustomerDetails extends React.Component{
         //console.log(this.props.profileS)
         return(
             
-            <div className = "contact-card">
+            <div className = "card">
                 <h1>Customer Profile</h1>
                 <h3>Name: {this.props.profileS.data.name}</h3>
                 <h3>Username: {this.props.profileS.data.username}</h3>

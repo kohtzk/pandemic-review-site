@@ -38,7 +38,14 @@ class UserForms extends Component {
     handleCreate = async (e) =>{
         e.preventDefault();
         await createAccount(this.state)
-            .then((response) => console.log(response));
+            .then((response) => {
+                if (response.message !== 'success'){
+                    alert('failure');
+                }
+                else if (response.message === 'success') {
+                    window.location.replace('/')
+                }
+            });
 
     }
 

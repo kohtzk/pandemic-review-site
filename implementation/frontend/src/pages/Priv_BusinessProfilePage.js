@@ -5,6 +5,8 @@ import BusinessReviews from "../components/BusinessReviews"
 import BusinessDetails from "../components/BusinessDetails"
 import NoBusinessProfile from "../components/NoBusinessProfile"
 import "./style2.css"; 
+
+import { getProfile } from "../services/getProfile";
 import { getBusiness } from "../services/getBusiness";
 import{ getReviews } from "../services/getReviews";
 
@@ -17,7 +19,8 @@ class Priv_BusinessProfilePage extends React.Component {
   constructor() {
     super();
     this.state = {
-      businessStatus : true,
+      businessStatus : false,
+      got_customerData : null,
       got_businessData : null,
       got_reviewData : null
 
@@ -26,34 +29,81 @@ class Priv_BusinessProfilePage extends React.Component {
   }
 
   async componentDidMount() {
-    console.log("In componentDidMount business")
-    this.getData()
-    
+    console.log("BUSINESS In componentDidMount business")
+    this.getCustomerData()   
 
   }
 
-  async getData(){
+  async getCustomerData(){
 
     if(loginService.token == null){
       alert("cant access profile page till have logged in");
       return;
     }
-    try{
-      console.log("In try")
-      await getBusiness({"business_id" :loginService.token})
+    //try{
+
+      // getting business id
+      await getProfile({"user_id" : loginService.token})
       .then((response) => {
-      console.log("response business details: ",response)
-      if (response.message !== 'success') {
-        alert("business profile data read failed");
-      }
-      else if (response.message === 'success'){
-        this.setState({got_businessData:response});
-        console.log("got_businessData: ",this.state.got_businessData)
-      }     
+        //console.log("getProfile response: ", response) 
 
-    }); 
+        if (response.message !== 'success') {
+          alert("customer profile data read failed");
+        } else if (response.message === "success") {
+          console.log("got_customerData: ", response);
+          this.setState({ got_customerData: response});
+        }
+        //make sure has the response before using it
+        this.getBusinessData()
+      });
 
-    await getReviews({"user_id" : null, "business_id": loginService.token})
+      
+    //}
+    // catch(TypeError){ //MAKE THIS CATCH THE ERROR WHERE ID = NULL
+    //   console.log("TYPE ERROR got_businessData: ",this.state.got_businessData)
+    //   alert("cant access profile page till have logged it?")
+    // }
+  }
+
+  async getBusinessData(){
+    //case where user does have a business
+    console.log("busimess_id: ",this.state.got_customerData.data.business_id)
+    if(this.state.got_customerData.data.business_id != null){
+      //this.state.setState({businessStatus: true})
+      this.state.businessStatus = true
+      console.log("IN if  businessStatus =", this.state.businessStatus)
+
+      //await getBusiness({"business_id" :loginService.token})
+      await getBusiness({"business_id" :this.state.got_customerData.data.business_id})
+      .then((response) => {
+        console.log("response business details: ",response)
+        if (response.message !== 'success') {
+          alert("business profile data read failed");
+        }
+        else if (response.message === 'success'){
+          this.setState({got_businessData:response});
+          console.log("got_businessData: ",this.state.got_businessData)
+        } 
+        
+        this.getReviewsData()
+      }); 
+
+      
+    }
+    //case where user does not have a business
+    else{
+      console.log("IN ELSE, business_id was null")
+      alert("This user does NOT own a business")
+      this.state.businessStatus = false
+      return null
+    }
+    //console.log("In try")
+
+  }
+
+  async getReviewsData(){
+    //await getReviews({"user_id" : null, "business_id": loginService.token})
+    await getReviews({"user_id" : null, "business_id": this.state.got_customerData.data.business_id})
     .then((response) => {
       if (response.message !== 'success') {
         alert("business review data read failed");
@@ -64,11 +114,6 @@ class Priv_BusinessProfilePage extends React.Component {
 
     }); 
 
-    }
-    catch(TypeError){ //MAKE THIS CATCH THE ERROR WHERE ID = NULL
-      console.log("got_businessData: ",this.state.got_businessData)
-      alert("cant access profile page till have logged it?")
-    }
   }
 
 
@@ -78,7 +123,8 @@ class Priv_BusinessProfilePage extends React.Component {
       console.log("loading data")
         return(<Navbar/>)
     }
-    else if(loginService.token == null){
+    else if(this.state.businessStatus == false){
+      console.log("status == flase")
       return(
         <div>
           <Navbar/>
@@ -87,6 +133,8 @@ class Priv_BusinessProfilePage extends React.Component {
       )     
     }
     else if(this.state.got_businessData != null && this.state.got_reviewData != null){
+
+      console.log("status == true")
       
       //if()
       console.log("else if 2: this.state.got_reviewData", this.state.got_reviewData)

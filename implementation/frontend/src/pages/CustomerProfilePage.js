@@ -30,7 +30,7 @@ class CustomerProfilePage extends React.Component {
   }
 
   async componentDidMount() {
-    console.log("In componentDidMount");
+    console.log("Customer In componentDidMount ");
     this.getData();
     //taking out the businessID from the UserID
     //this.setBusinessID()
@@ -46,7 +46,7 @@ class CustomerProfilePage extends React.Component {
     console.log("customerID", loginService.token)
     await getProfile({"user_id" : loginService.token})
     .then((response) => {
-      console.log("response: ", response) 
+      //console.log("response: ", response) 
 
       if (response.message !== 'success') {
         alert("customer profile data read failed");
@@ -55,12 +55,12 @@ class CustomerProfilePage extends React.Component {
         this.setState({ got_customerData: response });
       }
       //makes sure that the data has been retrived before trying to test it
-      this.setBusinessID()
+      //this.setBusinessID()
     });
 
     await getReviews({ user_id: loginService.token, business_id: null }).then(
       (response) => {
-        console.log("respones: ", response);
+        //console.log("respones: ", response);
         if (response.message !== "success") {
           alert("customer review data read failed");
         } else if (response.message === "success") {

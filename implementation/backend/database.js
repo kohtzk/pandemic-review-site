@@ -91,12 +91,18 @@ function add_review(bid, uid, body, scores){
         return id.rid
     } catch (err) {return "Fail"}}
 
-function get_business_reviews(id){ //User ID version
-    const reviews = db.prepare('SELECT * FROM reviews WHERE business_id = ?').all(id)
+function get_business_reviews(id){
+    const reviews = db.prepare('SELECT date date, review_id review_id, reviews.business_id business_id, users.user_id user_id, user_name username, business_name business_name, text text,' +
+        ' oneway oneway, sanitizer sanitizer, mask_usage mask_usage, bouncers bouncers, temperature_checking temperature_checking, staff_ppe staff_ppe, social_distancing social_distancing, ventilation ventilation FROM reviews' +
+        ' INNER JOIN users ON users.user_id = reviews.user_id INNER JOIN businesses ON reviews.business_id = businesses.business_id WHERE' +
+        ' reviews.business_id = ?').all(id)
     return reviews}
 
 function get_user_reviews(id){
-    const reviews = db.prepare('SELECT * FROM reviews WHERE user_id = ?').all(id)
+    const reviews = db.prepare('SELECT date date, review_id review_id, reviews.business_id business_id, users.user_id user_id, user_name username, business_name business_name, text text,' +
+    ' oneway oneway, sanitizer sanitizer, mask_usage mask_usage, bouncers bouncers, temperature_checking temperature_checking, staff_ppe staff_ppe, social_distancing social_distancing, ventilation ventilation FROM reviews' +
+        ' INNER JOIN users ON users.user_id = reviews.user_id INNER JOIN businesses ON reviews.business_id = businesses.business_id WHERE' +
+        ' reviews.user_id = ?').all(id)
     return reviews}
 
 function search(query){

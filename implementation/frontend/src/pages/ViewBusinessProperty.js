@@ -2,7 +2,6 @@ import * as React from "react";
 import BusinessProperty from "../components/BusinessProperty";
 import PublicBusinessInformation from "../components/PublicBusinessInformation";
 import DisplyBusinessAverageRating from "../components/DisplayBusinessAverageRating";
-import loginService from "../services/login";
 import { getReviews } from "../services/getReviews";
 import { getBusiness } from "../services/getBusiness";
 import { getAverageReview } from "../services/getAverageReview";
@@ -27,17 +26,14 @@ class ViewBusinessProperty extends React.Component {
     var location = window.location.href;
     console.log("Location: ",location.substr(-1))
     this.state.businessID = location.substr(-1);
-    if (loginService.token === null) {
-      alert("cant access profile page till have logged in");
-      return;
-    }
+
     try{
       console.log("Trying");
       await getBusiness({"business_id" : this.state.businessID})
       .then((response) => {
         console.log("Response: ",response);
         if(response.message !== 'success'){
-          alert('Getting business profile failed!');
+          alert('Getting business profile failed! You need to click on one of the business in the home page first!');
         }
         else if(response.message === 'success'){
           this.setState({gettingBusinessData:response});

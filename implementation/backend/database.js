@@ -92,15 +92,15 @@ function add_review(bid, uid, body, scores){
     } catch (err) {return "Fail"}}
 
 function get_business_reviews(id){
-    const reviews = db.prepare('SELECT date date, review_id rid, reviews.business_id bid, users.user_id uid, user_name un, business_name bun, text text,' +
-        ' oneway ow, sanitizer st, mask_usage mu, bouncers bn, temperature_checking tc, staff_ppe sppe, social_distancing sd, ventilation vt FROM reviews' +
+    const reviews = db.prepare('SELECT date date, review_id review_id, reviews.business_id business_id, users.user_id user_id, user_name username, business_name business_name, text text,' +
+        ' oneway oneway, sanitizer sanitizer, mask_usage mask_usage, bouncers bouncers, temperature_checking temperature_checking, staff_ppe staff_ppe, social_distancing social_distancing, ventilation ventilation FROM reviews' +
         ' INNER JOIN users ON users.user_id = reviews.user_id INNER JOIN businesses ON reviews.business_id = businesses.business_id WHERE' +
         ' reviews.business_id = ?').all(id)
     return reviews}
 
 function get_user_reviews(id){
-    const reviews = db.prepare('SELECT date date, review_id rid, reviews.business_id bid, users.user_id uid, user_name un, business_name bun, text text,' +
-        ' oneway ow, sanitizer st, mask_usage mu, bouncers bn, temperature_checking tc, staff_ppe sppe, social_distancing sd, ventilation vt FROM reviews' +
+    const reviews = db.prepare('SELECT date date, review_id review_id, reviews.business_id business_id, users.user_id user_id, user_name username, business_name business_name, text text,' +
+    ' oneway oneway, sanitizer sanitizer, mask_usage mask_usage, bouncers bouncers, temperature_checking temperature_checking, staff_ppe staff_ppe, social_distancing social_distancing, ventilation ventilation FROM reviews' +
         ' INNER JOIN users ON users.user_id = reviews.user_id INNER JOIN businesses ON reviews.business_id = businesses.business_id WHERE' +
         ' reviews.user_id = ?').all(id)
     return reviews}

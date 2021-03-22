@@ -3,14 +3,17 @@ import React from "react";
 const reviewData = [
     {
         id: 0,
-        oneWaySystem: "One way system followed",
-        handSanitizer: "Hand sanitizer availability",
-        wearMasks: "Percentage of customers wearing masks",
-        bouncers: "COVID bouncers",
-        temperatureCheck: "Temeperature check on customers",
-        staffPPE: "Staffs wearing PPE correctly",
-        socialDistancing: "Social distancing enforced",
-        ventilation: "Good ventilation",
+        name: "University of Bath",
+        description1: "One way system followed",
+        description2: "Hand sanitizer availability",
+        description3: "Customer limits into a building enforced",
+        description4: "Percentage of customers wearing masks",
+        description5: "COVID bouncers",
+        description6: "Temeperature check on customers",
+        description7: "Staffs wearing PPE correctly",
+        description8: "Social distancing enforced",
+        description9: "Good ventilation",
+        description10: "Overall rating",
     },
 ]
 

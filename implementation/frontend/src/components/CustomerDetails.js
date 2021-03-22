@@ -34,13 +34,22 @@ class CustomerDetails extends React.Component{
         //console.log("props inside")
         //console.log(this.props.profileS)
         return(
-            
-            <div className = "card">
-                <h1>Customer Profile</h1>
-                <h3>Name: {this.props.profileS.data.name}</h3>
-                <h3>Username: {this.props.profileS.data.username}</h3>
-                <h3>Email: {this.props.profileS.data.email}</h3>                
+            <div>
+                <div className = "header">
+                    <h1 style = {{fontWeight: 'bold'}}>Customer Profile</h1>
+                </div>
+                <div className = "card">
+                    
+                    <h3 className = "details">Name: {this.props.profileS.data.name}</h3>
+                    <h3 className = "details">Username: {this.props.profileS.data.username}</h3>
+                    <h3 className = "details">Email: {this.props.profileS.data.email}</h3>                
+                </div>
+
+                <div className = "header">
+                    <h2 style = {{fontWeight: 'bold'}}> Review details</h2>
+                </div>
             </div>
+            
         )
 
     }

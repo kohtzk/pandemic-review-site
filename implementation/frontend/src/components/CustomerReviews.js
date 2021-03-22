@@ -22,13 +22,19 @@ class CustomerReviews extends React.Component{
         // console.log("inside review props")
         // console.log(this.state.reviewS)
         return(
-            <div className = "contact-card">
-                <h2> Review details</h2>
-                <h3>Business Name: {this.props.reviewS.business_name}</h3>
-                <h3>Date of Review: {this.props.reviewS.date}</h3>
-                <p>Review text: {this.props.reviewS.text}</p>
-                {/* <button click={this.handleClick}>Delete Review</button>               */}
+            <div className = "reviewSeperator">
+                {/* <div className = "header">
+                    <h2 style = {{fontWeight: 'bold'}}> Review details</h2>
+                </div> */}
+
+                <div className = "card2">                    
+                    <h3 className = "details">Business Name: {this.props.reviewS.business_name}</h3>
+                    <h3 className = "details">Date of Review: {this.props.reviewS.date}</h3>
+                    <p className = "details">Review text: {this.props.reviewS.text}</p>
+                    {/* <button click={this.handleClick}>Delete Review</button>               */}
+                </div>
             </div>
+            
     
         )
     }   

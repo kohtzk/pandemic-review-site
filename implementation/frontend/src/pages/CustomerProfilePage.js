@@ -11,12 +11,14 @@ import { getReviews } from "../services/getReviews";
 
 import loginService from "../services/login";
 
+
 import Navbar from "../components/Navbar.js";
 import NoReviews from "../components/NoReviews"; 
 
 class CustomerProfilePage extends React.Component {
   constructor() {
     super();
+    this.business_token = null
     this.state = {
       got_customerData: null,
       got_reviewData: null,
@@ -30,6 +32,9 @@ class CustomerProfilePage extends React.Component {
   async componentDidMount() {
     console.log("In componentDidMount");
     this.getData();
+    //taking out the businessID from the UserID
+    //this.setBusinessID()
+    
   }
 
   async getData(){
@@ -49,6 +54,8 @@ class CustomerProfilePage extends React.Component {
         console.log("got_customerData: ", response);
         this.setState({ got_customerData: response });
       }
+      //makes sure that the data has been retrived before trying to test it
+      this.setBusinessID()
     });
 
     await getReviews({ user_id: loginService.token, business_id: null }).then(
@@ -61,6 +68,16 @@ class CustomerProfilePage extends React.Component {
         }
       }
     );
+  }
+
+  setBusinessID(){
+    console.log("in setBusinessID")
+    if(this.state.got_customerData.business_id == null){
+      this.business_token = null
+    }
+    else{
+      this.business_token = this.state.got_customerData.business_id
+    }
   }
 
   // DO NOT USE setID function- code should access the loginService directly
@@ -96,16 +113,13 @@ class CustomerProfilePage extends React.Component {
           ));
 
           return(
-            <><Navbar /><div className = "card-body">
+            <><Navbar /><div>
               <div className = "card-body">
                   <CustomerDetails 
                   profileS = {this.state.got_customerData}
                 />
               </div>
-              <div className = "card2">
-                  {/* <CustomerReviews
-                  reviewS = {this.state.got_reviewData.data}
-                /> */}
+              <div className = "card-body2">
                 {custProfileReview_array}
                </div>
             </div></>

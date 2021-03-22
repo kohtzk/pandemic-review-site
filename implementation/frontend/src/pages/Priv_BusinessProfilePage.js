@@ -8,7 +8,7 @@ import "./style2.css";
 import { getBusiness } from "../services/getBusiness";
 import{ getReviews } from "../services/getReviews";
 
-import loginService from "../services/login";
+import loginService from "../services/login";// OLD TOKEN
 import NoReviews from "../components/NoReviews";
 
 import Navbar from "../components/Navbar.js";
@@ -80,7 +80,10 @@ class Priv_BusinessProfilePage extends React.Component {
     }
     else if(loginService.token == null){
       return(
-        <NoBusinessProfile/>
+        <div>
+          <Navbar/>
+          <NoBusinessProfile/>
+        </div>
       )     
     }
     else if(this.state.got_businessData != null && this.state.got_reviewData != null){

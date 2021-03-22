@@ -22,16 +22,18 @@ class ViewBusinessProperty extends React.Component {
     };
   }
 
-
-
   async componentDidMount(){
+    console.log("URL: ", window.location.href); 
+    var location = window.location.href;
+    console.log("Location: ",location.substr(-1))
+    this.state.businessID = location.substr(-1);
     if (loginService.token === null) {
       alert("cant access profile page till have logged in");
       return;
     }
     try{
       console.log("Trying");
-      await getBusiness({"business_id" : loginService.token})
+      await getBusiness({"business_id" : this.state.businessID})
       .then((response) => {
         console.log("Response: ",response);
         if(response.message !== 'success'){
@@ -43,7 +45,7 @@ class ViewBusinessProperty extends React.Component {
         }
       });
 
-      await getReviews({"business_id" : loginService.token})
+      await getReviews({"business_id" : this.state.businessID})
       .then((response) => {
         if(response.message !== 'success'){
           alert('Getting reviews for business failed!');
@@ -53,7 +55,7 @@ class ViewBusinessProperty extends React.Component {
         }
       });
 
-      await getAverageReview({"business_id" : loginService.token})
+      await getAverageReview({"business_id" : this.state.businessID})
       .then((response) => {
         console.log("Response getting average review",response)
         if(response.message !== 'success'){

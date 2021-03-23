@@ -20,12 +20,15 @@ class BusinessReviews extends React.Component {
   render() {
     
     return (
-      <div className="contact-card">
-        <h2> Review details</h2>
-        <h3>UserID: {this.props.B_reviewS.user_id}</h3>
-        {/* <h3>Date of Review: {this.props.B_reviewS.date}</h3> */}
-        <p>Review text: {this.props.B_reviewS.text}</p>
-        <button onClick={this.handleClick}>Delete Review</button> 
+      <div className="reviewSeperator-card">
+        <div className = "card2">
+          
+          <h3 className = "details">UserID: {this.props.B_reviewS.user_id}</h3>
+          {/* <h3>Date of Review: {this.props.B_reviewS.date}</h3> */}
+          <p className = "details2">Review text: {this.props.B_reviewS.text}</p>
+          {/* <button onClick={this.handleClick}>Delete Review</button>  */}
+
+        </div>        
       </div>
     );//NEED TO EITHER MAKE THE BUTTON INTERACTIVE OR DELET IT!!
 

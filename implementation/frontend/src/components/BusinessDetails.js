@@ -17,11 +17,23 @@ class BusinessDetails extends React.Component {
 
     return (
       <div>
-        <h1> PRIVATE Business Profile </h1>
-        <h3>Name: {this.props.B_profileS.data.name}</h3>
-        <h3>Email: {this.props.B_profileS.data.email}</h3>
-        <p>Postcode: {this.props.B_profileS.data.postcode}</p>
-        <p>Description: {this.props.B_profileS.data.description}</p>
+        <div className = "header">
+                    <h1 style = {{fontWeight: 'bold'}}>PRIVATE Business Profile</h1>
+        </div>
+        <div className = "profilePic">
+          <img src = "https://image.flaticon.com/icons/png/128/474/474509.png"/>
+        </div>
+        <div className = "card">
+          <h3 className = "details">Name: {this.props.B_profileS.data.name}</h3>
+          <h3 className = "details">Email: {this.props.B_profileS.data.email}</h3>
+          <p className = "details2">Postcode: {this.props.B_profileS.data.postcode}</p>
+          <p className = "details2">Description: {this.props.B_profileS.data.description}</p>
+        </div>
+
+        <div className = "header">
+                    <h1 style = {{fontWeight: 'bold'}}>Review details</h1>
+        </div>
+        
       </div>
     );
   }

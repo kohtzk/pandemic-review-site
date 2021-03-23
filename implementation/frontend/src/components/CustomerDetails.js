@@ -38,6 +38,13 @@ class CustomerDetails extends React.Component{
                 <div className = "header">
                     <h1 style = {{fontWeight: 'bold'}}>Customer Profile</h1>
                 </div>
+                
+                <div className = "profilePic">
+                    {/* <img src = "https://image.flaticon.com/icons/png/512/64/64495.png"/> */}
+                    <img src = "https://image.flaticon.com/icons/png/128/1946/1946429.png"/>
+                    
+                </div>
+
                 <div className = "card">
                     
                     <h3 className = "details">Name: {this.props.profileS.data.name}</h3>

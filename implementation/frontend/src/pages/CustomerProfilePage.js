@@ -113,7 +113,7 @@ class CustomerProfilePage extends React.Component {
           ));
 
           return(
-            <><Navbar /><div>
+            <><Navbar /><div className = "card-outer">
               <div className = "card-body">
                   <CustomerDetails 
                   profileS = {this.state.got_customerData}

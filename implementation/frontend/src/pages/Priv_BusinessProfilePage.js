@@ -126,9 +126,9 @@ class Priv_BusinessProfilePage extends React.Component {
     else if(this.state.businessStatus == false){
       console.log("status == flase")
       return(
-        <div>
+        <div className = "card-body">
           <Navbar/>
-          <NoBusinessProfile/>
+          <NoBusinessProfile className = "card2"/>
         </div>
       )     
     }
@@ -140,13 +140,13 @@ class Priv_BusinessProfilePage extends React.Component {
       console.log("else if 2: this.state.got_reviewData", this.state.got_reviewData)
       if(this.state.got_reviewData.data.length == 0){
         return (
-          <><Navbar /><div className = "body_Profilepage">            
-            <div className = "inner">
+          <><Navbar /><div className = "card-outer">            
+            <div className = "card-body">
               <BusinessDetails
                 B_profileS = {this.state.got_businessData}
               />
               </div>
-            <div className = "inner">
+            <div className = "card-body2">
               <NoReviews/>
             </div>
           </div></>
@@ -157,13 +157,13 @@ class Priv_BusinessProfilePage extends React.Component {
         ));
 
         return (
-          <><Navbar /><div className = "body_Profilepage">
-            <div className = "inner">
+          <><Navbar /><div className = "card-outer">
+            <div className = "card-body">
               <BusinessDetails
                 B_profileS = {this.state.got_businessData}
               />
               </div>
-            <div className = "inner">
+            <div className = "card-body2">
               {businessReview_array}
             </div>
           </div></>

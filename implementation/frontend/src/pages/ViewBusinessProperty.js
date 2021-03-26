@@ -5,6 +5,7 @@ import DisplyBusinessAverageRating from "../components/DisplayBusinessAverageRat
 import { getReviews } from "../services/getReviews";
 import { getBusiness } from "../services/getBusiness";
 import { getAverageReview } from "../services/getAverageReview";
+import { Link } from "react-router-dom";
 import "../pages/BusinessProperty.css";
 
 import Navbar from "../components/Navbar.js";
@@ -19,25 +20,31 @@ class ViewBusinessProperty extends React.Component {
       gettingReviewData: null,
       gettingAverageRating: null,
     };
+
+    this.goToAddReviewPage = this.goToAddReviewPage.bind(this);
+  }
+
+  goToAddReviewPage(){
+    window.$get_business_ID = window.location.href.substr(29);
+    console.log("ID is: ", window.get_business_ID);
+    return(<Link to={"http://localhost:8000/add-review" + 1}></Link>);
   }
 
   async componentDidMount(){
-    console.log("URL: ", window.location.href); 
     var location = window.location.href;
-    console.log("Location: ",location.substr(-1))
-    this.state.businessID = location.substr(-1);
+    this.state.businessID = location.substr(29);
+    console.log("ID is: ", this.state.businessID);
+    window.$get_business_ID = this.state.businessID;
+    console.log("global ID is: ", window.get_business_ID)
 
     try{
-      console.log("Trying");
       await getBusiness({"business_id" : this.state.businessID})
       .then((response) => {
-        console.log("Response: ",response);
         if(response.message !== 'success'){
           alert('Getting business profile failed! You need to click on one of the business in the home page first!');
         }
         else if(response.message === 'success'){
           this.setState({gettingBusinessData:response});
-          console.log("gettingBusinessData: ", this.state.gettingBusinessData)
         }
       });
 
@@ -53,13 +60,11 @@ class ViewBusinessProperty extends React.Component {
 
       await getAverageReview({"business_id" : this.state.businessID})
       .then((response) => {
-        console.log("Response getting average review",response)
         if(response.message !== 'success'){
           alert('Getting average review for business failed!');
         }
         else if(response.message === 'success'){
           this.setState({gettingAverageRating:response});
-          console.log("gettingAverageRating:", this.state.gettingAverageRating)
         }
       });
       
@@ -69,23 +74,23 @@ class ViewBusinessProperty extends React.Component {
   }
 
   render() {
-    if(this.state.gettingBusinessData == null || this.state.gettingReviewData == null || this.state.gettingAverageRating == null){ // || this.state.gettingReviewData == null){
-      console.log("return null", this.state.gettingAverageRating, this.state.gettingBusinessData, this.state.gettingReviewData);
+    if(this.state.gettingBusinessData == null || this.state.gettingReviewData == null || this.state.gettingAverageRating == null){
       return(<Navbar/>);
     }
     else if(this.state.gettingBusinessData != null && this.state.gettingReviewData != null && this.state.gettingAverageRating != null){
-      console.log("gettingBusinessData1: ", this.state.gettingBusinessData.data)
 
       const displayAllReviews = this.state.gettingReviewData.data.map((review) => (
         <PublicBusinessInformation key={review.business_id} publicBusinessInformation={review} />
       ));
 
-      console.log("Before return",this.state.gettingAverageRating)
       return(
         <><Navbar/><div>
           <div>
             <BusinessProperty 
             businessProperty={this.state.gettingBusinessData} />
+          </div>
+          <div>
+            <Link to={"../add-review/" + this.state.businessID} className="addReviewLink">Add a review</Link>
           </div>
           <div>
             <DisplyBusinessAverageRating

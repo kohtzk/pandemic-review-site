@@ -8,9 +8,7 @@ class BusinessProperty extends React.Component {
   }
 
   render(){
-    console.log("businessProperty data: ",this.props.businessProperty.data);
     return (
-      
       <div className="BusinessProperty">
         <h1 className="name">Name: {this.props.businessProperty.data.name}</h1>
         <h2>Address: {this.props.businessProperty.data.address}</h2>

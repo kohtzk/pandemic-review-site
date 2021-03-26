@@ -45,6 +45,15 @@ function Navbar() {
             CREATE BUSINESS ACCOUNT
           </NavLink>
         </li>
+        <li>
+          <a
+            className="navlink"
+            href="https://www.gov.uk/guidance/national-lockdown-stay-at-home"
+            target="_blank"
+          >
+            CURRENT LEGISLATION
+          </a>
+        </li>
         {loginService.token === null ? (
           <li>
             <NavLink

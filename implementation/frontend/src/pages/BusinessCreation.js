@@ -6,13 +6,15 @@ import Navbar from "../components/Navbar.js";
 
 function BusinessCreation() {
   return (
-    <><Navbar />
-    <div className="creation-outer">
-        <div className ="creation-inner">
-            <CreationHeader />
-            <BusinessForms />
-        </div>
-    </div></>
+    <>
+      <Navbar />
+      {/* <div className="creation-outer"> */}
+      <div className="creation-inner">
+        <CreationHeader />
+        <BusinessForms />
+      </div>
+      {/* </div> */}
+    </>
   );
 }
 

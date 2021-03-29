@@ -8,7 +8,6 @@ class ReviewLayout extends React.Component{
   constructor() {
     super();
     this.state = {
-      businessID: parseInt(window.location.href.substring(33)),
       oneway:1,
       sanitizer: 1,
       mask_usage: 1,
@@ -115,8 +114,7 @@ class ReviewLayout extends React.Component{
   }
 
   sendToDatabase =  async () => {
-    var number = this.state.businessID;
-    await addReview({business_id:1, user_id:loginService.token, text:this.state.description, scores:{oneway:this.state.oneway, sanitizer:this.state.sanitizer, mask_usage:this.state.mask_usage, bouncers:this.state.bouncers, temperature_checking:this.state.temperature_checking, staff_ppe:this.state.staff_ppe, social_distancing:this.state.social_distancing, ventilation:this.state.ventilation}})
+    await addReview({business_id:parseInt(window.location.href.substring(33)), user_id:loginService.token, text:this.state.description, scores:{oneway:this.state.oneway, sanitizer:this.state.sanitizer, mask_usage:this.state.mask_usage, bouncers:this.state.bouncers, temperature_checking:this.state.temperature_checking, staff_ppe:this.state.staff_ppe, social_distancing:this.state.social_distancing, ventilation:this.state.ventilation}})
     .then((response) => {
       if (response.message !== 'success') {
         alert("Add review Fail");

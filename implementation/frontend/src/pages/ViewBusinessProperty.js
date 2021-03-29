@@ -6,6 +6,7 @@ import { getReviews } from "../services/getReviews";
 import { getBusiness } from "../services/getBusiness";
 import { getAverageReview } from "../services/getAverageReview";
 import { Link } from "react-router-dom";
+import loginService from "../services/login";
 import "../pages/BusinessProperty.css";
 
 import Navbar from "../components/Navbar.js";
@@ -20,22 +21,13 @@ class ViewBusinessProperty extends React.Component {
       gettingReviewData: null,
       gettingAverageRating: null,
     };
-
-    this.goToAddReviewPage = this.goToAddReviewPage.bind(this);
   }
 
-  goToAddReviewPage(){
-    window.$get_business_ID = window.location.href.substr(29);
-    console.log("ID is: ", window.get_business_ID);
-    return(<Link to={"http://localhost:8000/add-review" + 1}></Link>);
-  }
 
   async componentDidMount(){
     var location = window.location.href;
     this.state.businessID = location.substr(29);
     console.log("ID is: ", this.state.businessID);
-    window.$get_business_ID = this.state.businessID;
-    console.log("global ID is: ", window.get_business_ID)
 
     try{
       await getBusiness({"business_id" : this.state.businessID})
@@ -78,29 +70,48 @@ class ViewBusinessProperty extends React.Component {
       return(<Navbar/>);
     }
     else if(this.state.gettingBusinessData != null && this.state.gettingReviewData != null && this.state.gettingAverageRating != null){
-
       const displayAllReviews = this.state.gettingReviewData.data.map((review) => (
         <PublicBusinessInformation key={review.business_id} publicBusinessInformation={review} />
       ));
 
-      return(
-        <><Navbar/><div>
-          <div>
-            <BusinessProperty 
-            businessProperty={this.state.gettingBusinessData} />
-          </div>
-          <div>
-            <Link to={"../add-review/" + this.state.businessID} className="addReviewLink">Add a review</Link>
-          </div>
-          <div>
-            <DisplyBusinessAverageRating
-            displyBusinessAverageRating={this.state.gettingAverageRating} />
-          </div>
-          <div className="displayAllReviews">
-            {displayAllReviews}
-          </div>
-        </div></>
-      );
+      if(loginService.token == null){
+        return(
+          <><Navbar/><div>
+            <div>
+              <BusinessProperty 
+              businessProperty={this.state.gettingBusinessData} />
+            </div>
+            <div>
+              <DisplyBusinessAverageRating
+              displyBusinessAverageRating={this.state.gettingAverageRating} />
+            </div>
+            <div className="displayAllReviews">
+              {displayAllReviews}
+            </div>
+          </div></>
+        );
+      }
+
+      else if (loginService.token != null){
+        return(
+          <><Navbar/><div>
+            <div>
+              <BusinessProperty 
+              businessProperty={this.state.gettingBusinessData} />
+            </div>
+            <div>
+              <Link to={"../add-review/" + this.state.businessID} className="addReviewLink">Add a review</Link>
+            </div>
+            <div>
+              <DisplyBusinessAverageRating
+              displyBusinessAverageRating={this.state.gettingAverageRating} />
+            </div>
+            <div className="displayAllReviews">
+              {displayAllReviews}
+            </div>
+          </div></>
+        );
+      }
     }
   }
 }

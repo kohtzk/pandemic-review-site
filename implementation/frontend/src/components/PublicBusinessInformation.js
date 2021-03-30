@@ -20,6 +20,7 @@ class PublicBusinessInformation extends React.Component {
         <p>Staff Wearing PPE Correctly Rating: {this.props.publicBusinessInformation.staff_ppe}</p>
         <p>Social Distancing Rating: {this.props.publicBusinessInformation.social_distancing}</p>
         <p>Ventilation Rating: {this.props.publicBusinessInformation.ventilation}</p>
+        <p>Discription: {this.props.publicBusinessInformation.text}</p>
       </div>  
     );
   }

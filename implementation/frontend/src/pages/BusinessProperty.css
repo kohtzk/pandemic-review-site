@@ -10,6 +10,7 @@
   padding: 40px 55px 45px 55px;
   border-radius: 15px;
   transition: all 0.3s;
+  text-align: left;
 }
 
 .PublicBusinessInformation {
@@ -26,6 +27,7 @@
   transition: all 0.3s;
   left: 570px;
   bottom: 200px;
+  text-align: left;
 }
 
 .DisplayBusinessAverageRating {
@@ -42,6 +44,7 @@
   transition: all 0.3s;
   right: 428px;
   top: 100px;
+  text-align: left;
 }
 
 .name {

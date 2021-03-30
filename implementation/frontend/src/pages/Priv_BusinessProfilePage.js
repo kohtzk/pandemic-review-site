@@ -146,7 +146,7 @@ class Priv_BusinessProfilePage extends React.Component {
                 B_profileS = {this.state.got_businessData}
               />
               </div>
-            <div className = "card-body2">
+            <div className = "card2">
               <NoReviews/>
             </div>
           </div></>
@@ -163,7 +163,7 @@ class Priv_BusinessProfilePage extends React.Component {
                 B_profileS = {this.state.got_businessData}
               />
               </div>
-            <div className = "card-body2">
+            <div className = "card-body">
               {businessReview_array}
             </div>
           </div></>

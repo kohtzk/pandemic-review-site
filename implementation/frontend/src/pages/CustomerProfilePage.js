@@ -96,7 +96,7 @@ class CustomerProfilePage extends React.Component {
         //Checks if there are reviews to display before displaying them
         if(this.state.got_reviewData.data.length == 0){
           return(
-            <><Navbar /><div className = "card-body">
+            <><Navbar /><div className = "card-outer">
               <div className = "card-body">
                   <CustomerDetails 
                   profileS = {this.state.got_customerData}
@@ -119,7 +119,7 @@ class CustomerProfilePage extends React.Component {
                   profileS = {this.state.got_customerData}
                 />
               </div>
-              <div className = "card-body2">
+              <div className = "card-body">
                 {custProfileReview_array}
                </div>
             </div></>
